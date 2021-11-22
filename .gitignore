@@ -1,0 +1,16 @@
+# Dependencies
+node_modules
+package-lock.json
+
+# VSCode settings and keybindings
+.vscode
+
+# Build folder
+dist
+
+# Environment varibales
+.env*
+!.env*.example
+
+# Database
+*.data.json

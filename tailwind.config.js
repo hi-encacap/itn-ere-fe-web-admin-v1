@@ -8,7 +8,10 @@ module.exports = {
         extend: {
             colors: {
                 encacap: {
-                    main: "#FB8500",
+                    main: "#00B8A9",
+                    second: "#F8F3D4",
+                    third: "#F6416C",
+                    fourth: "#FFDE7D",
                     yellow: "#FFB703",
                     facebook: "#1877f2",
                     zalo: "#03a5fa",

@@ -4,10 +4,77 @@
         <meta charset="UTF-8" />
         <meta http-equiv="X-UA-Compatible" content="IE=edge" />
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="/assets/images/encacap_logo.svg" type="image/x-icon" />
         <link rel="stylesheet" href="/assets/css/app.min.css" />
-        <title>Trang quản trị - Encacap</title>
+        <title>Tổng quan - Trang quản trị - Encacap</title>
     </head>
     <body>
-        <h1 class="mx-4">Hello, World!</h1>
+        <header
+            class="flex items-center fixed top-0 left-0 right-0 z-50 h-20 border-b-2 border-gray-100 bg-white px-10"
+        >
+            <div>
+                <img src="/assets/images/encacap_logo.svg" class="w-10" alt="Encacap Logo" />
+            </div>
+        </header>
+        <nav class="fixed top-0 left-0 bottom-0 w-80 h-full border-r-2 border-gray-100 bg-white pt-28">
+            <a
+                href="/"
+                class="
+                    flex
+                    items-center
+                    -mr-px
+                    border-r-4 border-encacap-main
+                    px-10
+                    py-4
+                    font-semibold
+                    text-encacap-main
+                "
+            >
+                <div class="flex items-center justify-center w-10 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6">
+                        <path
+                            d="M3 22h18M5.6 8.38H4c-.55 0-1 .45-1 1V18c0 .55.45 1 1 1h1.6c.55 0 1-.45 1-1V9.38c0-.55-.45-1-1-1ZM12.8 5.19h-1.6c-.55 0-1 .45-1 1V18c0 .55.45 1 1 1h1.6c.55 0 1-.45 1-1V6.19c0-.55-.45-1-1-1ZM20 2h-1.6c-.55 0-1 .45-1 1v15c0 .55.45 1 1 1H20c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1Z"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
+                    </svg>
+                </div>
+                <div>Tổng quan</div>
+            </a>
+            <a
+                href="/location/"
+                class="
+                    flex
+                    items-center
+                    -mr-px
+                    border-r-4 border-transparent
+                    px-10
+                    py-4
+                    font-semibold
+                    hover:text-encacap-main
+                "
+            >
+                <div class="flex items-center justify-center w-10 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6">
+                        <path
+                            d="M12 13.43a3.12 3.12 0 1 0 0-6.24 3.12 3.12 0 0 0 0 6.24Z"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        ></path>
+                        <path
+                            d="M3.62 8.49c1.97-8.66 14.8-8.65 16.76.01 1.15 5.08-2.01 9.38-4.78 12.04a5.193 5.193 0 0 1-7.21 0c-2.76-2.66-5.92-6.97-4.77-12.05Z"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        ></path>
+                    </svg>
+                </div>
+                <div>Quản lý khu vực</div>
+            </a>
+        </nav>
+        <main class="mt-20 ml-80">
+            <div>Hello</div>
+        </main>
     </body>
 </html>

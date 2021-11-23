@@ -1,0 +1,334 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="/assets/images/encacap_logo.svg" type="image/x-icon" />
+        <link rel="stylesheet" href="/assets/css/app.min.css" />
+        <title>Tổng quan - Trang quản trị - Encacap</title>
+    </head>
+    <body>
+        <header
+            class="
+                flex
+                items-center
+                fixed
+                top-0
+                left-0
+                z-50
+                w-80
+                h-20
+                border-b-2 border-r-2 border-gray-100
+                bg-white
+                px-10
+            "
+        >
+            <div>
+                <img src="/assets/images/encacap_logo.svg" class="w-10" alt="Encacap Logo" />
+            </div>
+        </header>
+        <nav class="fixed top-0 left-0 bottom-0 w-80 h-full border-r-2 border-gray-100 bg-white pt-28">
+            <a
+                href="/"
+                class="
+                    flex
+                    items-center
+                    -mr-px
+                    border-r-4 border-transparent
+                    px-10
+                    py-4
+                    font-semibold
+                    hover:text-encacap-main
+                "
+            >
+                <div class="flex items-center justify-center w-10 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6">
+                        <path
+                            d="M3 22h18M5.6 8.38H4c-.55 0-1 .45-1 1V18c0 .55.45 1 1 1h1.6c.55 0 1-.45 1-1V9.38c0-.55-.45-1-1-1ZM12.8 5.19h-1.6c-.55 0-1 .45-1 1V18c0 .55.45 1 1 1h1.6c.55 0 1-.45 1-1V6.19c0-.55-.45-1-1-1ZM20 2h-1.6c-.55 0-1 .45-1 1v15c0 .55.45 1 1 1H20c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1Z"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
+                    </svg>
+                </div>
+                <div>Tổng quan</div>
+            </a>
+            <a
+                href="/location/"
+                class="
+                    flex
+                    items-center
+                    -mr-px
+                    border-r-4 border-encacap-main
+                    px-10
+                    py-4
+                    font-semibold
+                    text-encacap-main
+                "
+            >
+                <div class="flex items-center justify-center w-10 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6">
+                        <path
+                            d="M12 13.43a3.12 3.12 0 1 0 0-6.24 3.12 3.12 0 0 0 0 6.24Z"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        ></path>
+                        <path
+                            d="M3.62 8.49c1.97-8.66 14.8-8.65 16.76.01 1.15 5.08-2.01 9.38-4.78 12.04a5.193 5.193 0 0 1-7.21 0c-2.76-2.66-5.92-6.97-4.77-12.05Z"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        ></path>
+                    </svg>
+                </div>
+                <div>Quản lý khu vực</div>
+            </a>
+        </nav>
+        <main class="ml-80 px-10">
+            <div class="flex items-center justify-between mb-10 border-b-2 border-gray-100 font-semibold">
+                <div>
+                    <div class="flex items-center h-20">Quản lý khu vực</div>
+                    <div class="w-full h-1 -mt-1 rounded-md bg-gray-100 -mb-0.5"></div>
+                </div>
+                <div
+                    class="
+                        flex
+                        items-center
+                        ml-10
+                        border-2 border-encacap-main
+                        bg-encacap-main
+                        rounded-md
+                        px-4
+                        py-2
+                        text-white
+                        duration-200
+                        cursor-pointer
+                        hover:bg-white hover:text-encacap-main
+                    "
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6 mr-2">
+                        <path
+                            d="M6 12h12M12 18V6"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
+                    </svg>
+                    Thêm khu vực mới
+                </div>
+            </div>
+            <div class="hidden grid-cols-3 gap-10 mb-10 font-semibold">
+                <div class="rounded-md bg-encacap-third px-10 py-8 text-white">
+                    <div class="uppercase">Tỉnh, thành phố</div>
+                    <div class="mt-2 text-4xl">3</div>
+                </div>
+                <div class="rounded-md bg-encacap-yellow px-10 py-8 text-white">
+                    <div class="uppercase">Quận, huyện</div>
+                    <div class="mt-2 text-4xl">3</div>
+                </div>
+                <div class="rounded-md bg-encacap-facebook px-10 py-8 text-white">
+                    <div class="uppercase">Xã, phường, thị trấn</div>
+                    <div class="mt-2 text-4xl">3</div>
+                </div>
+            </div>
+            <div class="border-2 border-gray-100 rounded-md px-5 py-5">
+                <div class="location-list">
+                    <div class="location-list-group location-list-city">
+                        <div class="location-list-item">
+                            <div>Hồ Chí Minh</div>
+                            <div class="location-list-action flex items-center">
+                                <div class="location-list-action-edit flex">
+                                    <div class="rounded-md px-2 py-1 bg-gray-200">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            class="w-5"
+                                        >
+                                            <path
+                                                d="m13.26 3.6-8.21 8.69c-.31.33-.61.98-.67 1.43l-.37 3.24c-.13 1.17.71 1.97 1.87 1.77l3.22-.55c.45-.08 1.08-.41 1.39-.75l8.21-8.69c1.42-1.5 2.06-3.21-.15-5.3-2.2-2.07-3.87-1.34-5.29.16Z"
+                                                stroke="currentColor"
+                                                stroke-width="1.5"
+                                                stroke-miterlimit="10"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            ></path>
+                                            <path
+                                                d="M11.89 5.05a6.126 6.126 0 0 0 5.45 5.15M3 22h18"
+                                                stroke="currentColor"
+                                                stroke-width="1.5"
+                                                stroke-miterlimit="10"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                    <div class="rounded-md mx-2 px-2 py-1 bg-gray-200">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            class="w-5"
+                                        >
+                                            <path
+                                                d="M21 5.98c-3.33-.33-6.68-.5-10.02-.5-1.98 0-3.96.1-5.94.3L3 5.98M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62c1.69 0 1.82.75 1.97 1.67l.22 1.3M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C6 22 5.91 20.78 5.8 19.21L5.15 9.14M10.33 16.5h3.33M9.5 12.5h5"
+                                                stroke="currentColor"
+                                                stroke-width="1.5"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="location-list-action-right">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6">
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-miterlimit="10"
+                                            stroke-width="1.5"
+                                            d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08"
+                                        ></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="location-list-item active">
+                            <div>Quảng Ngãi</div>
+                            <div class="location-list-action flex items-center">
+                                <div class="location-list-action-edit flex">
+                                    <div class="rounded-md px-2 py-1 bg-gray-200">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            class="w-5"
+                                        >
+                                            <path
+                                                d="m13.26 3.6-8.21 8.69c-.31.33-.61.98-.67 1.43l-.37 3.24c-.13 1.17.71 1.97 1.87 1.77l3.22-.55c.45-.08 1.08-.41 1.39-.75l8.21-8.69c1.42-1.5 2.06-3.21-.15-5.3-2.2-2.07-3.87-1.34-5.29.16Z"
+                                                stroke="currentColor"
+                                                stroke-width="1.5"
+                                                stroke-miterlimit="10"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            ></path>
+                                            <path
+                                                d="M11.89 5.05a6.126 6.126 0 0 0 5.45 5.15M3 22h18"
+                                                stroke="currentColor"
+                                                stroke-width="1.5"
+                                                stroke-miterlimit="10"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                    <div class="rounded-md mx-2 px-2 py-1 bg-gray-200">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            class="w-5"
+                                        >
+                                            <path
+                                                d="M21 5.98c-3.33-.33-6.68-.5-10.02-.5-1.98 0-3.96.1-5.94.3L3 5.98M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62c1.69 0 1.82.75 1.97 1.67l.22 1.3M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C6 22 5.91 20.78 5.8 19.21L5.15 9.14M10.33 16.5h3.33M9.5 12.5h5"
+                                                stroke="currentColor"
+                                                stroke-width="1.5"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="location-list-action-right">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6">
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-miterlimit="10"
+                                            stroke-width="1.5"
+                                            d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08"
+                                        ></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                        <div class="location-list-item">
+                            <div>Hồ Chí Minh</div>
+                            <div class="location-list-action flex items-center">
+                                <div class="location-list-action-edit flex">
+                                    <div class="rounded-md px-2 py-1 bg-gray-200">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            class="w-5"
+                                        >
+                                            <path
+                                                d="m13.26 3.6-8.21 8.69c-.31.33-.61.98-.67 1.43l-.37 3.24c-.13 1.17.71 1.97 1.87 1.77l3.22-.55c.45-.08 1.08-.41 1.39-.75l8.21-8.69c1.42-1.5 2.06-3.21-.15-5.3-2.2-2.07-3.87-1.34-5.29.16Z"
+                                                stroke="currentColor"
+                                                stroke-width="1.5"
+                                                stroke-miterlimit="10"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            ></path>
+                                            <path
+                                                d="M11.89 5.05a6.126 6.126 0 0 0 5.45 5.15M3 22h18"
+                                                stroke="currentColor"
+                                                stroke-width="1.5"
+                                                stroke-miterlimit="10"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                    <div class="rounded-md mx-2 px-2 py-1 bg-gray-200">
+                                        <svg
+                                            xmlns="http://www.w3.org/2000/svg"
+                                            viewBox="0 0 24 24"
+                                            fill="none"
+                                            class="w-5"
+                                        >
+                                            <path
+                                                d="M21 5.98c-3.33-.33-6.68-.5-10.02-.5-1.98 0-3.96.1-5.94.3L3 5.98M8.5 4.97l.22-1.31C8.88 2.71 9 2 10.69 2h2.62c1.69 0 1.82.75 1.97 1.67l.22 1.3M18.85 9.14l-.65 10.07C18.09 20.78 18 22 15.21 22H8.79C6 22 5.91 20.78 5.8 19.21L5.15 9.14M10.33 16.5h3.33M9.5 12.5h5"
+                                                stroke="currentColor"
+                                                stroke-width="1.5"
+                                                stroke-linecap="round"
+                                                stroke-linejoin="round"
+                                            ></path>
+                                        </svg>
+                                    </div>
+                                </div>
+                                <div class="location-list-action-right">
+                                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6">
+                                        <path
+                                            stroke="currentColor"
+                                            stroke-linecap="round"
+                                            stroke-linejoin="round"
+                                            stroke-miterlimit="10"
+                                            stroke-width="1.5"
+                                            d="M8.91 19.92l6.52-6.52c.77-.77.77-2.03 0-2.8L8.91 4.08"
+                                        ></path>
+                                    </svg>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="location-list-group location-list-district">
+                        <div class="location-list-item active">Tư Nghĩa</div>
+                        <div class="location-list-item">Mộ Đức</div>
+                        <div class="location-list-item">Thành phố Quảng Ngãi</div>
+                    </div>
+                    <div class="location-list-group location-list-ward">
+                        <div class="location-list-item">Thị Trấn La Hà</div>
+                        <div class="location-list-item">Thị Trấn Sông Vệ</div>
+                        <div class="location-list-item">Nghĩa Phương</div>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </body>
+</html>

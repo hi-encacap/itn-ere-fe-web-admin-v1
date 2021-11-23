@@ -1,1 +1,39 @@
 @import "./tailwind.css";
+
+*:not(svg) {
+    transition: background-color 0.2s;
+}
+
+.form {
+    input {
+        @apply text-black;
+
+        background: none;
+    }
+    ::-webkit-input-placeholder {
+        @apply text-gray-400;
+    }
+    &-group &-message {
+        @apply hidden;
+    }
+    &-group.danger {
+        @apply text-red-500 border-red-300 bg-red-100;
+    }
+    &-group.danger &-message {
+        @apply block;
+    }
+}
+
+.btn {
+    @apply flex items-center justify-center;
+
+    &:disabled {
+        @apply opacity-50 cursor-not-allowed;
+    }
+}
+
+.spinner {
+    @apply animate-spin;
+
+    border-top-color: transparent;
+}

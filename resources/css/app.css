@@ -1,7 +1,22 @@
 @import "./tailwind.css";
 
-*:not(svg) {
+.transition-bg-200 {
     transition: background-color 0.2s;
+}
+
+.page-loading {
+    @apply fixed top-0 right-0 bottom-0 left-0 z-50 flex items-center justify-center bg-white;
+
+    &::after {
+        @apply w-10 h-10 mr-4 rounded-full border-2 border-encacap-main animate-spin;
+
+        border-top-color: transparent;
+        content: "";
+    }
+
+    &.hidden {
+        @apply hidden;
+    }
 }
 
 .form {
@@ -16,12 +31,23 @@
     &-group &-message {
         @apply hidden;
     }
-    &-group.danger {
+    &-group.danger,
+    &-group.error {
         @apply text-red-500 border-red-300 bg-red-100;
     }
-    &-group.danger &-message {
+    &-group.danger &-message,
+    &-group.error &-message {
         @apply block;
     }
+    &-group.focus {
+        @apply border-encacap-main;
+    }
+}
+
+.spinner {
+    @apply animate-spin;
+
+    border-top-color: transparent;
 }
 
 .btn {
@@ -30,10 +56,14 @@
     &:disabled {
         @apply opacity-50 cursor-not-allowed;
     }
-}
 
-.spinner {
-    @apply animate-spin;
+    .spinner {
+        @apply hidden;
+    }
 
-    border-top-color: transparent;
+    &.loading {
+        .spinner {
+            @apply block;
+        }
+    }
 }

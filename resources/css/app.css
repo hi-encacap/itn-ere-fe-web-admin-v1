@@ -5,7 +5,7 @@
 }
 
 .page-loading {
-    @apply fixed top-0 right-0 bottom-0 left-0 z-50 flex items-center justify-center bg-white;
+    @apply fixed top-0 right-0 bottom-0 left-0 z-100 flex items-center justify-center bg-white;
 
     &::after {
         @apply w-10 h-10 mr-4 rounded-full border-2 border-encacap-main animate-spin;
@@ -14,7 +14,7 @@
         content: "";
     }
 
-    &.hidden {
+    &.hidden-loading {
         @apply hidden;
     }
 }
@@ -28,12 +28,25 @@
     ::-webkit-input-placeholder {
         @apply text-gray-400;
     }
+    &-group {
+        @apply relative hover:border-encacap-main;
+    }
+    &-overlay {
+        @apply absolute top-0 left-0 right-0 bottom-0 z-10 bg-white bg-opacity-60 hidden rounded-md;
+    }
+
+    &-group.disabled &-overlay {
+        @apply block;
+    }
+    &-group.disabled:hover {
+        @apply border-gray-100 cursor-not-allowed;
+    }
     &-group &-message {
         @apply hidden;
     }
     &-group.danger,
     &-group.error {
-        @apply text-red-500 border-red-300 bg-red-100;
+        @apply text-red-500 border-red-300 bg-red-100 !important;
     }
     &-group.danger &-message,
     &-group.error &-message {
@@ -41,6 +54,16 @@
     }
     &-group.focus {
         @apply border-encacap-main;
+    }
+
+    &-loading {
+        @apply absolute top-12 right-6 z-20 hidden w-4 h-4 rounded-full border-2 border-encacap-main animate-spin;
+
+        top: 53px;
+        border-top-color: transparent;
+    }
+    &-group.loading &-loading {
+        @apply block;
     }
 }
 

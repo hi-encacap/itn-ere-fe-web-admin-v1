@@ -19,15 +19,16 @@ class EncacapForm {
             this.hideError();
             let isValid = true;
             const inputNames = Object.keys(this.validationRoles);
-            const inputs = [];
-            inputNames.forEach((inputName) => {
-                const input = this.querySelector(`[name="${inputName}"]`);
-                inputs.push(input);
+            const inputs = this.querySelectorAll("[name]");
+            inputs.forEach((input) => {
+                const inputName = input.name;
                 input.error.hide();
-                const errorMessage = this.getValidationMessage(input, this.validationRoles[inputName]);
-                if (errorMessage) {
-                    input.error.show(errorMessage);
-                    isValid = false;
+                if (inputNames.includes(inputName)) {
+                    const errorMessage = this.getValidationMessage(input, this.validationRoles[inputName]);
+                    if (errorMessage) {
+                        input.error.show(errorMessage);
+                        isValid = false;
+                    }
                 }
             });
             if (isValid) {
@@ -43,7 +44,7 @@ class EncacapForm {
     }
 
     setFocusStyle() {
-        const inputs = this.querySelectorAll("[name]");
+        const inputs = this.querySelectorAll("[name], input");
         inputs.forEach((input) => {
             const formGroup = input.closest(".form-group");
             if (!formGroup) return;
@@ -56,27 +57,23 @@ class EncacapForm {
         });
     }
 
-    querySelector(selector) {
-        const element = this.form.querySelector(selector);
-        element.loading = {
+    // eslint-disable-next-line class-methods-use-this
+    createCustomElement(element) {
+        const customElement = element;
+        const formGroup = customElement.closest(".form-group");
+        if (!customElement) return null;
+        customElement.loading = {
             show: () => {
-                let parent = element;
-                while (!parent.className.includes("form-group") && parent.tagName !== "FORM") {
-                    parent.classList.add("loading");
-                    parent = parent.parentElement;
-                }
+                formGroup.classList.add("loading");
+                customElement.classList.add("loading");
             },
             hide: () => {
-                let parent = element;
-                while (!parent.className.includes("form-group") && parent.tagName !== "FORM") {
-                    parent.classList.remove("loading");
-                    parent = parent.parentElement;
-                }
+                formGroup.classList.remove("loading");
+                customElement.classList.add("loading");
             },
         };
-        element.error = {
+        customElement.error = {
             show: (message) => {
-                const formGroup = element.closest(".form-group");
                 if (!formGroup) return;
                 formGroup.classList.add("error");
                 const formMessage = formGroup.querySelector(".form-message");
@@ -84,7 +81,6 @@ class EncacapForm {
                 formMessage.innerText = message;
             },
             hide: () => {
-                const formGroup = element.closest(".form-group");
                 if (!formGroup) return;
                 formGroup.classList.remove("error");
                 const formMessage = formGroup.querySelector(".form-message");
@@ -92,28 +88,44 @@ class EncacapForm {
                 formMessage.innerText = "";
             },
         };
-        return element;
+        customElement.disable = () => {
+            // eslint-disable-next-line no-param-reassign
+            customElement.disabled = true;
+            if (!formGroup) return;
+            formGroup.classList.add("disabled");
+        };
+        customElement.enable = () => {
+            // eslint-disable-next-line no-param-reassign
+            customElement.disabled = false;
+            if (!formGroup) return;
+            formGroup.classList.remove("disabled");
+        };
+        return customElement;
+    }
+
+    querySelector(selector) {
+        const element = this.form.querySelector(selector);
+        return this.createCustomElement(element);
     }
 
     querySelectorAll(selector) {
-        return this.form.querySelectorAll(selector);
+        const elements = this.form.querySelectorAll(selector);
+        return Array.from(elements).map((element) => this.createCustomElement(element));
     }
 
     disable() {
-        const inputs = this.form.querySelectorAll("[name], button");
+        const inputs = this.querySelectorAll("[name], button");
         inputs.forEach((input) => {
             if (input.disabled) this.disableInputs.push(input.name);
-            // eslint-disable-next-line no-param-reassign
-            input.disabled = true;
+            input.disable();
         });
     }
 
     enable() {
-        const inputs = this.form.querySelectorAll("[name], button");
+        const inputs = this.querySelectorAll("[name], button");
         inputs.forEach((input) => {
             if (this.disableInputs.includes(input.name)) return;
-            // eslint-disable-next-line no-param-reassign
-            input.disabled = false;
+            input.enable();
         });
     }
 

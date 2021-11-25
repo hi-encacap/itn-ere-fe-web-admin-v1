@@ -12,10 +12,10 @@ const loading = (() => {
     }
     return {
         show: () => {
-            loadingNode.classList.remove("hidden");
+            loadingNode.classList.remove("hidden-loading");
         },
         hide: () => {
-            loadingNode.classList.add("hidden");
+            loadingNode.classList.add("hidden-loading");
         },
     };
 })();

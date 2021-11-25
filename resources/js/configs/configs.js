@@ -8,4 +8,5 @@ const getAPIGateway = () => {
 
 module.exports = {
     API_GATEWAY: getAPIGateway(),
+    GHN_TOKEN: "6083ac66-4df1-11ec-bde8-6690e1946f41",
 };

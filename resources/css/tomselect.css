@@ -1,0 +1,46 @@
+.tomselect {
+    @apply relative;
+
+    select {
+        @apply hidden;
+    }
+    input {
+        @apply w-full outline-none;
+    }
+
+    .ts-wrapper {
+        @apply overflow-hidden;
+    }
+
+    .ts-control {
+        @apply flex relative z-0 overflow-hidden cursor-text;
+
+        .item {
+            @apply flex-shrink-0 pr-2 inline-block bg-white cursor-text;
+        }
+        input {
+            @apply inline-block w-full;
+        }
+    }
+
+    .ts-wrapper.has-items {
+        input {
+            @apply absolute z-0 -left-80;
+        }
+    }
+
+    .ts-dropdown {
+        @apply absolute z-20 w-full mt-3 rounded-md bg-gray-900;
+
+        border-top-color: transparent;
+    }
+
+    .ts-dropdown-content {
+        @apply py-2;
+    }
+
+    .option,
+    .no-results {
+        @apply px-4 py-3 text-xs text-white font-semibold bg-opacity-50 hover:bg-white hover:bg-opacity-20;
+    }
+}

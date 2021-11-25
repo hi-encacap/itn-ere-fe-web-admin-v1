@@ -18,6 +18,19 @@ module.exports = {
                     zalo: "#03a5fa",
                 },
             },
+            maxWidth: {
+                mobile: "480px",
+            },
+            zIndex: {
+                60: 60,
+                70: 70,
+                80: 80,
+                90: 90,
+                100: 100,
+            },
+            transitionProperty: {
+                bg: "background-color",
+            },
         },
     },
     variants: {

@@ -31,7 +31,7 @@ const createAxiosInstance = () => {
                         const { data } = await axios.post(
                             "auth/refresh-tokens",
                             {
-                                refreshToken: refreshToken.token,
+                                refreshToken: storage("tokens").get().refresh.token,
                             },
                             config
                         );

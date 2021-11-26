@@ -31,6 +31,10 @@ module.exports = {
             transitionProperty: {
                 bg: "background-color",
             },
+            minHeight: {
+                xs: "240px",
+                sm: "480px",
+            },
         },
     },
     variants: {

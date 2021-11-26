@@ -65,6 +65,26 @@
     &-group.loading &-loading {
         @apply block;
     }
+    &-notify {
+        @apply hidden
+        border-2 border-red-300
+        bg-red-200
+        rounded-md
+        mb-4
+        px-6
+        py-5
+        text-red-500
+        font-semibold
+        break-words;
+    }
+    &-notify.show {
+        @apply block;
+    }
+    &-notify.success {
+        @apply border-green-300
+        bg-green-100
+        text-green-500;
+    }
 }
 
 .spinner {

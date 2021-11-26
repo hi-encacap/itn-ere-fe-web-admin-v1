@@ -137,202 +137,81 @@
                     <div class="mt-2 text-4xl">3</div>
                 </div>
             </div>
-            <div class="grid grid-cols-3 border-2 border-gray-100 rounded-md">
-                <div class="h-full -ml-0.5 py-10 border-r-2 border-gray-100">
-                    <div class="px-10 bg-gray-100" id="cities">
-                        <div
-                            class="
-                                flex
-                                items-center
-                                justify-between
-                                border-t-2 border-b-2 border-gray-100
-                                py-4
-                                cursor-pointer
-                                hover:text-encacap-main
-                            "
-                        >
-                            <div>Hồ Chí Minh</div>
-                            <div class="flex items-center text-sm text-gray-400">
-                                <div
-                                    class="
-                                        border-2 border-gray-300
-                                        rounded-md
-                                        px-2
-                                        py-1
-                                        cursor-pointer
-                                        hover:border-encacap-main hover:text-encacap-main
-                                    "
-                                >
-                                    Xoá
-                                </div>
-                            </div>
-                        </div>
+            <div class="grid grid-cols-3 min-h-xs border-2 border-gray-100 rounded-md">
+                <div class="relative h-full -ml-0.5 py-10 border-r-2 border-gray-100" id="cityContainer">
+                    <div class="" id="cityListContainer"></div>
+                    <div
+                        class="
+                            loading
+                            absolute
+                            top-0
+                            left-0.5
+                            right-0
+                            bottom-0
+                            flex
+                            justify-center
+                            items-center
+                            bg-white
+                        "
+                    >
+                        <div class="spinner w-10 h-10 rounded-full border-2 border-encacap-main"></div>
                     </div>
-                    <div class="px-10">
-                        <div
-                            class="
-                                flex
-                                items-center
-                                justify-between
-                                border-b-2 border-gray-100
-                                py-4
-                                cursor-pointer
-                                hover:text-encacap-main
-                            "
-                        >
-                            <div>Hồ Chí Minh</div>
-                            <div class="flex items-center text-sm text-gray-400">
-                                <div
-                                    class="
-                                        border-2 border-gray-300
-                                        rounded-md
-                                        px-2
-                                        py-1
-                                        cursor-pointer
-                                        hover:border-encacap-main hover:text-encacap-main
-                                    "
-                                >
-                                    Xoá
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="px-10">
-                        <div
-                            class="
-                                flex
-                                items-center
-                                justify-between
-                                border-b-2 border-gray-100
-                                py-4
-                                cursor-pointer
-                                hover:text-encacap-main
-                            "
-                        >
-                            <div>Hồ Chí Minh</div>
-                            <div class="flex items-center text-sm text-gray-400">
-                                <div
-                                    class="
-                                        border-2 border-gray-300
-                                        rounded-md
-                                        px-2
-                                        py-1
-                                        cursor-pointer
-                                        hover:border-encacap-main hover:text-encacap-main
-                                    "
-                                >
-                                    Xoá
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-                    <!-- <div class="flex items-center justify-center h-full px-10 py-6 text-center">
-                        <div>
-                            <div>Không có dữ liệu nào.</div>
-                            Nhấn <strong>Thêm khu vực mới</strong> để thêm một khu vực mới.
-                        </div>
-                    </div> -->
                 </div>
                 <div class="-my-0.5 py-6 bg-gray-100">
-                    <div class="h-full ml-5 rounded-l-md bg-white py-5" id="districts">
-                        <!-- <div class="ml-5 pl-5 pr-10 rounded-l-md bg-gray-200">
-                            <div
-                                class="
-                                    flex
-                                    items-center
-                                    justify-between
-                                    border-gray-100
-                                    py-4
-                                    cursor-pointer
-                                    hover:text-encacap-main
-                                "
-                            >
-                                <div>Hồ Chí Minh</div>
-                                <div class="flex items-center text-sm text-gray-400">
-                                    <div
-                                        class="
-                                            border-2 border-gray-300
-                                            rounded-md
-                                            px-2
-                                            py-1
-                                            cursor-pointer
-                                            hover:border-encacap-main hover:text-encacap-main
-                                        "
-                                    >
-                                        Xoá
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ml-5 pl-5 pr-10 rounded-l-md">
-                            <div
-                                class="
-                                    flex
-                                    items-center
-                                    justify-between
-                                    border-b-2 border-gray-100
-                                    py-4
-                                    cursor-pointer
-                                    hover:text-encacap-main
-                                "
-                            >
-                                <div>Hồ Chí Minh</div>
-                                <div class="flex items-center text-sm text-gray-400">
-                                    <div
-                                        class="
-                                            border-2 border-gray-300
-                                            rounded-md
-                                            px-2
-                                            py-1
-                                            cursor-pointer
-                                            hover:border-encacap-main hover:text-encacap-main
-                                        "
-                                    >
-                                        Xoá
-                                    </div>
-                                </div>
-                            </div>
-                        </div>
-                        <div class="ml-5 pl-5 pr-10 rounded-l-md">
-                            <div
-                                class="
-                                    flex
-                                    items-center
-                                    justify-between
-                                    border-b-2 border-gray-100
-                                    py-4
-                                    cursor-pointer
-                                    hover:text-encacap-main
-                                "
-                            >
-                                <div>Hồ Chí Minh</div>
-                                <div class="flex items-center text-sm text-gray-400">
-                                    <div
-                                        class="
-                                            border-2 border-gray-300
-                                            rounded-md
-                                            px-2
-                                            py-1
-                                            cursor-pointer
-                                            hover:border-encacap-main hover:text-encacap-main
-                                        "
-                                    >
-                                        Xoá
-                                    </div>
-                                </div>
-                            </div>
-                        </div> -->
-                        <div class="flex items-center justify-center h-full px-10 py-6 text-center">
-                            <div>
-                                <div>Không có dữ liệu nào.</div>
-                                Nhấn <strong>Thêm khu vực mới</strong> để thêm một quận, huyện mới.
-                            </div>
+                    <div class="relative h-full ml-5 rounded-l-md bg-white py-5" id="districtContainer">
+                        <div id="districtsListContainer"></div>
+                        <div
+                            class="
+                                loading
+                                absolute
+                                top-0
+                                left-0.5
+                                right-0
+                                bottom-0
+                                flex
+                                justify-center
+                                items-center
+                                bg-white
+                            "
+                        >
+                            <div class="spinner w-10 h-10 rounded-full border-2 border-encacap-main"></div>
                         </div>
                     </div>
                 </div>
                 <div class="-my-0.5 -mr-0.5 py-6 bg-gray-100 rounded-r-md">
                     <div class="h-full mr-5 rounded-r-md bg-gray-200 py-5">
-                        <div class="h-full mx-5 bg-white rounded-md" id="wards">
+                        <div class="relative h-full mx-5 bg-white rounded-md" id="wardContainer">
+                            <div id="wardsListContainer">
+                                <div class="ml-5 pl-5 pr-10 rounded-l-md">
+                                    <div
+                                        class="
+                                            flex
+                                            items-center
+                                            justify-between
+                                            border-b-2 border-gray-100
+                                            py-4
+                                            cursor-pointer
+                                            hover:text-encacap-main
+                                        "
+                                    >
+                                        <div>Hồ Chí Minh</div>
+                                        <div class="flex items-center text-sm text-gray-400">
+                                            <div
+                                                class="
+                                                    border-2 border-gray-300
+                                                    rounded-md
+                                                    px-2
+                                                    py-1
+                                                    cursor-pointer
+                                                    hover:border-encacap-main hover:text-encacap-main
+                                                "
+                                            >
+                                                Xoá
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </div>
                             <!-- <div class="ml-5 pl-5 pr-10 rounded-l-md">
                                 <div
                                     class="
@@ -399,11 +278,27 @@
                                     </div>
                                 </div>
                             </div> -->
-                            <div class="flex items-center justify-center h-full px-10 py-6 text-center">
+                            <!-- <div class="flex items-center justify-center h-full px-10 py-6 text-center">
                                 <div>
                                     <div>Không có dữ liệu nào.</div>
                                     Nhấn <strong>Thêm khu vực mới</strong> để thêm một xã, phường, thị trấn mới.
                                 </div>
+                            </div> -->
+                            <div
+                                class="
+                                    loading
+                                    absolute
+                                    top-0
+                                    left-0.5
+                                    right-0
+                                    bottom-0
+                                    flex
+                                    justify-center
+                                    items-center
+                                    bg-white
+                                "
+                            >
+                                <div class="spinner w-10 h-10 rounded-full border-2 border-encacap-main"></div>
                             </div>
                         </div>
                     </div>
@@ -425,21 +320,7 @@
                         </div>
                     </div>
                     <div class="form-body pt-8">
-                        <div
-                            class="
-                                form-notify
-                                hidden
-                                border-2 border-red-300
-                                bg-red-200
-                                rounded-md
-                                mb-4
-                                px-6
-                                py-5
-                                text-red-500
-                                font-semibold
-                                break-words
-                            "
-                        ></div>
+                        <div class="form-notify"></div>
                         <div class="form-group border-2 border-gray-100 rounded-md px-6 pt-5 pb-4">
                             <label for="city" class="block font-semibold text-gray-500 text-sm">Tỉnh, thành phố</label>
                             <div class="tomselect">

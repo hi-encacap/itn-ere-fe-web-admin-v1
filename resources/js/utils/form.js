@@ -69,7 +69,7 @@ class EncacapForm {
             },
             hide: () => {
                 formGroup.classList.remove("loading");
-                customElement.classList.add("loading");
+                customElement.classList.remove("loading");
             },
         };
         customElement.error = {
@@ -167,6 +167,22 @@ class EncacapForm {
     }
 
     showError(message, error) {
+        this.showNotify("error", message, error);
+    }
+
+    hideError() {
+        this.hideNotify();
+    }
+
+    showSuccess(message) {
+        this.showNotify("success", message);
+    }
+
+    hideSuccess() {
+        this.hideNotify();
+    }
+
+    showNotify(type, message, error) {
         const formNotify = this.form.querySelector(".form-notify");
         let errorMessage = `<div>${message}</div>`;
         if (typeof error === "object") {
@@ -177,12 +193,19 @@ class EncacapForm {
             `;
         }
         formNotify.innerHTML = errorMessage;
-        formNotify.classList.remove("hidden");
+        if (type === "error") {
+            formNotify.classList.add("error");
+        } else {
+            formNotify.classList.add("success");
+        }
+        formNotify.classList.add("show");
     }
 
-    hideError() {
+    hideNotify() {
         const formNotify = this.form.querySelector(".form-notify");
-        formNotify.classList.add("hidden");
+        formNotify.classList.remove("show");
+        formNotify.classList.remove("error");
+        formNotify.classList.remove("success");
     }
 
     validate(options) {

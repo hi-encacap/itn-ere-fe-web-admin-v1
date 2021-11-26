@@ -30,7 +30,7 @@
     }
 
     .ts-dropdown {
-        @apply absolute z-20 w-full mt-3 rounded-md bg-gray-900;
+        @apply absolute z-40 w-full mt-3 rounded-md bg-gray-900;
 
         border-top-color: transparent;
     }

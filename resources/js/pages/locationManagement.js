@@ -12,6 +12,7 @@ const locationComponents = require("../components/locationManagement");
 prepare(async (request) => {
     const addLocationButton = document.getElementById("addNewLocationButton");
     const addLocationModal = new Modal("#addNewLocationModal");
+    const confirmDeleteModal = new Modal("#confirmDeleteModal");
 
     const GHNInstance = axios.create({
         baseURL: "https://online-gateway.ghn.vn/shiip/public-api/master-data",
@@ -92,7 +93,7 @@ prepare(async (request) => {
         try {
             const { data } = await request.get(`locations/${selectedCity}/districts`);
             if (data.length === 0) return;
-            selectedDistrict = data[0].id;
+            if (!selectedDistrict) selectedDistrict = data[0].id;
             renderDistricts(data);
             districtLoading.classList.add("hidden");
         } catch (error) {
@@ -120,7 +121,7 @@ prepare(async (request) => {
                 cityContainer.innerHTML = locationComponents.city.empty();
                 return;
             }
-            selectedCity = cities[0].id;
+            if (!selectedCity) selectedCity = cities[0].id;
             renderCities(cities);
             cityLoading.classList.add("hidden");
         } catch (error) {
@@ -129,6 +130,36 @@ prepare(async (request) => {
     };
 
     getCities();
+
+    const showConfirmDeleteModal = () => {
+        confirmDeleteModal.show();
+    };
+
+    cityContainer.onclick = (event) => {
+        const { target } = event;
+        const deleteButton = target.closest(".delete");
+        const selectButton = target.closest(".location-item");
+        if (deleteButton) {
+            const cityId = deleteButton.dataset.id;
+            showConfirmDeleteModal(cityId);
+        } else if (selectButton) {
+            selectedCity = selectButton.dataset.id;
+            selectedDistrict = null;
+            getCities();
+        }
+    };
+
+    districtContainer.onclick = (event) => {
+        const { target } = event;
+        const deleteButton = target.closest(".delete");
+        const selectButton = target.closest(".location-item");
+        if (deleteButton) {
+            console.log("Deleted!");
+        } else if (selectButton) {
+            selectedDistrict = selectButton.dataset.id;
+            getDistricts();
+        }
+    };
 
     addLocationButton.onclick = async () => {
         const addLocationForm = new EncacapForm("#addNewLocationForm");
@@ -273,6 +304,9 @@ prepare(async (request) => {
                 addLocationForm.showSuccess("Thành công. Đã thêm địa điểm mới.");
                 submitButton.loading.hide();
                 addLocationForm.enable();
+                selectedCity = null;
+                selectedDistrict = null;
+                getCities();
             } catch (error) {
                 addLocationForm.showError("Đã xảy ra lỗi khi thêm khu vực mới.", error);
             }

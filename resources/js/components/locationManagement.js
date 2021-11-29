@@ -9,7 +9,7 @@ module.exports = {
             </div>
         `,
         city: (city, selected = false) => `
-            <div class="px-10 ${selected ? "bg-gray-100" : ""}" id="${city.id}">
+            <div class="location-item px-10 ${selected ? "bg-gray-100" : ""}" data-id="${city.id}">
                 <div
                     class="
                         flex
@@ -26,6 +26,7 @@ module.exports = {
                     <div class="flex items-center text-sm text-gray-400">
                         <div
                             class="
+                                delete
                                 border-2 border-gray-300
                                 rounded-md
                                 px-2
@@ -52,12 +53,16 @@ module.exports = {
             </div>
         `,
         district: (district, selected = false) => `
-            <div class="ml-5 pl-5 pr-10 rounded-l-md ${selected ? "bg-gray-200" : ""}" id="${district.id}">
+            <div
+                class="location-item ml-5 pl-5 pr-10 rounded-l-md ${selected ? "bg-gray-200" : ""}" 
+                data-id="${district.id}"
+            >
                 <div
                     class="
                         flex
                         items-center
                         justify-between
+                        border-b-2
                         border-gray-100
                         py-4
                         cursor-pointer
@@ -68,6 +73,7 @@ module.exports = {
                     <div class="flex items-center text-sm text-gray-400">
                         <div
                             class="
+                                delete
                                 border-2 border-gray-300
                                 rounded-md
                                 px-2
@@ -94,7 +100,7 @@ module.exports = {
             </div>
         `,
         ward: (ward) => `
-            <div class="ml-5 pl-5 pr-10 rounded-l-md">
+            <div class="location-item ml-5 pl-5 pr-10 rounded-l-md">
                 <div
                     class="
                         flex
@@ -110,6 +116,7 @@ module.exports = {
                     <div class="flex items-center text-sm text-gray-400">
                         <div
                             class="
+                                delete
                                 border-2 border-gray-300
                                 rounded-md
                                 px-2

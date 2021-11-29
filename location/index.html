@@ -418,6 +418,67 @@
                     </div>
                 </form>
             </div>
+            <div
+                class="modal fixed top-0 left-0 right-0 bottom-0 z-90 hidden bg-black bg-opacity-50 overflow-y-auto"
+                id="confirmDeleteModal"
+            >
+                <form
+                    action=""
+                    class="form w-full max-w-mobile m-auto border-2 border-gray-100 rounded-md bg-white p-10 pt-6"
+                    id="addNewLocationForm"
+                >
+                    <div class="form-header">
+                        <div class="font-semibold">
+                            <div class="mt-2 pb-6">Bạn có chắc muốn xoá Quảng Ngãi?</div>
+                            <div class="w-20 h-1 mt-1 rounded-md bg-gray-100"></div>
+                        </div>
+                        <div class="my-10 border-2 border-red-300 bg-red-100 rounded-md px-6 py-5 font-semibold">
+                            Xoá khu vực hiện chưa khả dụng. Vui lòng thử lại sau!
+                        </div>
+                        <div class="form-group flex">
+                            <button
+                                type="button"
+                                class="
+                                    modal-close
+                                    btn
+                                    w-full
+                                    mr-4
+                                    border-2 border-gray-200
+                                    bg-gray-100
+                                    rounded-md
+                                    py-2
+                                    text-black
+                                    font-semibold
+                                    duration-200
+                                    hover:bg-gray-300
+                                "
+                            >
+                                <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
+                                Huỷ
+                            </button>
+                            <button
+                                type="submit"
+                                class="
+                                    btn
+                                    w-full
+                                    border-2 border-encacap-main
+                                    bg-encacap-main
+                                    rounded-md
+                                    py-2
+                                    text-white
+                                    font-semibold
+                                    duration-200
+                                    hover:bg-encacap-main-dark
+                                "
+                                disabled
+                            >
+                                <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
+                                Xác nhận
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
         </main>
         <script src="/assets/js/location_management.min.js"></script>
     </body>

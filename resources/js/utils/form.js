@@ -60,6 +60,7 @@ class EncacapForm {
     // eslint-disable-next-line class-methods-use-this
     createCustomElement(element) {
         const customElement = element;
+        if (!customElement) return;
         const formGroup = customElement.closest(".form-group");
         if (!customElement) return null;
         customElement.loading = {

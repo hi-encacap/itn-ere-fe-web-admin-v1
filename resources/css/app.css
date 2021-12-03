@@ -20,29 +20,69 @@
 }
 
 .form {
-    input {
+    * {
+        @apply transition-colors duration-100;
+    }
+    input,
+    select,
+    textarea {
         @apply text-black;
 
         background: none;
     }
-    ::-webkit-input-placeholder {
-        @apply text-gray-400;
+    input,
+    textarea {
+        @apply w-full mt-1.5 border-none outline-none rounded-md;
+    }
+    label {
+        @apply block font-semibold text-gray-400 text-sm;
+    }
+    select {
+        @apply w-full -mx-1 mt-1.5 border-none outline-none rounded-md;
+    }
+    ::-webkit-input-placeholder,
+    select[empty] {
+        @apply text-black;
+    }
+    &-block {
+        @apply hover:border-encacap-main;
     }
     &-group {
-        @apply relative hover:border-encacap-main;
+        @apply relative border-2 border-gray-100 rounded-md px-6 py-4 hover:border-encacap-main;
+
+        &--noborder {
+            @apply border-none;
+        }
+    }
+    &-group.footer {
+        @apply p-0;
+    }
+    &-group:hover label {
+        @apply text-encacap-main;
     }
     &-overlay {
         @apply absolute top-0 left-0 right-0 bottom-0 z-10 bg-white bg-opacity-60 hidden rounded-md;
     }
+    &-line {
+        @apply w-full border-t-2 border-gray-100 absolute z-10 bottom-0;
+        width: calc(100% - 3rem);
 
+        &--tall {
+            @apply h-0.5;
+        }
+    }
     &-group.disabled &-overlay {
         @apply block;
     }
     &-group.disabled:hover {
         @apply border-gray-100 cursor-not-allowed;
+
+        label {
+            @apply text-gray-400;
+        }
     }
     &-group &-message {
-        @apply hidden;
+        @apply hidden mt-1.5 mb-1 text-sm;
     }
     &-group.danger,
     &-group.error {
@@ -52,10 +92,30 @@
     &-group.error &-message {
         @apply block;
     }
+    &-group.danger &-line,
+    &-group.error &-line {
+        @apply border-red-300;
+    }
+    &-group.danger label,
+    &-group.error label {
+        @apply text-red-500;
+    }
     &-group.focus {
         @apply border-encacap-main;
-    }
 
+        label {
+            @apply text-encacap-main;
+        }
+    }
+    &-block.focus {
+        @apply border-encacap-main;
+    }
+    &-block.error {
+        @apply border-red-300;
+    }
+    &-group--noborder {
+        @apply border-none;
+    }
     &-loading {
         @apply absolute top-12 right-6 z-20 hidden w-4 h-4 rounded-full border-2 border-encacap-main animate-spin;
 
@@ -84,6 +144,56 @@
         @apply border-green-300
         bg-green-100
         text-green-500;
+    }
+    &-images {
+        &-group {
+            @apply grid grid-cols-1 gap-4 mt-4;
+        }
+        &-group &-preview {
+            @apply hidden;
+        }
+        &-group &-add {
+            @apply block;
+        }
+        &-group &-change {
+            @apply hidden;
+        }
+        &-group.has-items {
+            @apply grid-cols-2;
+        }
+        &-group.form-other.has-items {
+            @apply grid-cols-5;
+        }
+        &-group.has-items &-add {
+            @apply hidden;
+        }
+        &-group.has-items &-change {
+            @apply block;
+        }
+        &-button {
+            @apply flex items-center justify-center w-full bg-gray-100 rounded-md py-4 text-black !important;
+        }
+        &-container {
+            @apply hidden;
+        }
+        &-preview {
+            @apply hidden relative h-16 border-2 border-gray-100 bg-gray-100 rounded-md;
+
+            img {
+                @apply w-full h-full object-contain object-center rounded-md;
+            }
+
+            &-remove {
+                @apply absolute -top-3 -right-3 z-10 w-6 transform rotate-45 text-red-500 cursor-pointer;
+            }
+        }
+        &-group.has-items &-preview {
+            @apply block;
+        }
+
+        &-group.has-items &-container {
+            @apply flex;
+        }
     }
 }
 

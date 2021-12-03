@@ -1,0 +1,485 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="/assets/images/encacap_logo.svg" type="image/x-icon" />
+        <link rel="stylesheet" href="/assets/css/app.min.css" />
+        <title>Thêm bài viết mới - Trang quản trị - Encacap</title>
+    </head>
+    <body>
+        <div class="page-loading"></div>
+        <header
+            class="
+                flex
+                items-center
+                fixed
+                top-0
+                left-0
+                z-40
+                w-80
+                h-20
+                border-b-2 border-r-2 border-gray-100
+                bg-white
+                px-10
+            "
+        >
+            <div>
+                <img src="/assets/images/encacap_logo.svg" class="w-10" alt="Encacap Logo" />
+            </div>
+        </header>
+        <nav class="fixed top-0 left-0 bottom-0 w-80 h-full border-r-2 border-gray-100 bg-white pt-28">
+            <a
+                href="/"
+                class="
+                    flex
+                    items-center
+                    -mr-px
+                    border-r-4 border-transparent
+                    px-10
+                    py-4
+                    font-semibold
+                    hover:text-encacap-main
+                "
+            >
+                <div class="flex items-center justify-center w-10 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6">
+                        <path
+                            d="M3 22h18M5.6 8.38H4c-.55 0-1 .45-1 1V18c0 .55.45 1 1 1h1.6c.55 0 1-.45 1-1V9.38c0-.55-.45-1-1-1ZM12.8 5.19h-1.6c-.55 0-1 .45-1 1V18c0 .55.45 1 1 1h1.6c.55 0 1-.45 1-1V6.19c0-.55-.45-1-1-1ZM20 2h-1.6c-.55 0-1 .45-1 1v15c0 .55.45 1 1 1H20c.55 0 1-.45 1-1V3c0-.55-.45-1-1-1Z"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
+                    </svg>
+                </div>
+                <div>Tổng quan</div>
+            </a>
+            <a
+                href="/estates/"
+                class="
+                    flex
+                    items-center
+                    -mr-px
+                    border-r-4 border-encacap-main
+                    px-10
+                    py-4
+                    font-semibold
+                    text-encacap-main
+                "
+            >
+                <div class="flex items-center justify-center w-10 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" class="w-6" viewBox="0 0 24 24" fill="none">
+                        <path
+                            d="M3.5 18V7c0-4 1-5 5-5h7c4 0 5 1 5 5v10c0 .14 0 .28-.01.42"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
+                        <path
+                            d="M6.35 15H20.5v3.5c0 1.93-1.57 3.5-3.5 3.5H7c-1.93 0-3.5-1.57-3.5-3.5v-.65C3.5 16.28 4.78 15 6.35 15ZM8 7h8M8 10.5h5"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                            stroke-linecap="round"
+                            stroke-linejoin="round"
+                        ></path>
+                    </svg>
+                </div>
+                <div>Quản lý bài viết</div>
+            </a>
+            <a
+                href="/location/"
+                class="
+                    flex
+                    items-center
+                    -mr-px
+                    border-r-4 border-transparent
+                    px-10
+                    py-4
+                    font-semibold
+                    hover:text-encacap-main
+                "
+            >
+                <div class="flex items-center justify-center w-10 mr-4">
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6">
+                        <path
+                            d="M12 13.43a3.12 3.12 0 1 0 0-6.24 3.12 3.12 0 0 0 0 6.24Z"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        ></path>
+                        <path
+                            d="M3.62 8.49c1.97-8.66 14.8-8.65 16.76.01 1.15 5.08-2.01 9.38-4.78 12.04a5.193 5.193 0 0 1-7.21 0c-2.76-2.66-5.92-6.97-4.77-12.05Z"
+                            stroke="currentColor"
+                            stroke-width="1.5"
+                        ></path>
+                    </svg>
+                </div>
+                <div>Quản lý khu vực</div>
+            </a>
+        </nav>
+        <main class="ml-80 px-10">
+            <div class="flex items-center justify-between mb-10 border-b-2 border-gray-100 font-semibold">
+                <div>
+                    <div class="flex items-center h-20">Thêm bài viết mới</div>
+                    <div class="w-full h-1 -mt-1 rounded-md bg-gray-100 -mb-0.5"></div>
+                </div>
+                <a
+                    href="./add.html"
+                    class="
+                        flex
+                        items-center
+                        ml-10
+                        border-2 border-encacap-main
+                        bg-encacap-main
+                        rounded-md
+                        px-4
+                        py-2
+                        text-white
+                        cursor-pointer
+                        transition-bg
+                        duration-200
+                        hover:bg-white hover:text-encacap-main
+                    "
+                >
+                    <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-4 mr-2">
+                        <path
+                            d="M21 22H3c-.41 0-.75-.34-.75-.75s.34-.75.75-.75h18c.41 0 .75.34.75.75s-.34.75-.75.75ZM19.02 3.482c-1.94-1.94-3.84-1.99-5.83 0l-1.21 1.21c-.1.1-.14.26-.1.4a8.129 8.129 0 0 0 5.53 5.53.4.4 0 0 0 .41-.1l1.2-1.21c.99-.98 1.47-1.93 1.47-2.89.01-.99-.47-1.95-1.47-2.94ZM15.61 11.53c-.29-.14-.57-.28-.84-.44a8.8 8.8 0 0 1-.64-.42c-.17-.11-.37-.27-.56-.43a1.22 1.22 0 0 1-.17-.15c-.33-.28-.7-.64-1.03-1.04-.03-.02-.08-.09-.15-.18-.1-.12-.27-.32-.42-.55a5.49 5.49 0 0 1-.39-.59c-.16-.27-.3-.54-.44-.82a6.88 6.88 0 0 1-.061-.135c-.148-.333-.583-.43-.84-.173L4.34 12.331c-.13.13-.25.38-.28.55l-.54 3.83c-.1.68.09 1.32.51 1.75.36.35.86.54 1.4.54.12 0 .24-.01.36-.03l3.84-.54c.18-.03.43-.15.55-.28l5.722-5.721c.26-.26.161-.705-.176-.85a26.852 26.852 0 0 1-.116-.05Z"
+                            fill="currentColor"
+                        ></path>
+                    </svg>
+
+                    Quản lý bài viết
+                </a>
+            </div>
+            <div class="grid grid-cols-2">
+                <form action="" class="form w-full" id="estate_form">
+                    <div class="form-body mb-10">
+                        <div
+                            class="
+                                form-notify
+                                hidden
+                                border-2 border-red-300
+                                bg-red-200
+                                rounded-md
+                                mb-4
+                                px-6
+                                py-5
+                                text-red-500
+                                font-semibold
+                            "
+                        ></div>
+                        <div class="form-group">
+                            <label for="estateId">Mã BĐS</label>
+                            <input type="text" name="estateId" id="estateId" placeholder="Nhập mã BĐS" />
+                            <div class="form-message">Mã BĐS đã tồn tại</div>
+                        </div>
+                        <div class="form-block mt-4 border-2 border-gray-100 rounded-md">
+                            <div class="form-group form-group--noborder">
+                                <label for="city"> Tỉnh, thành phố </label>
+                                <select name="city" id="city">
+                                    <option value="">Chọn tỉnh, thành phố</option>
+                                    <option value="quang-ngai">Quảng Ngãi</option>
+                                </select>
+                                <div class="form-message">Tỉnh, thành phố không được phép để trống</div>
+                                <div class="form-line"></div>
+                            </div>
+                            <div class="form-group form-group--noborder">
+                                <label for="district"> Quận, huyện </label>
+                                <select name="district" id="district">
+                                    <option value="">Chọn quận, huyện</option>
+                                    <option value="quang-ngai">Quảng Ngãi</option>
+                                </select>
+                                <div class="form-message"></div>
+                                <div class="form-line"></div>
+                            </div>
+                            <div class="form-group form-group--noborder">
+                                <label for="ward"> Xã, phường, thị trấn </label>
+                                <select name="ward" id="ward">
+                                    <option value="">Chọn xã, phường, thị trấn</option>
+                                    <option value="quang-ngai">Quảng Ngãi</option>
+                                </select>
+                                <div class="form-message"></div>
+                                <div class="form-line"></div>
+                            </div>
+                            <div class="form-group form-group--noborder">
+                                <label for="street"> Đường phố hoặc ghi chú </label>
+                                <input
+                                    type="text"
+                                    name="street"
+                                    id="street"
+                                    placeholder="Nhập số nhà, tên đường phố hoặc ghi chú thêm về địa điểm"
+                                />
+                                <div class="form-message"></div>
+                            </div>
+                        </div>
+                        <div class="form-block mt-4 border-2 border-gray-100 rounded-md">
+                            <div class="form-group form-group--noborder">
+                                <label for="title"> Tiêu đề </label>
+                                <input type="text" name="title" id="title" placeholder="Nhập tiêu đề bài viết" />
+                                <div class="form-message"></div>
+                                <div class="form-line"></div>
+                            </div>
+                            <div class="form-group form-group--noborder">
+                                <label for="price"> Giá bán </label>
+                                <input
+                                    type="text"
+                                    name="price"
+                                    id="price"
+                                    placeholder="Nhập giá bán hoặc giá thuê BĐS"
+                                />
+                                <div class="form-message"></div>
+                                <div class="form-line"></div>
+                            </div>
+                            <div class="form-group form-group--noborder">
+                                <label for="area"> Diện tích </label>
+                                <input type="text" name="area" id="area" placeholder="Nhập diện tích BĐS" />
+                                <div class="form-message"></div>
+                            </div>
+                        </div>
+                        <div class="form-block mt-4 border-2 border-gray-100 rounded-md">
+                            <div class="form-group form-group--noborder">
+                                <label for="category"> Danh mục </label>
+                                <select name="category" id="category">
+                                    <option value="">Chọn danh mục BĐS</option>
+                                    <option value="quang-ngai">Quảng Ngãi</option>
+                                </select>
+                                <div class="form-message"></div>
+                                <div class="form-line"></div>
+                            </div>
+                            <div id="resort">
+                                <div class="form-group form-group--noborder">
+                                    <label for="bedroom"> Phòng ngủ </label>
+                                    <input type="number" name="bedroom" id="bedroom" placeholder="Nhập số phòng ngủ" />
+                                    <div class="form-message"></div>
+                                    <div class="form-line"></div>
+                                </div>
+                                <div class="form-group form-group--noborder">
+                                    <label for="bathroom"> Phòng tắm </label>
+                                    <input
+                                        type="number"
+                                        name="bathroom"
+                                        id="bathroom"
+                                        placeholder="Nhập số phòng tắm"
+                                    />
+                                    <div class="form-message"></div>
+                                    <div class="form-line"></div>
+                                </div>
+                            </div>
+                            <div class="form-group form-group--noborder">
+                                <label for="quarter"> Hướng </label>
+                                <select name="quarter" id="quarter">
+                                    <option value="">Chọn hướng BĐS</option>
+                                    <option value="quang-ngai">Quảng Ngãi</option>
+                                </select>
+                                <div class="form-message"></div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-4">
+                            <label> Thông tin liên hệ </label>
+                            <div class="flex items-center mt-4">
+                                <img src="/assets/images/encacap_logo.svg" alt="Contact Avatar" class="w-8 h-8 mr-4" />
+                                <div class="flex-1">
+                                    <div class="font-semibold">Nguyễn Khắc Khánh</div>
+                                    <div class="text-gray-400 text-sm mt-1">Điện thoại: 0582 419 433</div>
+                                </div>
+                                <div
+                                    class="
+                                        bg-gray-100
+                                        rounded-md
+                                        border-2 border-transparent
+                                        px-3
+                                        py-1
+                                        text-gray-400 text-sm
+                                        font-semibold
+                                        cursor-pointer
+                                        hover:border-gray-300 hover:bg-gray-200
+                                    "
+                                >
+                                    Thay đổi
+                                </div>
+                            </div>
+                        </div>
+                        <div class="form-group mt-4">
+                            <label for="description"> Thông tin chi tiết </label>
+                            <textarea
+                                name="description"
+                                id="description"
+                                rows="5"
+                                placeholder="Nhập thông tin mô tả chi tiết cho BĐS"
+                            ></textarea>
+                        </div>
+                        <div class="form-block mt-4 border-2 border-gray-100 rounded-md">
+                            <div class="form-group form-group--noborder">
+                                <label for="youtube"> Youtube </label>
+                                <input
+                                    type="text"
+                                    name="youtube"
+                                    id="youtube"
+                                    placeholder="Nhập địa chỉ Youtube. VD: https://www.youtube.com/watch?v=y8nNYm3J6D4"
+                                />
+                                <div class="form-message"></div>
+                                <div class="form-overlay"></div>
+                                <div class="form-line"></div>
+                            </div>
+                            <div class="form-group form-group--noborder">
+                                <div class="flex items-center pb-1.5">
+                                    <input
+                                        type="checkbox"
+                                        name="youtube_avatar"
+                                        id="youtube_avatar"
+                                        class="mr-4"
+                                        style="width: auto; margin-top: 3px"
+                                    />
+                                    <label for="youtube_avatar">
+                                        Sử dụng ảnh đại diện Youtube làm ảnh đại diện cho bài viết
+                                    </label>
+                                </div>
+                                <div class="form-overlay"></div>
+                                <div class="form-line"></div>
+                            </div>
+                            <div class="form-group form-group--noborder" id="avatar_container">
+                                <label for="avatar"> Ảnh đại diện </label>
+                                <div class="relative">
+                                    <input
+                                        type="file"
+                                        name="avatar"
+                                        id="avatar"
+                                        placeholder="Nhập giá bán hoặc giá thuê BĐS"
+                                        class="hidden"
+                                        accept="image/png, image/jpg, image/jpeg"
+                                    />
+                                    <div class="form-images-group pb-1.5">
+                                        <label for="avatar" class="form-images-button">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                class="form-images-add w-8"
+                                            >
+                                                <path
+                                                    d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM8 12h8M12 16V8"
+                                                    stroke="currentColor"
+                                                    stroke-width="1.5"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                ></path>
+                                            </svg>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                class="form-images-change w-8"
+                                            >
+                                                <path
+                                                    stroke="currentColor"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                    stroke-width="1.5"
+                                                    d="M9.11 5.08c.87-.26 1.83-.43 2.89-.43 4.79 0 8.67 3.88 8.67 8.67s-3.88 8.67-8.67 8.67-8.67-3.88-8.67-8.67c0-1.78.54-3.44 1.46-4.82M7.87 5.32L10.76 2M7.87 5.32l3.37 2.46"
+                                                ></path>
+                                            </svg>
+                                        </label>
+                                        <div class="form-images-preview">
+                                            <img src="/assets/images/encacap_logo.svg" alt="Avatar" />
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="form-message"></div>
+                                <div class="form-line"></div>
+                            </div>
+                            <div class="form-group form-images form-group--noborder" id="images_container">
+                                <label for="images" class="block font-semibold text-gray-400 text-sm">
+                                    Hình ảnh khác
+                                </label>
+                                <div class="relative">
+                                    <input
+                                        type="file"
+                                        name="images"
+                                        id="images"
+                                        placeholder="Nhập giá bán hoặc giá thuê BĐS"
+                                        class="hidden w-full mt-1.5 border-none outline-none py-1 rounded-md"
+                                        accept="image/png, image/jpg, image/jpeg"
+                                        multiple
+                                    />
+                                    <div class="form-images-group form-other pb-1.5" id="images_preview_container">
+                                        <label for="images" class="form-images-button">
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                class="form-images-add w-8"
+                                            >
+                                                <path
+                                                    d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM8 12h8M12 16V8"
+                                                    stroke="currentColor"
+                                                    stroke-width="1.5"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                ></path>
+                                            </svg>
+                                            <svg
+                                                xmlns="http://www.w3.org/2000/svg"
+                                                viewBox="0 0 24 24"
+                                                fill="none"
+                                                class="form-images-change w-8"
+                                            >
+                                                <path
+                                                    d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM8 12h8M12 16V8"
+                                                    stroke="currentColor"
+                                                    stroke-width="1.5"
+                                                    stroke-linecap="round"
+                                                    stroke-linejoin="round"
+                                                ></path>
+                                            </svg>
+                                        </label>
+                                    </div>
+                                </div>
+                                <div class="form-message mt-1.5 mb-1 text-sm"></div>
+                            </div>
+                        </div>
+                        <div class="form-group footer flex mt-4 form-group--noborder">
+                            <button
+                                type="button"
+                                class="
+                                    btn
+                                    w-full
+                                    mr-4
+                                    border-2 border-gray-200
+                                    bg-gray-200
+                                    rounded-md
+                                    py-2
+                                    text-black
+                                    font-semibold
+                                    hover:bg-gray-300
+                                "
+                            >
+                                <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
+                                Lưu bản nháp
+                            </button>
+                            <button
+                                type="submit"
+                                class="
+                                    btn
+                                    w-full
+                                    border-2 border-encacap-main
+                                    bg-encacap-main
+                                    rounded-md
+                                    py-2
+                                    text-white
+                                    font-semibold
+                                    hover:bg-encacap-main-dark
+                                "
+                            >
+                                <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
+                                Xuất bản
+                            </button>
+                        </div>
+                    </div>
+                </form>
+            </div>
+        </main>
+        <script src="/assets/js/estates.min.js"></script>
+    </body>
+</html>

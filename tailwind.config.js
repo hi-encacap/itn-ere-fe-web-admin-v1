@@ -40,6 +40,7 @@ module.exports = {
     variants: {
         extend: {
             ring: ["responsive", "hover", "focus", "active"],
+            zIndex: ["hover", "active"],
         },
     },
     plugins: [lineClampPlugin],

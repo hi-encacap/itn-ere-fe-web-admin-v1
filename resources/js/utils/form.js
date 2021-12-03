@@ -47,12 +47,15 @@ class EncacapForm {
         const inputs = this.querySelectorAll("[name], input");
         inputs.forEach((input) => {
             const formGroup = input.closest(".form-group");
+            const formBlock = input.closest(".form-block");
             if (!formGroup) return;
             input.addEventListener("focus", () => {
                 formGroup.classList.add("focus");
+                if (formBlock) formBlock.classList.add("focus");
             });
             input.addEventListener("blur", () => {
                 formGroup.classList.remove("focus");
+                if (formBlock) formBlock.classList.remove("focus");
             });
         });
     }
@@ -62,7 +65,7 @@ class EncacapForm {
         const customElement = element;
         if (!customElement) return;
         const formGroup = customElement.closest(".form-group");
-        if (!customElement) return null;
+        const formBlock = customElement.closest(".form-block");
         customElement.loading = {
             show: () => {
                 formGroup.classList.add("loading");
@@ -75,15 +78,23 @@ class EncacapForm {
         };
         customElement.error = {
             show: (message) => {
-                if (!formGroup) return;
-                formGroup.classList.add("error");
+                if (formGroup) {
+                    formGroup.classList.add("error");
+                }
+                if (formBlock) {
+                    formBlock.classList.add("error");
+                }
                 const formMessage = formGroup.querySelector(".form-message");
                 if (!formMessage) return;
                 formMessage.innerText = message;
             },
             hide: () => {
-                if (!formGroup) return;
-                formGroup.classList.remove("error");
+                if (formGroup) {
+                    formGroup.classList.remove("error");
+                }
+                if (formBlock) {
+                    formBlock.classList.remove("error");
+                }
                 const formMessage = formGroup.querySelector(".form-message");
                 if (!formMessage) return;
                 formMessage.innerText = "";

@@ -17,8 +17,202 @@ const createPreviewImage = (file) => {
     }
 };
 
-prepare((request, loading) => {
+const createOption = (value, text, selected) => {
+    const option = document.createElement("option");
+    option.value = value;
+    option.innerText = text;
+    if (selected) {
+        option.selected = true;
+    }
+    return option;
+};
+
+const renderOptions = (select, options, selected) => {
+    const selectElement = select;
+    const defaultOption = selectElement.querySelector("option[value='']");
+    selectElement.innerHTML = "";
+    if (!selected) {
+        defaultOption.selected = true;
+        selectElement.appendChild(defaultOption);
+    }
+    options.forEach((option) => {
+        const { id, name } = option;
+        const optionElement = createOption(id, name, id === selected);
+        selectElement.appendChild(optionElement);
+    });
+};
+
+prepare(async (request) => {
     const estateForm = new EncacapForm("#estate_form");
+
+    estateForm.validate({
+        city: [
+            {
+                role: "required",
+                message: "Tỉnh, thành phố không được phép để trống",
+            },
+        ],
+        district: [
+            {
+                role: "required",
+                message: "Quận, huyện không được phép để trống",
+            },
+        ],
+        ward: [
+            {
+                role: "required",
+                message: "Xã, phường, thị trấn không được phép để trống",
+            },
+        ],
+        title: [
+            {
+                role: "required",
+                message: "Tiêu đề không được phép để trống",
+            },
+        ],
+        price: [
+            {
+                role: "required",
+                message: "Giá bán không được phép để trống",
+            },
+        ],
+        area: [
+            {
+                role: "required",
+                message: "Diện tích không được phép để trống",
+            },
+        ],
+        category: [
+            {
+                role: "required",
+                message: "Danh mục không được phép để trống",
+            },
+        ],
+        contact_name: [
+            {
+                role: "required",
+                message: "Thông tin liên hệ không được phép để trống",
+            },
+        ],
+        contact_phone: [
+            {
+                role: "required",
+                message: "Số điện thoại không được phép để trống",
+            },
+        ],
+    });
+
+    /**
+     * Tạo hiệu ứng cho cái nút ở cuối form
+     */
+
+    const formActions = estateForm.querySelector(".footer");
+
+    formActions.classList.add("flex");
+    formActions.classList.remove("hidden");
+    formActions.style.width = `${estateForm.getForm().offsetWidth}px`;
+
+    /**
+     * Xử lý khi người dùng chọn vị trí cho bất động sản
+     */
+
+    const citySelect = estateForm.querySelector("select[name=city]");
+    const districtSelect = estateForm.querySelector("select[name=district]");
+    const wardSelect = estateForm.querySelector("select[name=ward]");
+
+    const getWards = async (cityId, districtId) => {
+        wardSelect.loading.show();
+        wardSelect.disable();
+        try {
+            const { data: wards } = await request.get(`locations/${cityId}/${districtId}/wards`);
+            renderOptions(wardSelect, wards);
+            wardSelect.loading.hide();
+            wardSelect.enable();
+        } catch (error) {
+            estateForm.showError("Đã xảy ra lỗi khi tải dữ liệu xã, phường, thị trấn.", error.response.data || error);
+        }
+    };
+
+    const getDistricts = async (cityId) => {
+        districtSelect.loading.show();
+        districtSelect.disable();
+        try {
+            const { data: districts } = await request.get(`locations/${cityId}/districts`);
+            renderOptions(districtSelect, districts);
+            districtSelect.loading.hide();
+            districtSelect.enable();
+        } catch (error) {
+            estateForm.showError("Đã xảy ra lỗi khi tải dữ liệu quận, huyện.", error.response.data || error);
+        }
+    };
+
+    const getCities = async () => {
+        citySelect.loading.show();
+        citySelect.disable();
+        try {
+            const { data: cities } = await request.get("locations/cities");
+            renderOptions(citySelect, cities);
+            citySelect.loading.hide();
+            citySelect.enable();
+        } catch (error) {
+            estateForm.showError("Đã xảy ra lỗi khi tải dữ liệu tỉnh, thành phố.", error.response.data || error);
+        }
+    };
+
+    districtSelect.disable();
+    wardSelect.disable();
+
+    getCities();
+
+    citySelect.onchange = () => {
+        const cityId = citySelect.value;
+        if (!cityId) {
+            return;
+        }
+        getDistricts(cityId);
+    };
+
+    districtSelect.onchange = () => {
+        const cityId = citySelect.value;
+        const districtId = districtSelect.value;
+        if (!cityId || !districtId) {
+            return;
+        }
+        getWards(cityId, districtId);
+    };
+
+    /**
+     * Xử lý khi người dùng chọn danh mục cho BĐS
+     */
+
+    const categorySelect = estateForm.querySelector("select[name=category]");
+    const resortContainer = estateForm.querySelector("#resort");
+    const groundContainer = estateForm.querySelector("#ground");
+
+    const hiddenSubcategory = () => {
+        resortContainer.classList.add("hidden");
+        groundContainer.classList.add("hidden");
+    };
+
+    const showSubcategory = (category) => {
+        if (category === "nghi-duong" || category === "nha-pho") {
+            resortContainer.classList.remove("hidden");
+        } else if (category === "dat-nen") {
+            groundContainer.classList.remove("hidden");
+        }
+    };
+
+    categorySelect.onchange = () => {
+        hiddenSubcategory();
+        const category = categorySelect.value;
+        if (category) {
+            showSubcategory(category);
+        }
+    };
+
+    /**
+     * Xử lý khi người dùng chọn hình ảnh cho BĐS
+     */
 
     const youtubeInput = estateForm.querySelector("input[name=youtube]");
     const youtubeAvatarCheckbox = estateForm.querySelector("input[name=youtube_avatar]");
@@ -141,5 +335,13 @@ prepare((request, loading) => {
         if (isRerenderPreview) {
             renderImagesPreview();
         }
+    };
+
+    /**
+     * Xử lý khi nhấn nút đăng tin
+     */
+
+    estateForm.onsubmit = async (event, data) => {
+        console.log(data);
     };
 });

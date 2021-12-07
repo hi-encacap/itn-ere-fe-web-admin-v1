@@ -10,7 +10,36 @@ class EncacapForm {
         this.validationRoles = {};
         this.validationRole = "";
         this.disableInputs = [];
+        this.createNecessaryElements();
         this.setFocusStyle();
+    }
+
+    createNecessaryElements() {
+        const formGroups = this.querySelectorAll(".form-group");
+        formGroups.forEach((formGroup) => {
+            const formMessage = formGroup.querySelector(".form-message");
+            if (!formMessage) {
+                const message = document.createElement("div");
+                message.classList.add("form-message");
+                formGroup.appendChild(message);
+            }
+            const formOverlay = formGroup.querySelector(".form-overlay");
+            if (!formOverlay) {
+                const overlay = document.createElement("div");
+                overlay.classList.add("form-overlay");
+                formGroup.appendChild(overlay);
+            }
+            const formLoading = formGroup.querySelector(".form-loading");
+            if (!formLoading) {
+                const loading = document.createElement("div");
+                loading.classList.add("form-loading");
+                formGroup.appendChild(loading);
+            }
+        });
+    }
+
+    getForm() {
+        return this.form;
     }
 
     set onsubmit(callback) {
@@ -20,17 +49,19 @@ class EncacapForm {
             let isValid = true;
             const inputNames = Object.keys(this.validationRoles);
             const inputs = this.querySelectorAll("[name]");
-            inputs.forEach((input) => {
-                const inputName = input.name;
-                input.error.hide();
-                if (inputNames.includes(inputName)) {
-                    const errorMessage = this.getValidationMessage(input, this.validationRoles[inputName]);
-                    if (errorMessage) {
-                        input.error.show(errorMessage);
-                        isValid = false;
+            Array.from(inputs)
+                .reverse()
+                .forEach((input) => {
+                    const inputName = input.name;
+                    input.error.hide();
+                    if (inputNames.includes(inputName)) {
+                        const errorMessage = this.getValidationMessage(input, this.validationRoles[inputName]);
+                        if (errorMessage) {
+                            input.error.show(errorMessage);
+                            isValid = false;
+                        }
                     }
-                }
-            });
+                });
             if (isValid) {
                 const data = {};
                 inputs.forEach((input) => {
@@ -66,13 +97,14 @@ class EncacapForm {
         if (!customElement) return;
         const formGroup = customElement.closest(".form-group");
         const formBlock = customElement.closest(".form-block");
+
         customElement.loading = {
             show: () => {
-                formGroup.classList.add("loading");
+                formGroup?.classList.add("loading");
                 customElement.classList.add("loading");
             },
             hide: () => {
-                formGroup.classList.remove("loading");
+                formGroup?.classList.remove("loading");
                 customElement.classList.remove("loading");
             },
         };
@@ -87,13 +119,18 @@ class EncacapForm {
                 const formMessage = formGroup.querySelector(".form-message");
                 if (!formMessage) return;
                 formMessage.innerText = message;
+                element.scrollIntoView({ behavior: "smooth", block: "center" });
             },
             hide: () => {
                 if (formGroup) {
                     formGroup.classList.remove("error");
                 }
                 if (formBlock) {
-                    formBlock.classList.remove("error");
+                    const formGroups = formBlock.querySelectorAll(".form-group");
+                    const isHideError = Array.from(formGroups).some((fgr) => fgr.classList.contains("error"));
+                    if (!isHideError) {
+                        formBlock.classList.remove("error");
+                    }
                 }
                 const formMessage = formGroup.querySelector(".form-message");
                 if (!formMessage) return;
@@ -155,6 +192,7 @@ class EncacapForm {
     getValidationMessage(input, roles) {
         const rolesLength = roles.length;
         input.error.hide();
+        if (input.disabled) return;
         for (let i = 0; i < rolesLength; i += 1) {
             const role = roles[i];
             let roleValue;
@@ -211,6 +249,7 @@ class EncacapForm {
             formNotify.classList.add("success");
         }
         formNotify.classList.add("show");
+        this.form.scrollIntoView({ behavior: "smooth", block: "top" });
     }
 
     hideNotify() {

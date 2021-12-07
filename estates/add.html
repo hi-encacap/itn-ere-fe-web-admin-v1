@@ -155,7 +155,7 @@
             </div>
             <div class="grid grid-cols-2">
                 <form action="" class="form w-full" id="estate_form">
-                    <div class="form-body mb-10">
+                    <div class="form-body mb-16">
                         <div
                             class="
                                 form-notify
@@ -171,8 +171,8 @@
                             "
                         ></div>
                         <div class="form-group">
-                            <label for="estateId">Mã BĐS</label>
-                            <input type="text" name="estateId" id="estateId" placeholder="Nhập mã BĐS" />
+                            <label for="estate_id">Mã BĐS</label>
+                            <input type="text" name="estate_id" id="estate_id" placeholder="Nhập mã BĐS" />
                             <div class="form-message">Mã BĐS đã tồn tại</div>
                         </div>
                         <div class="form-block mt-4 border-2 border-gray-100 rounded-md">
@@ -180,7 +180,6 @@
                                 <label for="city"> Tỉnh, thành phố </label>
                                 <select name="city" id="city">
                                     <option value="">Chọn tỉnh, thành phố</option>
-                                    <option value="quang-ngai">Quảng Ngãi</option>
                                 </select>
                                 <div class="form-message">Tỉnh, thành phố không được phép để trống</div>
                                 <div class="form-line"></div>
@@ -243,12 +242,20 @@
                                 <label for="category"> Danh mục </label>
                                 <select name="category" id="category">
                                     <option value="">Chọn danh mục BĐS</option>
-                                    <option value="quang-ngai">Quảng Ngãi</option>
+                                    <option value="nghi-duong">Nghỉ dưỡng</option>
+                                    <option value="dat-nen">Đất nền</option>
+                                    <option value="nha-pho">Nhà phố</option>
                                 </select>
                                 <div class="form-message"></div>
                                 <div class="form-line"></div>
                             </div>
-                            <div id="resort">
+                            <div class="hidden" id="resort">
+                                <div class="form-group form-group--noborder">
+                                    <label for="living"> Phòng khách </label>
+                                    <input type="number" name="living" id="living" placeholder="Nhập số phòng ngủ" />
+                                    <div class="form-message"></div>
+                                    <div class="form-line"></div>
+                                </div>
                                 <div class="form-group form-group--noborder">
                                     <label for="bedroom"> Phòng ngủ </label>
                                     <input type="number" name="bedroom" id="bedroom" placeholder="Nhập số phòng ngủ" />
@@ -267,6 +274,20 @@
                                     <div class="form-line"></div>
                                 </div>
                             </div>
+                            <div class="hidden" id="ground">
+                                <div class="form-group form-group--noborder">
+                                    <label for="page"> Số tờ </label>
+                                    <input type="number" name="page" id="page" placeholder="Nhập số phòng ngủ" />
+                                    <div class="form-message"></div>
+                                    <div class="form-line"></div>
+                                </div>
+                                <div class="form-group form-group--noborder">
+                                    <label for="plot"> Số thửa </label>
+                                    <input type="number" name="plot" id="plot" placeholder="Nhập số phòng ngủ" />
+                                    <div class="form-message"></div>
+                                    <div class="form-line"></div>
+                                </div>
+                            </div>
                             <div class="form-group form-group--noborder">
                                 <label for="quarter"> Hướng </label>
                                 <select name="quarter" id="quarter">
@@ -276,7 +297,7 @@
                                 <div class="form-message"></div>
                             </div>
                         </div>
-                        <div class="form-group mt-4">
+                        <!-- <div class="form-group mt-4">
                             <label> Thông tin liên hệ </label>
                             <div class="flex items-center mt-4">
                                 <img src="/assets/images/encacap_logo.svg" alt="Contact Avatar" class="w-8 h-8 mr-4" />
@@ -299,6 +320,29 @@
                                 >
                                     Thay đổi
                                 </div>
+                            </div>
+                        </div> -->
+                        <div class="form-block mt-4 border-2 border-gray-100 rounded-md">
+                            <div class="form-group form-group--noborder">
+                                <label for="contact_name"> Thông tin liên hệ </label>
+                                <input
+                                    type="text"
+                                    name="contact_name"
+                                    id="contact_name"
+                                    placeholder="Nhập tên người nhận. VD: Nguyễn Văn A"
+                                />
+                                <div class="form-message"></div>
+                                <div class="form-line"></div>
+                            </div>
+                            <div class="form-group form-group--noborder">
+                                <label for="contact_phone"> Số điện thoại </label>
+                                <input
+                                    type="text"
+                                    name="contact_phone"
+                                    id="contact_phone"
+                                    placeholder="Nhập số điện thoại liên hệ"
+                                />
+                                <div class="form-message"></div>
                             </div>
                         </div>
                         <div class="form-group mt-4">
@@ -336,7 +380,6 @@
                                         Sử dụng ảnh đại diện Youtube làm ảnh đại diện cho bài viết
                                     </label>
                                 </div>
-                                <div class="form-overlay"></div>
                                 <div class="form-line"></div>
                             </div>
                             <div class="form-group form-group--noborder" id="avatar_container">
@@ -439,42 +482,44 @@
                                 <div class="form-message mt-1.5 mb-1 text-sm"></div>
                             </div>
                         </div>
-                        <div class="form-group footer flex mt-4 form-group--noborder">
-                            <button
-                                type="button"
-                                class="
-                                    btn
-                                    w-full
-                                    mr-4
-                                    border-2 border-gray-200
-                                    bg-gray-200
-                                    rounded-md
-                                    py-2
-                                    text-black
-                                    font-semibold
-                                    hover:bg-gray-300
-                                "
-                            >
-                                <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
-                                Lưu bản nháp
-                            </button>
-                            <button
-                                type="submit"
-                                class="
-                                    btn
-                                    w-full
-                                    border-2 border-encacap-main
-                                    bg-encacap-main
-                                    rounded-md
-                                    py-2
-                                    text-white
-                                    font-semibold
-                                    hover:bg-encacap-main-dark
-                                "
-                            >
-                                <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
-                                Xuất bản
-                            </button>
+                        <div class="flex mt-4 form-group--noborder">
+                            <div class="footer hidden">
+                                <button
+                                    type="button"
+                                    class="
+                                        btn
+                                        w-full
+                                        mr-4
+                                        border-2 border-gray-200
+                                        bg-gray-200
+                                        rounded-md
+                                        py-2
+                                        text-black
+                                        font-semibold
+                                        hover:bg-gray-300
+                                    "
+                                >
+                                    <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
+                                    Lưu bản nháp
+                                </button>
+                                <button
+                                    type="submit"
+                                    class="
+                                        btn
+                                        w-full
+                                        border-2 border-encacap-main
+                                        bg-encacap-main
+                                        rounded-md
+                                        py-2
+                                        text-white
+                                        font-semibold
+                                        hover:bg-encacap-main-dark
+                                    "
+                                >
+                                    <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
+                                    Xuất bản
+                                </button>
+                            </div>
                         </div>
                     </div>
                 </form>

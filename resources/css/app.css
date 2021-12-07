@@ -20,6 +20,8 @@
 }
 
 .form {
+    @apply relative;
+
     * {
         @apply transition-colors duration-100;
     }
@@ -64,7 +66,7 @@
         @apply absolute top-0 left-0 right-0 bottom-0 z-10 bg-white bg-opacity-60 hidden rounded-md;
     }
     &-line {
-        @apply w-full border-t-2 border-gray-100 absolute z-10 bottom-0;
+        @apply w-full border-t-2 border-gray-100 absolute z-20 bottom-0;
         width: calc(100% - 3rem);
 
         &--tall {
@@ -107,6 +109,13 @@
             @apply text-encacap-main;
         }
     }
+    &-block {
+        @apply overflow-hidden;
+    }
+    &-block &-group,
+    &-block &-overlay {
+        @apply rounded-none;
+    }
     &-block.focus {
         @apply border-encacap-main;
     }
@@ -117,9 +126,10 @@
         @apply border-none;
     }
     &-loading {
-        @apply absolute top-12 right-6 z-20 hidden w-4 h-4 rounded-full border-2 border-encacap-main animate-spin;
+        @apply absolute z-20 hidden w-4 h-4 rounded-full border-2 border-encacap-main animate-spin;
 
-        top: 53px;
+        top: 45.5px;
+        right: 28.5px;
         border-top-color: transparent;
     }
     &-group.loading &-loading {
@@ -193,6 +203,13 @@
 
         &-group.has-items &-container {
             @apply flex;
+        }
+    }
+
+    .footer {
+        @apply fixed z-50 bottom-0 flex py-4 bg-white;
+        button {
+            @apply w-full;
         }
     }
 }

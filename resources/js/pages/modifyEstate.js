@@ -1,7 +1,9 @@
 const validator = require("validator");
+const axios = require("axios");
 const prepare = require("../utils/prepare");
 const EncacapForm = require("../utils/form");
 const EncacapFiles = require("../utils/files");
+const EncacapModal = require("../utils/modal");
 const { generateYoutubePreview } = require("../utils/helpers");
 
 const createPreviewImage = (file) => {
@@ -45,62 +47,62 @@ const renderOptions = (select, options, selected) => {
 prepare(async (request) => {
     const estateForm = new EncacapForm("#estate_form");
 
-    estateForm.validate({
-        city: [
-            {
-                role: "required",
-                message: "Tỉnh, thành phố không được phép để trống",
-            },
-        ],
-        district: [
-            {
-                role: "required",
-                message: "Quận, huyện không được phép để trống",
-            },
-        ],
-        ward: [
-            {
-                role: "required",
-                message: "Xã, phường, thị trấn không được phép để trống",
-            },
-        ],
-        title: [
-            {
-                role: "required",
-                message: "Tiêu đề không được phép để trống",
-            },
-        ],
-        price: [
-            {
-                role: "required",
-                message: "Giá bán không được phép để trống",
-            },
-        ],
-        area: [
-            {
-                role: "required",
-                message: "Diện tích không được phép để trống",
-            },
-        ],
-        category: [
-            {
-                role: "required",
-                message: "Danh mục không được phép để trống",
-            },
-        ],
-        contact_name: [
-            {
-                role: "required",
-                message: "Thông tin liên hệ không được phép để trống",
-            },
-        ],
-        contact_phone: [
-            {
-                role: "required",
-                message: "Số điện thoại không được phép để trống",
-            },
-        ],
-    });
+    // estateForm.validate({
+    //     city: [
+    //         {
+    //             role: "required",
+    //             message: "Tỉnh, thành phố không được phép để trống",
+    //         },
+    //     ],
+    //     district: [
+    //         {
+    //             role: "required",
+    //             message: "Quận, huyện không được phép để trống",
+    //         },
+    //     ],
+    //     ward: [
+    //         {
+    //             role: "required",
+    //             message: "Xã, phường, thị trấn không được phép để trống",
+    //         },
+    //     ],
+    //     title: [
+    //         {
+    //             role: "required",
+    //             message: "Tiêu đề không được phép để trống",
+    //         },
+    //     ],
+    //     price: [
+    //         {
+    //             role: "required",
+    //             message: "Giá bán không được phép để trống",
+    //         },
+    //     ],
+    //     area: [
+    //         {
+    //             role: "required",
+    //             message: "Diện tích không được phép để trống",
+    //         },
+    //     ],
+    //     category: [
+    //         {
+    //             role: "required",
+    //             message: "Danh mục không được phép để trống",
+    //         },
+    //     ],
+    //     contact_name: [
+    //         {
+    //             role: "required",
+    //             message: "Thông tin liên hệ không được phép để trống",
+    //         },
+    //     ],
+    //     contact_phone: [
+    //         {
+    //             role: "required",
+    //             message: "Số điện thoại không được phép để trống",
+    //         },
+    //     ],
+    // });
 
     /**
      * Tạo hiệu ứng cho cái nút ở cuối form
@@ -223,6 +225,7 @@ prepare(async (request) => {
     const avatarInput = avatarContainer.querySelector("input");
 
     const renderAvatarPreview = (file = null) => {
+        avatarInput.error.hide();
         if (!file) {
             avatarImagesGroup.classList.remove("has-items");
             return;
@@ -341,7 +344,64 @@ prepare(async (request) => {
      * Xử lý khi nhấn nút đăng tin
      */
 
+    const submitButton = estateForm.querySelector("button[type=submit]");
+
+    // const progressModel = new EncacapModal("#progressModel");
+    // const signatureProgressElement = document.querySelector("#signature_progress");
+    // const avatarProgressElement = document.querySelector("#avatar_progress");
+    // const imagesProgressElement = document.querySelector("#images_progress");
+    // const saveProgressElement = document.querySelector("#save_progress");
+    // const loadingElement = `<div class="spinner w-4 h-4 border-2 border-encacap-main rounded-full"></div>`;
+    // const successElement = `<div class="w-4 h-4 rounded-full border-2 border-green-500 bg-green-500"></div>`;
+    // const errorElement = `<div class="w-4 h-4 rounded-full border-2 border-red-500 bg-red-500"></div>`;
+
+    const estateData = {
+        avatar: {},
+        pictures: [],
+    };
+
     estateForm.onsubmit = async (event, data) => {
-        console.log(data);
+        submitButton.loading.show();
+        // Kiểm tra xem có ảnh đại diện không
+        if (!youtubeAvatarCheckbox.checked && avatarInput.files.length === 0) {
+            submitButton.loading.hide();
+            avatarInput.error.show("Ảnh đại diện không được phép để trống");
+            estateForm.enable();
+            return;
+        }
+
+        let signature;
+
+        try {
+            const { data: response } = await request.get("images/signature");
+            signature = response;
+        } catch (error) {
+            estateForm.showError("Đã xảy ra lỗi khi kết nối với máy chủ.", error.response.data || error);
+            return;
+        }
+
+        const cloudinaryInstance = axios.create({
+            baseURL: "https://api.cloudinary.com/v1_1",
+        });
+
+        if (avatarInput.files.length > 0) {
+            try {
+                const formData = new FormData();
+                const file = avatarInput.files[0];
+                formData.append("file", file);
+                formData.append("api_key", signature.key);
+                formData.append("eager", signature.eager);
+                formData.append("folder", signature.folder);
+                formData.append("timestamp", signature.timestamp);
+                formData.append("signature", signature.signature);
+                const image = await cloudinaryInstance.post(`${signature.name}/image/upload`, formData);
+                estateData.avatar = image.data;
+            } catch (error) {
+                estateForm.showError("Đã xảy ra lỗi khi tải lên ảnh đại diện.", error.response.data || error);
+                return;
+            }
+        }
+
+        console.log(estateData);
     };
 });

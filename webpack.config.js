@@ -6,7 +6,7 @@ module.exports = {
         home: ["./resources/js/pages/home.js"],
         location_management: ["./resources/js/pages/locationManagement.js"],
         login: ["./resources/js/pages/login.js"],
-        estates: ["./resources/js/pages/estates.js"],
+        modify_estate: ["./resources/js/pages/modifyEstate.js"],
     },
     output: {
         filename: "[name].min.js",

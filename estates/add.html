@@ -525,6 +525,63 @@
                 </form>
             </div>
         </main>
-        <script src="/assets/js/estates.min.js"></script>
+        <div
+            class="modal fixed top-0 left-0 right-0 bottom-0 z-90 hidden bg-black bg-opacity-50 overflow-y-auto"
+            id="progressModel"
+        >
+            <div class="w-full max-w-mobile m-auto border-2 border-gray-100 rounded-md bg-white p-10 pt-6">
+                <div class="font-semibold">
+                    <div class="mt-2 pb-6">Đang lưu bài viết, vui lòng đợi...</div>
+                    <div class="w-20 h-1 mt-1 rounded-md bg-gray-100"></div>
+                </div>
+                <div class="mt-10 border-2 border-gray-100 rounded-md px-6">
+                    <div class="flex items-center py-4 border-b-2 border-gray-100" id="signature_progress">
+                        <div class="mr-4 mt-0.5">
+                            <div class="w-4 h-4 rounded-full border-2 border-gray-200"></div>
+                            <!-- <div class="spinner w-4 h-4 border-2 border-encacap-main rounded-full"></div> -->
+                            <!-- <div class="w-4 h-4 rounded-full border-2 border-green-500 bg-green-500"></div> -->
+                            <!-- <div class="w-4 h-4 rounded-full border-2 border-red-500 bg-red-500"></div> -->
+                        </div>
+                        <div>Kết nối với máy chủ</div>
+                    </div>
+                    <div class="flex items-center border-b-2 border-gray-100 py-4" id="avatar_progress">
+                        <div class="mr-4">
+                            <div class="w-4 h-4 rounded-full border-2 border-gray-200"></div>
+                        </div>
+                        <div>Tải lên ảnh đại diện</div>
+                    </div>
+                    <div class="flex items-center border-b-2 border-gray-100 py-4" id="images_progress">
+                        <div class="mr-4">
+                            <div class="w-4 h-4 rounded-full border-2 border-gray-200"></div>
+                        </div>
+                        <div>Tải lên hình ảnh</div>
+                    </div>
+                    <div class="flex items-center py-4" id="save_progress">
+                        <div class="mr-4">
+                            <div class="w-4 h-4 rounded-full border-2 border-gray-200"></div>
+                        </div>
+                        <div>Lưu thông tin bài viết</div>
+                    </div>
+                </div>
+                <button
+                    type="submit"
+                    class="
+                        btn
+                        w-full
+                        mt-6
+                        border-2 border-encacap-main
+                        bg-encacap-main
+                        rounded-md
+                        py-2
+                        text-white
+                        font-semibold
+                        hover:bg-encacap-main-dark
+                    "
+                >
+                    Xác nhận
+                </button>
+            </div>
+        </div>
+        <script src="/assets/js/modify_estate.min.js"></script>
     </body>
 </html>

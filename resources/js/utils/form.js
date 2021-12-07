@@ -238,7 +238,7 @@ class EncacapForm {
         if (typeof error === "object") {
             errorMessage += `
                 <div class="mt-2 text-sm text-black font-normal">
-                    <span class="font-semibold">Chi tiết:</span> ${error.stack || error.message}
+                    <span class="font-semibold">Chi tiết:</span> ${error.message}
                 </div>
             `;
         }
@@ -249,7 +249,7 @@ class EncacapForm {
             formNotify.classList.add("success");
         }
         formNotify.classList.add("show");
-        this.form.scrollIntoView({ behavior: "smooth", block: "top" });
+        formNotify.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 
     hideNotify() {

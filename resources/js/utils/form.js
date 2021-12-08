@@ -249,7 +249,7 @@ class EncacapForm {
             formNotify.classList.add("success");
         }
         formNotify.classList.add("show");
-        formNotify.scrollIntoView({ behavior: "smooth", block: "start" });
+        window.scrollTo(0, this.form.offsetTop - 200);
     }
 
     hideNotify() {

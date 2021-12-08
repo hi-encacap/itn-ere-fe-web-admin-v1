@@ -40,8 +40,7 @@ module.exports = (callback, options) => {
             loading.hide();
             callback(axios, loading);
         } catch (error) {
-            // eslint-disable-next-line no-console
-            console.log(error);
+            redirect.login();
         }
     };
 };

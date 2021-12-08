@@ -34,6 +34,10 @@ class EncacapFiles {
     getFiles() {
         return this.files;
     }
+
+    get length() {
+        return this.files.length;
+    }
 }
 
 module.exports = EncacapFiles;

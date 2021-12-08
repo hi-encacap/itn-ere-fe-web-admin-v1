@@ -233,7 +233,7 @@
                             </div>
                             <div class="form-group form-group--noborder">
                                 <label for="area"> Diện tích </label>
-                                <input type="text" name="area" id="area" placeholder="Nhập diện tích BĐS" />
+                                <input type="number" name="area" id="area" placeholder="Nhập diện tích BĐS" />
                                 <div class="form-message"></div>
                             </div>
                         </div>
@@ -251,8 +251,13 @@
                             </div>
                             <div class="hidden" id="resort">
                                 <div class="form-group form-group--noborder">
-                                    <label for="living"> Phòng khách </label>
-                                    <input type="number" name="living" id="living" placeholder="Nhập số phòng ngủ" />
+                                    <label for="living_room"> Phòng khách </label>
+                                    <input
+                                        type="number"
+                                        name="living_room"
+                                        id="living_room"
+                                        placeholder="Nhập số phòng ngủ"
+                                    />
                                     <div class="form-message"></div>
                                     <div class="form-line"></div>
                                 </div>
@@ -289,8 +294,8 @@
                                 </div>
                             </div>
                             <div class="form-group form-group--noborder">
-                                <label for="quarter"> Hướng </label>
-                                <select name="quarter" id="quarter">
+                                <label for="direction"> Hướng </label>
+                                <select name="direction" id="direction">
                                     <option value="">Chọn hướng BĐS</option>
                                     <option value="quang-ngai">Quảng Ngãi</option>
                                 </select>
@@ -499,7 +504,7 @@
                                         hover:bg-gray-300
                                     "
                                 >
-                                    <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
+                                    <div class="spinner w-4 h-4 mr-4 rounded-full border-2 border-white"></div>
                                     Lưu bản nháp
                                 </button>
                                 <button
@@ -516,7 +521,7 @@
                                         hover:bg-encacap-main-dark
                                     "
                                 >
-                                    <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
+                                    <div class="spinner w-4 h-4 mr-4 rounded-full border-2 border-white"></div>
                                     Xuất bản
                                 </button>
                             </div>

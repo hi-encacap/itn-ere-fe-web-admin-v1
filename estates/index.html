@@ -36,11 +36,11 @@
                     flex
                     items-center
                     -mr-px
-                    border-r-4 border-encacap-main
+                    border-r-4 border-transparent
                     px-10
                     py-4
                     font-semibold
-                    text-encacap-main
+                    hover:text-encacap-main
                 "
             >
                 <div class="flex items-center justify-center w-10 mr-4">
@@ -57,16 +57,16 @@
                 <div>Tổng quan</div>
             </a>
             <a
-                href="/location/"
+                href="/estates/"
                 class="
                     flex
                     items-center
                     -mr-px
-                    border-r-4 border-transparent
+                    border-r-4 border-encacap-main
                     px-10
                     py-4
                     font-semibold
-                    hover:text-encacap-main
+                    text-encacap-main
                 "
             >
                 <div class="flex items-center justify-center w-10 mr-4">
@@ -90,7 +90,7 @@
                 <div>Quản lý bài viết</div>
             </a>
             <a
-                href="/location/"
+                href="/locations/"
                 class="
                     flex
                     items-center
@@ -120,13 +120,13 @@
             </a>
         </nav>
         <main class="ml-80 px-10">
-            <div class="flex items-center justify-between mb-10 border-b-2 border-gray-100 font-semibold">
+            <div class="flex items-center justify-between border-b-2 border-gray-100 font-semibold">
                 <div>
                     <div class="flex items-center h-20">Quản lý bài viết</div>
                     <div class="w-full h-1 -mt-1 rounded-md bg-gray-100 -mb-0.5"></div>
                 </div>
                 <a
-                    href="./add.html"
+                    href="./modify.html"
                     class="
                         flex
                         items-center
@@ -155,6 +155,31 @@
                     Thêm bài viết mới
                 </a>
             </div>
+            <div class="">
+                <input
+                    type="text"
+                    name="search"
+                    id="search"
+                    class="
+                        w-full
+                        my-5
+                        rounded-md
+                        px-4
+                        py-4
+                        ring-2 ring-gray-100
+                        border-none
+                        outline-none
+                        focus:ring-encacap-main
+                    "
+                    placeholder="Nhập mã bất động sản và để tìm kiếm"
+                />
+            </div>
+            <div
+                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4"
+                id="estates_container"
+            ></div>
+            <div class="hidden" id="page">1</div>
         </main>
+        <script src="/assets/js/estate_management.min.js"></script>
     </body>
 </html>

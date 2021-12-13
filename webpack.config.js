@@ -7,6 +7,7 @@ module.exports = {
         location_management: ["./resources/js/pages/locationManagement.js"],
         login: ["./resources/js/pages/login.js"],
         modify_estate: ["./resources/js/pages/modifyEstate.js"],
+        estate_management: ["./resources/js/pages/estateManagement.js"],
     },
     output: {
         filename: "[name].min.js",

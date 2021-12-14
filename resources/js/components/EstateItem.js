@@ -47,9 +47,9 @@ module.exports = (data) => {
             </div>
             <div class="mb-1 md:mb-2 md:mt-2 line-clamp-1">
                 <span>${data.price}</span>
-                <span class="px-1 md:px-2 text-gray-400">·</span>
+                <span class="px-1 text-gray-400">·</span>
                 <span>${data.area}</span>
-                <span class="px-1 md:px-2 text-gray-400">·</span>
+                <span class="px-1 text-gray-400">·</span>
                 <span>${data.location.city.name}</span>
             </div>
         </div>
@@ -123,6 +123,7 @@ module.exports = (data) => {
                         duration-200
                         hover:bg-gray-200
                     "
+                    data-id="${data.id}"
                 >
                     Xoá
                 </div>

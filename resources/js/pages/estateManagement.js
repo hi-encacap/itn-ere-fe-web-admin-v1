@@ -1,4 +1,6 @@
 const prepare = require("../utils/prepare");
+const EncacapModal = require("../utils/modal");
+const EncacapForm = require("../utils/form");
 const EstateItem = require("../components/EstateItem");
 
 prepare(async (request) => {
@@ -64,11 +66,50 @@ prepare(async (request) => {
 
     await getEstates();
 
+    const confirmDeleteModal = new EncacapModal("#confirmDeleteModal");
+    const confirmDeleteForm = new EncacapForm("#confirmDeleteForm");
+    const confirmDeleteButton = confirmDeleteForm.querySelector("button[type=submit]");
+    const deletedTitle = document.querySelector("#deletedTitle");
+
     estatesContainer.onclick = async (event) => {
         const moveToTopButton = event.target.closest(".move-to-top");
+        const moveToTrash = event.target.closest(".move-to-trash");
         if (moveToTopButton) {
             moveToTopButton.querySelector(".spinner").classList.remove("hidden");
             moveToTop(moveToTopButton.dataset.id);
+            return;
+        }
+        if (moveToTrash) {
+            const deletedEstateId = moveToTrash.dataset.id;
+            confirmDeleteModal.show();
+            confirmDeleteButton.dataset.id = deletedEstateId;
+            confirmDeleteButton.enable();
+            confirmDeleteButton.loading.hide();
+
+            const deletedEstate = estates.find((estate) => estate.id === deletedEstateId);
+
+            deletedTitle.innerHTML = `
+                <strong>#${deletedEstate.customId}</strong>
+                ${deletedEstate.title}
+            `;
+        }
+    };
+
+    confirmDeleteButton.onclick = async (event) => {
+        const { id: estateId } = confirmDeleteButton.dataset;
+        event.preventDefault();
+        confirmDeleteForm.disable();
+        confirmDeleteButton.loading.show();
+
+        try {
+            await request.delete(`estates/${estateId}`);
+            confirmDeleteModal.hide();
+            estates = estates.filter((estate) => estate.id !== estateId);
+            renderEstates();
+        } catch (error) {
+            confirmDeleteForm.showError("Đã xảy ra lỗi khi xoá bài viết.", error);
+            confirmDeleteForm.enable();
+            confirmDeleteButton.loading.hide();
         }
     };
 });

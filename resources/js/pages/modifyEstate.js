@@ -161,7 +161,7 @@ prepare(async (request) => {
             wardSelect.loading.hide();
             wardSelect.enable();
         } catch (error) {
-            estateForm.showError("Đã xảy ra lỗi khi tải dữ liệu xã, phường, thị trấn.", error.response.data || error);
+            estateForm.showError("Đã xảy ra lỗi khi tải dữ liệu xã, phường, thị trấn.", error?.response.data || error);
         }
     };
 
@@ -174,7 +174,7 @@ prepare(async (request) => {
             districtSelect.loading.hide();
             districtSelect.enable();
         } catch (error) {
-            estateForm.showError("Đã xảy ra lỗi khi tải dữ liệu quận, huyện.", error.response.data || error);
+            estateForm.showError("Đã xảy ra lỗi khi tải dữ liệu quận, huyện.", error?.response.data || error);
         }
     };
 
@@ -187,7 +187,7 @@ prepare(async (request) => {
             citySelect.loading.hide();
             citySelect.enable();
         } catch (error) {
-            estateForm.showError("Đã xảy ra lỗi khi tải dữ liệu tỉnh, thành phố.", error.response.data || error);
+            estateForm.showError("Đã xảy ra lỗi khi tải dữ liệu tỉnh, thành phố.", error?.response.data || error);
         }
     };
 
@@ -408,10 +408,11 @@ prepare(async (request) => {
     };
 
     estateForm.onsubmit = async (event, data) => {
+        const unexpectedKeys = ["avatar", "images", "youtube_avatar"];
         estateData = Object.assign(
             estateData,
             Object.keys(data).reduce((acc, key) => {
-                if (key === "avatar" || key === "images" || key === "youtube_avatar" || key === "name") {
+                if (unexpectedKeys.includes(key)) {
                     return acc;
                 }
                 return {
@@ -431,13 +432,41 @@ prepare(async (request) => {
             return;
         }
 
+        // Kiểm tra xem Mã bất động sản có bị trùng không
+        if (estateData.estate_id) {
+            const customEstateId = estateData.estate_id;
+            try {
+                const { data: estate } = await request.get(`estates/${customEstateId}`);
+                if (estate) {
+                    const customIdInput = estateForm.querySelector("#estate_id");
+                    customIdInput.error.show("Mã bất động sản đã tồn tại");
+                    estateForm.enable();
+                    submitButton.loading.hide();
+                    return;
+                }
+            } catch (error) {
+                const errorStatus = error?.response.status;
+                if (errorStatus !== 404) {
+                    estateForm.showError(
+                        "Đã xảy ra lỗi khi kiểm tra tính khả dụng của 'Mã BĐS'",
+                        error?.response.data || error
+                    );
+                    estateForm.enable();
+                    submitButton.loading.hide();
+                    return;
+                }
+            }
+        }
+
         let signature;
 
         try {
             const { data: response } = await request.get("images/signature");
             signature = response;
         } catch (error) {
-            estateForm.showError("Đã xảy ra lỗi khi kết nối với máy chủ.", error.response.data || error);
+            estateForm.showError("Đã xảy ra lỗi khi kết nối với máy chủ.", error?.response.data || error);
+            estateForm.enable();
+            submitButton.loading.hide();
             return;
         }
 
@@ -446,7 +475,9 @@ prepare(async (request) => {
                 const { data: avatarResponse } = await uploadImage(avatarInput.files[0], signature);
                 estateData.avatar = normalizeImageData({ ...avatarResponse, ...signature });
             } catch (error) {
-                estateForm.showError("Đã xảy ra lỗi khi tải lên ảnh đại diện.", error.response.data || error);
+                estateForm.showError("Đã xảy ra lỗi khi tải lên ảnh đại diện.", error?.response.data || error);
+                estateForm.enable();
+                submitButton.loading.hide();
                 return;
             }
         } else {
@@ -461,7 +492,9 @@ prepare(async (request) => {
                     normalizeImageData({ ...imageResponse.data, ...signature })
                 );
             } catch (error) {
-                estateForm.showError("Đã xảy ra lỗi khi tải lên ảnh.", error.response.data || error);
+                estateForm.showError("Đã xảy ra lỗi khi tải lên ảnh.", error?.response.data || error);
+                estateForm.enable();
+                submitButton.loading.hide();
                 return;
             }
         }
@@ -469,7 +502,7 @@ prepare(async (request) => {
             const { data: responses } = await request.post("estates", estateData);
             window.location.href = `./modify.html?id=${responses.id}&notification=Đã+xuất+bản+bài+viết+thành+công`;
         } catch (error) {
-            estateForm.showError("Đã xảy ra lỗi khi lưu thông tin bài viết.", error.response.data || error);
+            estateForm.showError("Đã xảy ra lỗi khi lưu thông tin bài viết.", error?.response.data || error);
             estateForm.enable();
             submitButton.loading.hide();
             // Phải xoá ảnh đại diện và ảnh bổ sung để không bị lưu lại

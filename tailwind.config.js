@@ -3,8 +3,8 @@ const lineClampPlugin = require("@tailwindcss/line-clamp");
 
 module.exports = {
     mode: process.env.NODE_ENV === "production" ? "jit" : "",
-    purge: ["./**/*.html", "./resources/**/*.js"],
-    darkMode: false, // or 'media' or 'class'
+    content: ["./**/*.html", "./resources/**/*.js"],
+    darkMode: "media", // or 'media' or 'class'
     theme: {
         extend: {
             colors: {

@@ -6,7 +6,7 @@ module.exports = {
         home: ["./resources/js/pages/home.js"],
         location_management: ["./resources/js/pages/locationManagement.js"],
         login: ["./resources/js/pages/login.js"],
-        modify_estate: ["./resources/js/pages/modifyEstate.js"],
+        estate_modification: ["./resources/js/pages/estateModification.js"],
         estate_management: ["./resources/js/pages/estateManagement.js"],
     },
     output: {

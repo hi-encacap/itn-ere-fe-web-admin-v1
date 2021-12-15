@@ -211,6 +211,9 @@
         button {
             @apply w-full;
         }
+        &--hide {
+            @apply hidden;
+        }
     }
 }
 

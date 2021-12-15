@@ -1,0 +1,104 @@
+@import "froala-editor/css/froala_editor.css";
+
+.fr {
+    &-box {
+        @apply overflow-hidden;
+    }
+
+    &-toolbar,
+    &-wrapper,
+    &-second-toolbar {
+        @apply border-none !important;
+    }
+
+    &-basic {
+        @apply mt-4 rounded-none !important;
+    }
+
+    &-toolbar {
+        @apply mt-0 bg-gray-100 rounded-md pt-1 px-1 !important;
+    }
+
+    &-btn-grp {
+        @apply relative float-none ml-0 pr-4 !important;
+
+        &::before {
+            @apply absolute top-3 right-0 h-6 border-r-2 border-gray-200;
+
+            content: "";
+        }
+    }
+
+    &-more-toolbar {
+        @apply relative -left-1 -right-1 bg-gray-200 rounded-b-md !important;
+
+        width: calc(100% + 0.5rem) !important;
+    }
+
+    &-open {
+        @apply bg-gray-200 my-1 rounded-md !important;
+    }
+
+    &-newline {
+        @apply hidden mx-0 h-0 border-t-2 border-gray-100 !important;
+    }
+
+    &-view {
+        @apply border-b-2 border-gray-100 px-px py-4 text-base !important;
+
+        * {
+            @apply font-sans !important;
+        }
+
+        min-height: 240px !important;
+    }
+
+    &-placeholder {
+        @apply font-sans text-black !important;
+    }
+
+    &-second-toolbar {
+        @apply border-t-2 border-gray-100 !important;
+    }
+
+    &-second-toolbar a {
+        @apply flex items-center mt-4 !important;
+        span {
+            @apply mt-1 py-0 float-none px-px !important;
+        }
+        svg {
+            @apply ml-1 my-0 !important;
+        }
+    }
+
+    &-popup {
+        @apply shadow-md !important;
+    }
+
+    &-wrapper {
+        p {
+            @apply relative !important;
+        }
+
+        img {
+            @apply w-1/2 mx-auto border-2 border-gray-100 rounded-md !important;
+        }
+
+        .fr-img-wrap {
+            img {
+                @apply rounded-b-none border-b-0 !important;
+            }
+            span {
+                @apply block w-full py-2 rounded-b-md bg-gray-100 text-center text-sm;
+            }
+        }
+    }
+
+    &-image-resizer {
+        @apply h-0 z-60 !important;
+    }
+
+    &-sticky-on {
+        @apply top-4 !important;
+    }
+}

@@ -4,7 +4,7 @@ module.exports = (data) => {
     element.innerHTML = `
         <div class="h-32 bg-gray-100">
             <img
-                src="${data.avatar.origin}"
+                src="${data.avatar.thumbnail}"
                 class="w-full h-full object-cover object-center rounded-md"
                 alt="${data.title}"
             />

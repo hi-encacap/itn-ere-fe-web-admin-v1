@@ -4,20 +4,8 @@ const prepare = require("../utils/prepare");
 const EncacapForm = require("../utils/form");
 const EncacapFiles = require("../utils/files");
 // const EncacapModal = require("../utils/modal");
-const { generateYoutubePreview, handleURL } = require("../utils/helpers");
-
-const createPreviewImage = (file) => {
-    if (!file) return;
-    if (typeof file === "object") {
-        if (file.lastModified) {
-            return URL.createObjectURL(file);
-        }
-    } else if (typeof file === "string") {
-        if (file.includes("youtube")) {
-            return generateYoutubePreview(file);
-        }
-    }
-};
+const { createPreviewImage, handleURL } = require("../utils/helpers");
+const { normalizeImageData } = require("../utils/cloudinary");
 
 const createOption = (value, text, selected) => {
     const option = document.createElement("option");
@@ -42,29 +30,6 @@ const renderOptions = (select, options, selected) => {
         const optionElement = createOption(id, name, id === selected);
         selectElement.appendChild(optionElement);
     });
-};
-
-const normalizeImageData = (data) => {
-    if (typeof data === "string") {
-        const youtubeId = handleURL(data).query("v");
-        return {
-            origin: "https://img.youtube.com",
-            name: "vi",
-            resourceType: "video",
-            publicId: youtubeId,
-            format: "sddefault.jpg",
-        };
-    }
-    const { name, resource_type: resourceType, type: action, version, public_id: publicId, format } = data;
-    return {
-        origin: "http://res.cloudinary.com",
-        resourceType,
-        name,
-        action,
-        version,
-        publicId,
-        format,
-    };
 };
 
 prepare(async (request) => {
@@ -426,8 +391,8 @@ prepare(async (request) => {
 
         // Kiểm tra xem có ảnh đại diện không
         if (!youtubeAvatarCheckbox.checked && avatarInput.files.length === 0) {
-            submitButton.loading.hide();
             avatarInput.error.show("Ảnh đại diện không được phép để trống");
+            submitButton.loading.hide();
             estateForm.enable();
             return;
         }
@@ -498,6 +463,7 @@ prepare(async (request) => {
                 return;
             }
         }
+
         try {
             const { data: responses } = await request.post("estates", estateData);
             window.location.href = `./modify.html?id=${responses.id}&notification=Đã+xuất+bản+bài+viết+thành+công`;

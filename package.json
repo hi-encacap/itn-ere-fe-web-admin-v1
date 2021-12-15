@@ -7,7 +7,7 @@
         "start": "pm2 start ecosystem.config.json --no-daemon",
         "dev": "cross-env NODE_ENV=development nodemon src/index.js",
         "dev:nomailer": "cross-env NODE_ENV=development nodemon src/index.js --nomailer",
-        "postcss": "postcss ./resources/css/app.css ./resources/css/tomselect.css -d ./assets/css/ --map --ext .min.css",
+        "postcss": "postcss ./resources/css/app.css ./resources/css/tomselect.css ./resources/css/froala.css -d ./assets/css/ --map --ext .min.css",
         "webpack": "webpack --config webpack.config.js",
         "build:css": "cross-env NODE_ENV=production npm run postcss",
         "build:css:full": "cross-env NODE_ENV=development npm run postcss",
@@ -57,6 +57,7 @@
     "dependencies": {
         "axios": "^0.24.0",
         "dayjs": "^1.10.7",
+        "froala-editor": "^4.0.7",
         "nanoid": "^3.1.30",
         "tom-select": "^2.0.0-rc.5",
         "validator": "^13.7.0"

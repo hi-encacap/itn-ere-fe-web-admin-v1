@@ -10,7 +10,7 @@ const prepare = require("../utils/prepare");
 const EncacapForm = require("../utils/form");
 const EncacapFiles = require("../utils/files");
 
-const { createPreviewImage } = require("../utils/helpers");
+const { createPreviewImage, handleURL } = require("../utils/helpers");
 const { normalizeImageData, getImageURL } = require("../utils/cloudinary");
 
 const convertStringToHTML = (string) => {
@@ -38,6 +38,9 @@ prepare(async (request) => {
     });
 
     const submitButton = newsForm.querySelector("button[type=submit]");
+    const secondaryButton = newsForm.querySelector("button[type=button]");
+    const titleInput = newsForm.querySelector("input[name=title]");
+    const categorySelect = newsForm.querySelector("select[name=category]");
 
     const froala = new FroalaEditor("#content", {
         placeholderText: "Nhập nội dung tin tức",
@@ -57,6 +60,34 @@ prepare(async (request) => {
         pictures: [],
     };
 
+    const newsId = handleURL(window.location.href).query("id");
+
+    if (newsId) {
+        try {
+            const { data } = await request.get(`news/${newsId}`);
+
+            newsData = data;
+
+            froala.html.set(data.decodedContent);
+
+            titleInput.value = data?.title;
+            categorySelect.value = data.category?.slug || "";
+
+            submitButton.querySelector("span").innerText = "Cập nhật";
+
+            if (data.isPublished) {
+                submitButton.dataset.action = "publish";
+                secondaryButton.style.display = "none";
+            } else {
+                submitButton.dataset.action = "save";
+                secondaryButton.dataset.action = "publish";
+                secondaryButton.querySelector("span").innerText = "Xuất bản";
+            }
+        } catch (error) {
+            newsForm.showError("Đã xảy ra lỗi khi lấy thông tin tin tức.", error.response?.data || error);
+        }
+    }
+
     const avatarContainer = newsForm.querySelector("#avatar_container");
     const avatarImagesGroup = avatarContainer.querySelector(".form-images-group");
     const avatarImage = avatarContainer.querySelector(".form-images-preview img");
@@ -71,6 +102,10 @@ prepare(async (request) => {
         avatarImage.src = createPreviewImage(file);
         avatarImagesGroup.classList.add("has-items");
     };
+
+    if (newsData?.avatar?.origin) {
+        renderAvatarPreview(newsData.avatar);
+    }
 
     avatarInput.onchange = () => {
         const avatarFile = avatarInput.files[0];
@@ -95,33 +130,47 @@ prepare(async (request) => {
         return cloudinaryInstance.post(`${name}/image/upload`, formData);
     };
 
-    newsForm.onsubmit = async (event, data) => {
+    const handleSubmit = async (validation = true) => {
+        if (validation) {
+            if (!newsForm.executeValidation()) {
+                return;
+            }
+        }
+
+        newsForm.disable();
+
+        const inputData = newsForm.getData();
         const unexpectedKeys = ["avatar"];
         newsData = Object.assign(
             newsData,
-            Object.keys(data).reduce((acc, key) => {
+            Object.keys(inputData).reduce((acc, key) => {
                 if (unexpectedKeys.includes(key)) {
                     return acc;
                 }
                 return {
                     ...acc,
-                    [key]: data[key].value,
+                    [key]: inputData[key].value,
                 };
             }, {})
         );
 
+        newsData.isPublished = validation;
+
         const newsContentString = froala.html.get();
         const newsContentHTML = convertStringToHTML(newsContentString);
 
-        submitButton.loading.show();
+        let totalNewImages = 0;
 
         const avatarFile = avatarInput.files[0];
 
-        if (!avatarFile) {
-            avatarInput.error.show("Ảnh đại diện không được phép để trống");
-            submitButton.loading.hide();
-            newsForm.enable();
-            return;
+        if (validation) {
+            if (!avatarFile && !newsData.avatar.origin) {
+                avatarInput.error.show("Ảnh đại diện không được phép để trống");
+                submitButton.loading.hide();
+                secondaryButton.loading.hide();
+                newsForm.enable();
+                return;
+            }
         }
 
         newsImageElements = newsContentHTML.images;
@@ -132,24 +181,34 @@ prepare(async (request) => {
             Array.from(newsImageElements).forEach((image) => {
                 const imageSrc = image.src;
                 if (!imageSrc.includes("cloudinary")) {
-                    promises.push(
-                        axios.get(imageSrc, {
-                            responseType: "arraybuffer",
-                        })
-                    );
+                    totalNewImages += 1;
                 }
+                // if (!imageSrc.includes("cloudinary")) {
+                //     promises.push(
+                //         axios.get(imageSrc, {
+                //             responseType: "arraybuffer",
+                //         })
+                //     );
+                // }
+                promises.push(
+                    axios.get(imageSrc, {
+                        responseType: "arraybuffer",
+                    })
+                );
             });
         }
 
         const newsImagesResponses = await Promise.all(promises);
 
-        newsImagesResponses.forEach((response) => {
-            const { data: imageArraybuffer } = response;
-            const imageFile = new File([imageArraybuffer], `${nanoid()}.jpeg`, {
-                type: "image/jpeg",
+        if (totalNewImages > 0) {
+            newsImagesResponses.forEach((response) => {
+                const { data: imageArraybuffer } = response;
+                const imageFile = new File([imageArraybuffer], `${nanoid()}.jpeg`, {
+                    type: "image/jpeg",
+                });
+                newsImageFiles.push(imageFile);
             });
-            newsImageFiles.push(imageFile);
-        });
+        }
 
         let signature;
 
@@ -164,17 +223,21 @@ prepare(async (request) => {
             newsForm.showError("Đã xảy ra lỗi khi kết nối với máy chủ.", error?.response.data || error);
             newsForm.enable();
             submitButton.loading.hide();
+            secondaryButton.loading.hide();
             return;
         }
 
-        try {
-            const { data: avatarResponse } = await uploadImage(avatarInput.files[0], signature);
-            newsData.avatar = normalizeImageData({ ...avatarResponse, ...signature });
-        } catch (error) {
-            newsForm.showError("Đã xảy ra lỗi khi tải lên ảnh đại diện.", error?.response.data || error);
-            newsForm.enable();
-            submitButton.loading.hide();
-            return;
+        if (avatarFile) {
+            try {
+                const { data: avatarResponse } = await uploadImage(avatarFile, signature);
+                newsData.avatar = normalizeImageData({ ...avatarResponse, ...signature });
+            } catch (error) {
+                newsForm.showError("Đã xảy ra lỗi khi tải lên ảnh đại diện.", error?.response.data || error);
+                newsForm.enable();
+                submitButton.loading.hide();
+                secondaryButton.loading.hide();
+                return;
+            }
         }
 
         if (newsImageFiles.length > 0) {
@@ -189,26 +252,73 @@ prepare(async (request) => {
                 newsForm.showError("Đã xảy ra lỗi khi xử lý nội dung tin tức.", error?.response.data || error);
                 newsForm.enable();
                 submitButton.loading.hide();
+                secondaryButton.loading.hide();
                 return;
             }
         }
 
-        Array.from(newsImageElements).forEach((image, index) => {
-            // eslint-disable-next-line no-param-reassign
-            image.src = getImageURL(newsData.pictures[index]);
-        });
+        if (totalNewImages > 0) {
+            Array.from(newsImageElements).forEach((image, index) => {
+                // eslint-disable-next-line no-param-reassign
+                image.src = getImageURL(newsData.pictures[index]);
+            });
+        }
 
         newsData.content = newsContentHTML.body.innerHTML;
 
+        if (totalNewImages === 0) {
+            newsData.pictures = [];
+        }
+
         try {
-            const {
-                data: { id },
-            } = await request.post("news", newsData);
-            window.location.href = `?id=${id}&notification=published`;
+            if (!newsId) {
+                const {
+                    data: { id },
+                } = await request.post("news", newsData);
+                window.location.href = `?id=${id}&notification=published`;
+            } else {
+                await request.patch(`news/${newsId}`, {
+                    title: newsData.title,
+                    avatar: newsData.avatar,
+                    category: newsData.category,
+                    content: newsData.content,
+                    isPublished: validation,
+                    pictures: newsData.pictures,
+                    priority: newsData.priority,
+                });
+                newsForm.showSuccess("Cập nhật tin tức thành công.");
+                submitButton.loading.hide();
+                secondaryButton.loading.hide();
+            }
         } catch (error) {
             newsForm.showError("Đã xảy ra lỗi khi lưu tin tức.", error?.response.data || error);
             newsForm.enable();
             submitButton.loading.hide();
+            secondaryButton.loading.hide();
+        }
+    };
+
+    // newsForm.onsubmit = async () => handleSubmit(true);
+    submitButton.onclick = (event) => {
+        event.preventDefault();
+        submitButton.loading.show();
+        const buttonElement = event.target.closest("button");
+        const { action } = buttonElement.dataset;
+        if (action === "publish") {
+            handleSubmit(true);
+        } else if (action === "save") {
+            handleSubmit(false);
+        }
+    };
+    secondaryButton.onclick = (event) => {
+        event.preventDefault();
+        secondaryButton.loading.show();
+        const buttonElement = event.target.closest("button");
+        const { action } = buttonElement.dataset;
+        if (action === "publish") {
+            handleSubmit(true);
+        } else if (action === "save") {
+            handleSubmit(false);
         }
     };
 });

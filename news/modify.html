@@ -149,7 +149,7 @@
         <main class="ml-80 px-10">
             <div class="flex items-center justify-between border-b-2 border-gray-100 font-semibold">
                 <div>
-                    <div class="flex items-center h-20">Thêm tin tức mới</div>
+                    <div class="flex items-center h-20">Quản lý tin tức</div>
                     <div class="w-full h-1 -mt-1 rounded-md bg-gray-100 -mb-0.5"></div>
                 </div>
                 <a
@@ -285,9 +285,10 @@
                                         font-semibold
                                         hover:bg-gray-300
                                     "
+                                    data-action="save"
                                 >
-                                    <div class="spinner w-4 h-4 mr-4 rounded-full border-2 border-white"></div>
-                                    Lưu bản nháp
+                                    <div class="spinner w-4 h-4 mr-4 rounded-full border-2 border-black"></div>
+                                    <span>Lưu bản nháp</span>
                                 </button>
                                 <button
                                     type="submit"
@@ -302,14 +303,16 @@
                                         font-semibold
                                         hover:bg-encacap-main-dark
                                     "
+                                    data-action="publish"
                                 >
                                     <div class="spinner w-4 h-4 mr-4 rounded-full border-2 border-white"></div>
-                                    Xuất bản
+                                    <span>Xuất bản</span>
                                 </button>
                             </div>
                         </div>
                     </div>
                 </form>
+                <div class="ml-10 mt-10 mb-4 bg-gray-100 rounded-md"></div>
             </div>
         </main>
         <script src="/assets/js/news_modification.min.js"></script>

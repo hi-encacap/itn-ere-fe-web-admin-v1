@@ -81,7 +81,9 @@ prepare(async (request) => {
         }
         if (moveToTrash) {
             const deletedEstateId = moveToTrash.dataset.id;
+
             confirmDeleteModal.show();
+            confirmDeleteForm.hideNotify();
             confirmDeleteButton.dataset.id = deletedEstateId;
             confirmDeleteButton.enable();
             confirmDeleteButton.loading.hide();

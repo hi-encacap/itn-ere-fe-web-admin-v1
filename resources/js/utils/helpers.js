@@ -1,3 +1,5 @@
+const { getImageURL } = require("./cloudinary");
+
 const handleURL = (url) => {
     return {
         query: (name) => {
@@ -21,7 +23,10 @@ const createPreviewImage = (file) => {
     if (!file) return;
     if (typeof file === "object") {
         if (file.lastModified) {
-            return URL.createObjectURL(file);
+            return URL.createObjectURL(file, { eager: "c_thumb,g_center,w_300" });
+        }
+        if (file.origin) {
+            return getImageURL(file);
         }
     } else if (typeof file === "string") {
         if (file.includes("youtube")) {

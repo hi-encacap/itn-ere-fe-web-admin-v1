@@ -200,10 +200,21 @@
                     placeholder="Nhập tiêu đề tin tức để tìm kiếm"
                 />
             </div>
-            <div
-                class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 xl:grid-cols-4 gap-4 pb-10"
-                id="news_container"
-            ></div>
+            <div class="grid grid-cols-4">
+                <div
+                    class="col-span-3 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pb-4"
+                    id="news_container"
+                ></div>
+                <div class="ml-4 mb-4 border-2 border-gray-100 rounded-md bg-gray-50 px-4">
+                    <div class="mb-4 font-semibold">
+                        <div class="flex items-center pt-4 pb-6">Danh sách bản nháp</div>
+                        <div class="w-full h-1 -mt-1 rounded-md bg-gray-100 -mb-0.5"></div>
+                    </div>
+                    <div class="pb-4" id="draft_container">
+                        <div class="p-4 bg-white rounded-md">Hiện không có bản nháp nào</div>
+                    </div>
+                </div>
+            </div>
             <div class="hidden" id="page">1</div>
             <div
                 class="modal fixed top-0 left-0 right-0 bottom-0 z-90 hidden bg-black bg-opacity-50 overflow-y-auto"
@@ -262,10 +273,11 @@
                                     duration-200
                                     hover:bg-encacap-main-dark
                                 "
+                                data-action="publish"
                                 disabled
                             >
                                 <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
-                                Xác nhận
+                                <span>Xác nhận</span>
                             </button>
                         </div>
                     </div>

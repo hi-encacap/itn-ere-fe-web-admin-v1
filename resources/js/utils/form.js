@@ -74,6 +74,16 @@ class EncacapForm {
         });
     }
 
+    getData() {
+        const inputs = this.querySelectorAll("[name]");
+        const data = {};
+        inputs.forEach((input) => {
+            const { name, value, disabled } = input;
+            data[name] = { value, disabled };
+        });
+        return data;
+    }
+
     setFocusStyle() {
         const inputs = this.querySelectorAll("[name], input");
         inputs.forEach((input) => {
@@ -187,6 +197,27 @@ class EncacapForm {
         };
         if (!validateFunctions[role]) throw new Error(`Validation function ${role} not found`);
         return validateFunctions[role];
+    }
+
+    executeValidation() {
+        this.hideError();
+        let isValid = true;
+        const inputNames = Object.keys(this.validationRoles);
+        const inputs = this.querySelectorAll("[name]");
+        Array.from(inputs)
+            .reverse()
+            .forEach((input) => {
+                const inputName = input.name;
+                input.error.hide();
+                if (inputNames.includes(inputName)) {
+                    const errorMessage = this.getValidationMessage(input, this.validationRoles[inputName]);
+                    if (errorMessage) {
+                        input.error.show(errorMessage);
+                        isValid = false;
+                    }
+                }
+            });
+        return isValid;
     }
 
     getValidationMessage(input, roles) {

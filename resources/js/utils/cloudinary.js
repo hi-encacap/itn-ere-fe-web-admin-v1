@@ -36,7 +36,14 @@ const getImageURL = (data, options) => {
     return url;
 };
 
+const getPublicIdFromURL = (url) => {
+    const filename = url.split("/").pop();
+    const [publicId] = filename.split(".");
+    return publicId;
+};
+
 module.exports = {
     normalizeImageData,
     getImageURL,
+    getPublicIdFromURL,
 };

@@ -10,6 +10,7 @@ module.exports = {
         estate_management: ["./resources/js/pages/estateManagement.js"],
         news_management: ["./resources/js/pages/newsManagement.js"],
         news_modification: ["./resources/js/pages/newsModification.js"],
+        config_management: ["./resources/js/pages/configManagement.js"],
     },
     output: {
         filename: "[name].min.js",

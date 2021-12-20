@@ -77,7 +77,7 @@
 
     &-wrapper {
         p {
-            @apply relative !important;
+            @apply relative py-2 !important;
         }
 
         img {

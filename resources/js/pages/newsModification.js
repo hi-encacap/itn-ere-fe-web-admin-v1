@@ -37,6 +37,17 @@ prepare(async (request) => {
         ],
     });
 
+    // Hiển thị thông báo (nếu có)
+    const notificationQuery = handleURL(window.location.href).query("notification");
+
+    if (notificationQuery) {
+        const notifications = {
+            published: "Đã xuất bản bài viết thành công.",
+            saved: "Đã lưu bài viết thành công.",
+        };
+        newsForm.showSuccess(notifications[notificationQuery]);
+    }
+
     const submitButton = newsForm.querySelector("button[type=submit]");
     const secondaryButton = newsForm.querySelector("button[type=button]");
     const titleInput = newsForm.querySelector("input[name=title]");
@@ -133,6 +144,8 @@ prepare(async (request) => {
     const handleSubmit = async (validation = true) => {
         if (validation) {
             if (!newsForm.executeValidation()) {
+                submitButton.loading.hide();
+                secondaryButton.loading.hide();
                 return;
             }
         }
@@ -164,7 +177,7 @@ prepare(async (request) => {
         const avatarFile = avatarInput.files[0];
 
         if (validation) {
-            if (!avatarFile && !newsData.avatar.origin) {
+            if (!avatarFile && !newsData.avatar?.origin) {
                 avatarInput.error.show("Ảnh đại diện không được phép để trống");
                 submitButton.loading.hide();
                 secondaryButton.loading.hide();
@@ -275,7 +288,7 @@ prepare(async (request) => {
                 const {
                     data: { id },
                 } = await request.post("news", newsData);
-                window.location.href = `?id=${id}&notification=published`;
+                window.location.href = `?id=${id}&notification=${validation ? "published" : "saved"}`;
             } else {
                 await request.patch(`news/${newsId}`, {
                     title: newsData.title,
@@ -286,7 +299,7 @@ prepare(async (request) => {
                     pictures: newsData.pictures,
                     priority: newsData.priority,
                 });
-                newsForm.showSuccess("Cập nhật tin tức thành công.");
+                window.location.href = `?id=${newsId}&notification=${validation ? "published" : "saved"}`;
                 submitButton.loading.hide();
                 secondaryButton.loading.hide();
             }

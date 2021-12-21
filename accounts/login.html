@@ -1,0 +1,91 @@
+<!DOCTYPE html>
+<html lang="en">
+    <head>
+        <meta charset="UTF-8" />
+        <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+        <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+        <link rel="shortcut icon" href="/assets/images/encacap_logo.svg" type="image/x-icon" />
+        <link rel="stylesheet" href="/assets/css/app.min.css" />
+        <title>Đăng nhập - Trang quản trị - Encacap</title>
+    </head>
+    <body>
+        <div class="page-loading"></div>
+        <div class="flex w-screen h-screen">
+            <form
+                action=""
+                class="form w-full m-auto border-2 border-gray-100 rounded-md p-10"
+                style="max-width: 480px"
+            >
+                <div class="form-header">
+                    <a href="/">
+                        <img src="/assets/images/encacap_logo.svg" alt="Encacap" class="w-16" />
+                    </a>
+                    <div class="font-semibold text-xl">
+                        <div class="py-6">Đăng nhập vào trang quản trị</div>
+                        <div class="w-20 h-1 mt-1 rounded-md bg-gray-100"></div>
+                    </div>
+                </div>
+                <div class="form-body pt-8">
+                    <div
+                        class="
+                            form-notify
+                            hidden
+                            border-2 border-red-300
+                            bg-red-200
+                            rounded-md
+                            mb-4
+                            px-6
+                            py-5
+                            text-red-500
+                            font-semibold
+                        "
+                    >
+                        Tên đăng nhập hoặc mật khẩu không chính xác.
+                    </div>
+                    <div class="form-group border-2 border-gray-100 rounded-md px-6 pt-5 pb-4">
+                        <label for="email" class="block font-semibold text-gray-500 text-sm">Địa chỉ Email</label>
+                        <input
+                            type="email"
+                            name="email"
+                            id="email"
+                            placeholder="VD: youremail@gmail.com"
+                            class="w-full mt-1.5 border-none outline-none py-1 rounded-md"
+                        />
+                        <div class="form-message mt-1.5 mb-1 text-sm">Địa chỉ Email không được phép để trống</div>
+                    </div>
+                    <div class="form-group mt-4 border-2 border-gray-100 rounded-md px-6 pt-5 pb-4">
+                        <label for="password" class="block font-semibold text-gray-500 text-sm">Mật khẩu</label>
+                        <input
+                            type="password"
+                            name="password"
+                            id="password"
+                            placeholder="VD: ••••••••••••••••••••••••"
+                            class="w-full mt-1.5 border-none outline-none py-1 rounded-md"
+                        />
+                        <div class="form-message mt-1.5 mb-1 text-sm"></div>
+                    </div>
+                    <div class="mt-4">
+                        <button
+                            type="submit"
+                            class="
+                                btn
+                                w-full
+                                border-2 border-encacap-main
+                                bg-encacap-main
+                                rounded-md
+                                py-2
+                                text-white
+                                font-semibold
+                                hover:bg-encacap-main-dark
+                            "
+                        >
+                            <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
+                            Đăng nhập
+                        </button>
+                    </div>
+                </div>
+            </form>
+        </div>
+        <script src="/assets/js/login.min.js"></script>
+    </body>
+</html>

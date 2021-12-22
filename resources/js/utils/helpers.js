@@ -36,7 +36,7 @@ const createPreviewImage = (file) => {
 };
 
 module.exports = {
+    handleURL,
     generateYoutubePreview,
     createPreviewImage,
-    handleURL,
 };

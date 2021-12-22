@@ -7,6 +7,8 @@ module.exports = (data) => {
                 src="${data.avatar.thumbnail}"
                 class="w-full h-full object-cover object-center rounded-md"
                 alt="${data.title}"
+                loading="lazy"
+                decoding="async"
             />
         </div>
         <div class="flex-1">

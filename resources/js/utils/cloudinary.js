@@ -1,4 +1,16 @@
-const { handleURL } = require("./helpers");
+const handleURL = (url) => {
+    return {
+        query: (name) => {
+            const queryString = url.split("?")[1];
+            const urlSearchParams = new URLSearchParams(queryString);
+            const params = Object.fromEntries(urlSearchParams.entries());
+            if (name) {
+                return params[name];
+            }
+            return params;
+        },
+    };
+};
 
 const normalizeImageData = (data) => {
     if (typeof data === "string") {

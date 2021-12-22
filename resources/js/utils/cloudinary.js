@@ -36,16 +36,20 @@ const normalizeImageData = (data) => {
 };
 
 const getImageURL = (data, options) => {
-    const { origin, name, resourceType, action, version, publicId, format } = data;
-    let url = `${origin}/${name}/${resourceType}/${action}/`;
-    if (options?.eager) {
-        url += `${options?.eager}/`;
-    } else {
-        url += `q_auto,f_auto/`;
+    if (data.resourceType === "image") {
+        const { origin, name, resourceType, action, version, publicId, format } = data;
+        let url = `${origin}/${name}/${resourceType}/${action}/`;
+        if (options?.eager) {
+            url += `${options?.eager}/`;
+        } else {
+            url += `q_auto,f_auto/`;
+        }
+        url += `v${version}/`;
+        url += `${publicId}.${format}`;
+        return url;
     }
-    url += `v${version}/`;
-    url += `${publicId}.${format}`;
-    return url;
+    const { publicId: youtubeId } = data;
+    return `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
 };
 
 const getPublicIdFromURL = (url) => {

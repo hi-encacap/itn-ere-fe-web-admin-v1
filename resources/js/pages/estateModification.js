@@ -1,3 +1,7 @@
+const entities = require("entities");
+const FroalaEditor = require("froala-editor");
+// Load Froala plugins.
+require("froala-editor/js/plugins/align.min");
 const validator = require("validator");
 const axios = require("axios");
 const prepare = require("../utils/prepare");
@@ -35,11 +39,35 @@ const renderOptions = (select, options, selected) => {
 prepare(async (request) => {
     const estateForm = new EncacapForm("#estate_form");
 
-    // const estateId = handleURL(window.location.href).query("id");
+    const estateId = handleURL(window.location.href).query("id");
+    let savedEstateCustomId = 0;
     const notification = handleURL(window.location.href).query("notification");
 
+    const resortContainer = estateForm.querySelector("#resort");
+    const groundContainer = estateForm.querySelector("#ground");
+
+    const hiddenSubcategory = () => {
+        resortContainer.classList.add("hidden");
+        groundContainer.classList.add("hidden");
+    };
+
+    const showSubcategory = (category) => {
+        if (category === "nghi-duong" || category === "nha-pho") {
+            resortContainer.classList.remove("hidden");
+        } else if (category === "dat-nen") {
+            groundContainer.classList.remove("hidden");
+        }
+    };
+
+    let estateData = {
+        avatar: {},
+        pictures: [],
+    };
+
     if (notification) {
-        estateForm.showSuccess(notification);
+        if (notification === "published") {
+            estateForm.showSuccess("Bài viết đã được xuất bản.");
+        }
     }
 
     estateForm.validate({
@@ -99,30 +127,53 @@ prepare(async (request) => {
         ],
     });
 
+    const descriptionTextarea = new FroalaEditor("#description", {
+        placeholderText: "Nhập chi tiết về bất động sản",
+    });
+
     /**
-     * Tạo hiệu ứng cho cái nút ở cuối form
+     * Tạo hiệu ứng cho cái nút ở cuối biểu mẫu & Đổ dữ liệu luôn, tại lỡ rồi =))
      */
 
     const formActions = estateForm.querySelector(".footer");
+    const submitButton = estateForm.querySelector("button[type=submit]");
+    const secondaryButton = estateForm.querySelector("button[type=button]");
 
-    formActions.classList.add("flex");
-    formActions.classList.remove("hidden");
-    formActions.style.width = `${estateForm.getForm().offsetWidth}px`;
+    const estateIdInput = estateForm.querySelector("input[name=estate_id]");
+    const streetInput = estateForm.querySelector("input[name=street]");
+    const titleInput = estateForm.querySelector("input[name=title]");
+    const priceInput = estateForm.querySelector("input[name=price]");
+    const areaInput = estateForm.querySelector("input[name=area]");
+    const categorySelect = estateForm.querySelector("select[name=category]");
+    const livingRoomInput = estateForm.querySelector("input[name=living_room]");
+    const bedroomInput = estateForm.querySelector("input[name=bedroom]");
+    const bathroomInput = estateForm.querySelector("input[name=bathroom]");
+    const pageInput = estateForm.querySelector("input[name=page]");
+    const plotInput = estateForm.querySelector("input[name=plot]");
+    const directionSelect = estateForm.querySelector("select[name=direction]");
+    const contactNameInput = estateForm.querySelector("input[name=contact_name]");
+    const contactPhoneInput = estateForm.querySelector("input[name=contact_phone]");
 
-    /**
-     * Xử lý khi người dùng chọn vị trí cho bất động sản
-     */
+    const youtubeInput = estateForm.querySelector("input[name=youtube]");
+    const youtubeAvatarCheckbox = estateForm.querySelector("input[name=youtube_avatar]");
+
+    const avatarContainer = estateForm.querySelector("#avatar_container");
+    const avatarImagesGroup = avatarContainer.querySelector(".form-images-group");
+    const avatarImage = avatarContainer.querySelector(".form-images-preview img");
+    const avatarInput = avatarContainer.querySelector("input");
+
+    // Xử lý vị trí
 
     const citySelect = estateForm.querySelector("select[name=city]");
     const districtSelect = estateForm.querySelector("select[name=district]");
     const wardSelect = estateForm.querySelector("select[name=ward]");
 
-    const getWards = async (cityId, districtId) => {
+    const getWards = async (cityId, districtId, selectedWard) => {
         wardSelect.loading.show();
         wardSelect.disable();
         try {
             const { data: wards } = await request.get(`locations/${cityId}/${districtId}/wards`);
-            renderOptions(wardSelect, wards);
+            renderOptions(wardSelect, wards, selectedWard);
             wardSelect.loading.hide();
             wardSelect.enable();
         } catch (error) {
@@ -130,12 +181,12 @@ prepare(async (request) => {
         }
     };
 
-    const getDistricts = async (cityId) => {
+    const getDistricts = async (cityId, selectedDistrict) => {
         districtSelect.loading.show();
         districtSelect.disable();
         try {
             const { data: districts } = await request.get(`locations/${cityId}/districts`);
-            renderOptions(districtSelect, districts);
+            renderOptions(districtSelect, districts, selectedDistrict);
             districtSelect.loading.hide();
             districtSelect.enable();
         } catch (error) {
@@ -143,12 +194,12 @@ prepare(async (request) => {
         }
     };
 
-    const getCities = async () => {
+    const getCities = async (selectedCity = undefined) => {
         citySelect.loading.show();
         citySelect.disable();
         try {
             const { data: cities } = await request.get("locations/cities");
-            renderOptions(citySelect, cities);
+            renderOptions(citySelect, cities, selectedCity);
             citySelect.loading.hide();
             citySelect.enable();
         } catch (error) {
@@ -158,66 +209,6 @@ prepare(async (request) => {
 
     districtSelect.disable();
     wardSelect.disable();
-
-    getCities();
-
-    citySelect.onchange = () => {
-        const cityId = citySelect.value;
-        if (!cityId) {
-            return;
-        }
-        getDistricts(cityId);
-    };
-
-    districtSelect.onchange = () => {
-        const cityId = citySelect.value;
-        const districtId = districtSelect.value;
-        if (!cityId || !districtId) {
-            return;
-        }
-        getWards(cityId, districtId);
-    };
-
-    /**
-     * Xử lý khi người dùng chọn danh mục cho BĐS
-     */
-
-    const categorySelect = estateForm.querySelector("select[name=category]");
-    const resortContainer = estateForm.querySelector("#resort");
-    const groundContainer = estateForm.querySelector("#ground");
-
-    const hiddenSubcategory = () => {
-        resortContainer.classList.add("hidden");
-        groundContainer.classList.add("hidden");
-    };
-
-    const showSubcategory = (category) => {
-        if (category === "nghi-duong" || category === "nha-pho") {
-            resortContainer.classList.remove("hidden");
-        } else if (category === "dat-nen") {
-            groundContainer.classList.remove("hidden");
-        }
-    };
-
-    categorySelect.onchange = () => {
-        hiddenSubcategory();
-        const category = categorySelect.value;
-        if (category) {
-            showSubcategory(category);
-        }
-    };
-
-    /**
-     * Xử lý khi người dùng chọn hình ảnh cho BĐS
-     */
-
-    const youtubeInput = estateForm.querySelector("input[name=youtube]");
-    const youtubeAvatarCheckbox = estateForm.querySelector("input[name=youtube_avatar]");
-
-    const avatarContainer = estateForm.querySelector("#avatar_container");
-    const avatarImagesGroup = avatarContainer.querySelector(".form-images-group");
-    const avatarImage = avatarContainer.querySelector(".form-images-preview img");
-    const avatarInput = avatarContainer.querySelector("input");
 
     const renderAvatarPreview = (file = null) => {
         avatarInput.error.hide();
@@ -278,6 +269,144 @@ prepare(async (request) => {
         });
     };
 
+    formActions.classList.remove("footer--hide");
+    formActions.style.width = `${estateForm.getForm().offsetWidth}px`;
+
+    if (estateId) {
+        try {
+            const { data } = await request.get(`estates/${estateId}`);
+            estateData = data;
+        } catch (error) {
+            estateForm.disable();
+            estateForm.showError("Đã xảy ra lỗi khi tìm kiếm thông tin bài viết.", error.response?.data || error);
+        }
+    }
+
+    if (estateId) {
+        const {
+            customId,
+            location,
+            title = "",
+            price = "",
+            area = "",
+            category,
+            properties,
+            contact,
+            description,
+            youtube,
+            avatar,
+            pictures,
+        } = estateData;
+
+        const propertiesObject = properties.reduce((acc, property) => {
+            const { name, value } = property;
+            acc[name] = value;
+            return acc;
+        }, {});
+
+        estateIdInput.value = customId;
+        savedEstateCustomId = customId;
+
+        const { city, district, ward } = location;
+
+        if (city) {
+            getCities(city.cityId);
+            if (district) {
+                getDistricts(city.cityId, district.districtId);
+                if (ward) getWards(city.cityId, district.districtId, ward.wardId);
+            }
+        }
+
+        streetInput.value = location.street;
+
+        titleInput.value = title;
+        priceInput.value = price;
+        areaInput.value = area;
+
+        categorySelect.value = category.slug;
+        showSubcategory(category.slug);
+
+        livingRoomInput.value = propertiesObject.living_room;
+        bedroomInput.value = propertiesObject.bedroom;
+        bathroomInput.value = propertiesObject.bathroom;
+        pageInput.value = propertiesObject.page;
+        plotInput.value = propertiesObject.plot;
+
+        directionSelect.value = propertiesObject.direction || "";
+
+        contactNameInput.value = contact.name;
+        contactPhoneInput.value = contact.phone;
+
+        if (youtube) {
+            youtubeInput.value = youtube;
+            youtubeAvatarCheckbox.enable();
+        } else {
+            youtubeAvatarCheckbox.disable();
+        }
+
+        if (avatar.resourceType === "video") {
+            youtubeAvatarCheckbox.checked = true;
+            renderAvatarPreview(avatar);
+        } else if (avatar.resourceType === "image") {
+            renderAvatarPreview(avatar);
+        }
+
+        if (pictures.length > 0) {
+            pictures.forEach((picture) => imageFiles.push(picture));
+            renderImagesPreview();
+        }
+
+        submitButton.innerText = "Cập nhật";
+
+        if (estateData.isPublished) {
+            submitButton.dataset.action = "save";
+            secondaryButton.style.display = "none";
+        } else {
+            submitButton.dataset.action = "save";
+            secondaryButton.innerText = "Xuất bản";
+            secondaryButton.dataset.action = "publish";
+        }
+
+        if (description) descriptionTextarea.html.set(entities.decodeHTML5(description));
+    }
+
+    if (!estateId) {
+        getCities();
+    }
+
+    citySelect.onchange = () => {
+        const cityId = citySelect.value;
+        if (!cityId) {
+            return;
+        }
+        getDistricts(cityId);
+    };
+
+    districtSelect.onchange = () => {
+        const cityId = citySelect.value;
+        const districtId = districtSelect.value;
+        if (!cityId || !districtId) {
+            return;
+        }
+        getWards(cityId, districtId);
+    };
+
+    /**
+     * Xử lý khi người dùng chọn danh mục cho BĐS
+     */
+
+    categorySelect.onchange = () => {
+        hiddenSubcategory();
+        const category = categorySelect.value;
+        if (category) {
+            showSubcategory(category);
+        }
+    };
+
+    /**
+     * Xử lý khi người dùng chọn hình ảnh cho BĐS
+     */
+
     imagesPreviewContainer.onclick = (event) => {
         const { target } = event;
         const removeButton = target.closest(".form-images-preview-remove");
@@ -285,11 +414,10 @@ prepare(async (request) => {
         if (!removeButton) return;
         const imageId = imagePreview.dataset.id;
         imageFiles.remove(imageId);
+        const { pictures: estatePictures } = estateData;
+        estateData.pictures = estatePictures.filter((picture) => picture.publicId !== imageId);
         renderImagesPreview(imageId);
     };
-
-    // Disable youtube avatar checkbox if youtube input is empty
-    youtubeAvatarCheckbox.disable();
 
     youtubeAvatarCheckbox.onchange = () => {
         const isChecked = youtubeAvatarCheckbox.checked;
@@ -339,8 +467,6 @@ prepare(async (request) => {
      * Xử lý khi nhấn nút đăng tin
      */
 
-    const submitButton = estateForm.querySelector("button[type=submit]");
-
     // const progressModel = new EncacapModal("#progressModel");
     // const signatureProgressElement = document.querySelector("#signature_progress");
     // const avatarProgressElement = document.querySelector("#avatar_progress");
@@ -349,11 +475,6 @@ prepare(async (request) => {
     // const loadingElement = `<div class="spinner w-4 h-4 border-2 border-encacap-main rounded-full"></div>`;
     // const successElement = `<div class="w-4 h-4 rounded-full border-2 border-green-500 bg-green-500"></div>`;
     // const errorElement = `<div class="w-4 h-4 rounded-full border-2 border-red-500 bg-red-500"></div>`;
-
-    let estateData = {
-        avatar: {},
-        pictures: [],
-    };
 
     const cloudinaryInstance = axios.create({
         baseURL: "https://api.cloudinary.com/v1_1",
@@ -390,15 +511,17 @@ prepare(async (request) => {
         submitButton.loading.show();
 
         // Kiểm tra xem có ảnh đại diện không
-        if (!youtubeAvatarCheckbox.checked && avatarInput.files.length === 0) {
+        if (!youtubeAvatarCheckbox.checked && avatarInput.files.length === 0 && !estateId) {
             avatarInput.error.show("Ảnh đại diện không được phép để trống");
             submitButton.loading.hide();
             estateForm.enable();
             return;
         }
 
+        // Thiếu trường hợp đổi từ Youtube sang ảnh
+
         // Kiểm tra xem Mã bất động sản có bị trùng không
-        if (estateData.estate_id) {
+        if (estateData.estate_id !== savedEstateCustomId) {
             const customEstateId = estateData.estate_id;
             try {
                 const { data: estate } = await request.get(`estates/${customEstateId}`);
@@ -450,12 +573,18 @@ prepare(async (request) => {
             estateData.avatar = normalizeImageData(youtubeURL);
         }
 
-        if (imageFiles.length > 0) {
+        if (imageFiles.getTrueFile().length > 0) {
             try {
-                const imageResponses = await Promise.all(imageFiles.files.map((file) => uploadImage(file, signature)));
-                estateData.pictures = imageResponses.map((imageResponse) =>
-                    normalizeImageData({ ...imageResponse.data, ...signature })
+                const imageResponses = await Promise.all(
+                    imageFiles.getTrueFile().map((file) => uploadImage(file, signature))
                 );
+                const { pictures: estatePictures } = estateData;
+                estateData.pictures = [
+                    ...estatePictures,
+                    ...imageResponses.map((imageResponse) =>
+                        normalizeImageData({ ...imageResponse.data, ...signature })
+                    ),
+                ];
             } catch (error) {
                 estateForm.showError("Đã xảy ra lỗi khi tải lên ảnh.", error?.response.data || error);
                 estateForm.enable();
@@ -465,12 +594,18 @@ prepare(async (request) => {
         }
 
         try {
-            const { data: responses } = await request.post("estates", estateData);
-            window.location.href = `./modify.html?id=${responses.id}&notification=Đã+xuất+bản+bài+viết+thành+công`;
+            if (!estateId) {
+                const { data: responses } = await request.post("estates", estateData);
+                window.location.href = `./modify.html?id=${responses.id}&notification=published`;
+                return;
+            }
+            await request.patch(`estates/${estateId}`, estateData);
+            window.location.href = `./modify.html?id=${estateId}&notification=saved`;
         } catch (error) {
             estateForm.showError("Đã xảy ra lỗi khi lưu thông tin bài viết.", error?.response.data || error);
             estateForm.enable();
             submitButton.loading.hide();
+            submitButton.enable();
             // Phải xoá ảnh đại diện và ảnh bổ sung để không bị lưu lại
         }
     };

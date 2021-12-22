@@ -7,9 +7,15 @@ class EncacapFiles {
 
     push(file) {
         if (file && !this.find(file)) {
+            const { publicId } = file;
+            if (!publicId) {
+                // eslint-disable-next-line no-param-reassign
+                file.id = nanoid();
+            } else {
+                // eslint-disable-next-line no-param-reassign
+                file.id = publicId;
+            }
             this.files.push(file);
-            // eslint-disable-next-line no-param-reassign
-            file.id = nanoid();
             return true;
         }
         return false;
@@ -18,6 +24,9 @@ class EncacapFiles {
     find(file) {
         if (typeof file === "string") {
             return this.files.find((f) => f.name === file);
+        }
+        if (file.publicId) {
+            return this.files.find((f) => f.publicId === file.publicId);
         }
         return this.files.find((f) => f.name === file.name && f.size === file.size);
     }
@@ -33,6 +42,10 @@ class EncacapFiles {
 
     getFiles() {
         return this.files;
+    }
+
+    getTrueFile() {
+        return this.files.filter((file) => file.size);
     }
 
     get length() {

@@ -6,6 +6,7 @@
         <meta name="viewport" content="width=device-width, initial-scale=1.0" />
         <link rel="shortcut icon" href="/assets/images/encacap_logo.svg" type="image/x-icon" />
         <link rel="stylesheet" href="/assets/css/app.min.css" />
+        <link rel="stylesheet" href="/assets/css/froala.min.css" />
         <title>Thêm bài viết mới - Trang quản trị - Encacap</title>
     </head>
     <body>
@@ -187,7 +188,7 @@
                     <div class="w-full h-1 -mt-1 rounded-md bg-gray-100 -mb-0.5"></div>
                 </div>
                 <a
-                    href="./add.html"
+                    href="./"
                     class="
                         flex
                         items-center
@@ -555,7 +556,7 @@
                             </div>
                         </div>
                         <div class="flex mt-4 form-group--noborder">
-                            <div class="footer hidden">
+                            <div class="footer footer--hide">
                                 <button
                                     type="button"
                                     class="
@@ -570,6 +571,8 @@
                                         font-semibold
                                         hover:bg-gray-300
                                     "
+                                    data-action="save"
+                                    disabled
                                 >
                                     <div class="spinner w-4 h-4 mr-4 rounded-full border-2 border-white"></div>
                                     Lưu bản nháp
@@ -587,6 +590,7 @@
                                         font-semibold
                                         hover:bg-encacap-main-dark
                                     "
+                                    data-action="publish"
                                 >
                                     <div class="spinner w-4 h-4 mr-4 rounded-full border-2 border-white"></div>
                                     Xuất bản

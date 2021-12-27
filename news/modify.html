@@ -19,18 +19,20 @@
                 top-0
                 left-0
                 z-40
-                w-80
+                w-full
+                lg:w-80
                 h-20
                 border-b-2 border-r-2 border-gray-100
                 bg-white
-                px-10
+                px-4
+                lg:px-10
             "
         >
-            <div>
+            <a href="/">
                 <img src="/assets/images/encacap_logo.svg" class="w-10" alt="Encacap Logo" />
-            </div>
+            </a>
         </header>
-        <nav class="fixed top-0 left-0 bottom-0 w-80 h-full border-r-2 border-gray-100 bg-white pt-28">
+        <nav class="hidden lg:block fixed top-0 left-0 bottom-0 w-80 h-full border-r-2 border-gray-100 bg-white pt-28">
             <a
                 href="/"
                 class="
@@ -181,7 +183,7 @@
                 <div>Cài đặt chung</div>
             </a>
         </nav>
-        <main class="ml-80 px-10">
+        <main class="lg:ml-80 mt-20 lg:mt-0 px-4 lg:px-10">
             <div class="flex items-center justify-between border-b-2 border-gray-100 font-semibold">
                 <div>
                     <div class="flex items-center h-20">Quản lý tin tức</div>
@@ -214,8 +216,8 @@
                     Quản lý tin tức
                 </a>
             </div>
-            <div class="grid grid-cols-3">
-                <form action="" class="col-span-2 form w-full mt-10 mb-0" id="news_form">
+            <div class="grid lg:grid-cols-3 mt-4">
+                <form action="" class="col-span-2 form w-full mb-0" id="news_form">
                     <div class="form-body mb-16">
                         <div
                             class="
@@ -347,7 +349,7 @@
                         </div>
                     </div>
                 </form>
-                <div class="ml-10 mt-10 mb-4 bg-gray-100 rounded-md"></div>
+                <div class="hidden lg:block ml-10 mb-4 bg-gray-100 rounded-md"></div>
             </div>
         </main>
         <script src="/assets/js/news_modification.min.js"></script>

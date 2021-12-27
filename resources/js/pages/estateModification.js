@@ -568,7 +568,7 @@ prepare(async (request) => {
                 submitButton.loading.hide();
                 return;
             }
-        } else {
+        } else if (youtubeAvatarCheckbox.checked) {
             const youtubeURL = youtubeInput.value;
             estateData.avatar = normalizeImageData(youtubeURL);
         }

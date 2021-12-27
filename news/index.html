@@ -18,18 +18,22 @@
                 top-0
                 left-0
                 z-40
-                w-80
+                w-full
+                lg:w-80
                 h-20
                 border-b-2 border-r-2 border-gray-100
                 bg-white
-                px-10
+                px-4
+                lg:px-10
             "
         >
-            <div>
+            <a href="/">
                 <img src="/assets/images/encacap_logo.svg" class="w-10" alt="Encacap Logo" />
-            </div>
+            </a>
         </header>
-        <nav class="fixed top-0 left-0 bottom-0 w-80 h-full border-r-2 border-gray-100 bg-white pt-28">
+        <nav
+            class="hidden lg:block lg:fixed top-0 left-0 bottom-0 w-80 h-full border-r-2 border-gray-100 bg-white pt-28"
+        >
             <a
                 href="/"
                 class="
@@ -180,7 +184,7 @@
                 <div>Cài đặt chung</div>
             </a>
         </nav>
-        <main class="ml-80 px-10">
+        <main class="lg:ml-80 px-4 mt-20 lg:mt-0 lg:px-10">
             <div class="flex items-center justify-between border-b-2 border-gray-100 font-semibold">
                 <div>
                     <div class="flex items-center h-20">Quản lý tin tức</div>
@@ -235,12 +239,23 @@
                     placeholder="Nhập tiêu đề tin tức để tìm kiếm"
                 />
             </div>
-            <div class="grid grid-cols-4">
+            <div class="grid lg:grid-cols-4">
                 <div
-                    class="col-span-3 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pb-4"
+                    class="col-span-4 lg:col-span-3 grid grid-cols-1 lg:grid-cols-2 xl:grid-cols-3 gap-4 pb-4"
                     id="news_container"
                 ></div>
-                <div class="ml-4 mb-4 border-2 border-gray-100 rounded-md bg-gray-50 px-4">
+                <div
+                    class="
+                        order-first
+                        col-span-4
+                        lg:col-span-1 lg:order-2 lg:ml-4
+                        mb-4
+                        border-2 border-gray-100
+                        rounded-md
+                        bg-gray-50
+                        px-4
+                    "
+                >
                     <div class="mb-4 font-semibold">
                         <div class="flex items-center pt-4 pb-6">Danh sách bản nháp</div>
                         <div class="w-full h-1 -mt-1 rounded-md bg-gray-100 -mb-0.5"></div>

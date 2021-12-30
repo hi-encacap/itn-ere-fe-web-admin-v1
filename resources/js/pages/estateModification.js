@@ -493,6 +493,12 @@ prepare(async (request) => {
         return cloudinaryInstance.post(`${name}/image/upload`, formData);
     };
 
+    const enableForm = () => {
+        estateForm.enable();
+        submitButton.loading.hide();
+        submitButton.enable();
+    };
+
     estateForm.onsubmit = async (event, data) => {
         const unexpectedKeys = ["avatar", "images", "youtube_avatar"];
         estateData = Object.assign(
@@ -513,8 +519,7 @@ prepare(async (request) => {
         // Kiểm tra xem có ảnh đại diện không
         if (!youtubeAvatarCheckbox.checked && avatarInput.files.length === 0 && !estateId) {
             avatarInput.error.show("Ảnh đại diện không được phép để trống");
-            submitButton.loading.hide();
-            estateForm.enable();
+            enableForm();
             return;
         }
 
@@ -528,8 +533,7 @@ prepare(async (request) => {
                 if (estate) {
                     const customIdInput = estateForm.querySelector("#estate_id");
                     customIdInput.error.show("Mã bất động sản đã tồn tại");
-                    estateForm.enable();
-                    submitButton.loading.hide();
+                    enableForm();
                     return;
                 }
             } catch (error) {
@@ -539,8 +543,7 @@ prepare(async (request) => {
                         "Đã xảy ra lỗi khi kiểm tra tính khả dụng của 'Mã BĐS'",
                         error?.response.data || error
                     );
-                    estateForm.enable();
-                    submitButton.loading.hide();
+                    enableForm();
                     return;
                 }
             }
@@ -553,8 +556,7 @@ prepare(async (request) => {
             signature = response;
         } catch (error) {
             estateForm.showError("Đã xảy ra lỗi khi kết nối với máy chủ.", error?.response.data || error);
-            estateForm.enable();
-            submitButton.loading.hide();
+            enableForm();
             return;
         }
 
@@ -564,8 +566,7 @@ prepare(async (request) => {
                 estateData.avatar = normalizeImageData({ ...avatarResponse, ...signature });
             } catch (error) {
                 estateForm.showError("Đã xảy ra lỗi khi tải lên ảnh đại diện.", error?.response.data || error);
-                estateForm.enable();
-                submitButton.loading.hide();
+                enableForm();
                 return;
             }
         } else if (youtubeAvatarCheckbox.checked) {
@@ -587,8 +588,7 @@ prepare(async (request) => {
                 ];
             } catch (error) {
                 estateForm.showError("Đã xảy ra lỗi khi tải lên ảnh.", error?.response.data || error);
-                estateForm.enable();
-                submitButton.loading.hide();
+                enableForm();
                 return;
             }
         }
@@ -603,9 +603,7 @@ prepare(async (request) => {
             window.location.href = `./modify.html?id=${estateId}&notification=saved`;
         } catch (error) {
             estateForm.showError("Đã xảy ra lỗi khi lưu thông tin bài viết.", error?.response.data || error);
-            estateForm.enable();
-            submitButton.loading.hide();
-            submitButton.enable();
+            enableForm();
             // Phải xoá ảnh đại diện và ảnh bổ sung để không bị lưu lại
         }
     };

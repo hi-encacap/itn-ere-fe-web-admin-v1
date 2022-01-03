@@ -63,6 +63,9 @@ prepare(async (request) => {
         placeholderText: "Nhập nội dung tin tức",
     });
 
+    const froalaCopyright = document.querySelector(".fr-wrapper.show-placeholder > div:nth-child(1)");
+    froalaCopyright.style.display = "none";
+
     const formActions = newsForm.querySelector(".footer");
 
     formActions.classList.add("flex");

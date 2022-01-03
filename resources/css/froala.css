@@ -50,7 +50,7 @@
             @apply font-sans !important;
         }
 
-        min-height: 240px !important;
+        min-height: 320px !important;
     }
 
     &-placeholder {

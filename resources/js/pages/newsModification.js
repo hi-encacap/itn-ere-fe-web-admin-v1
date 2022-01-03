@@ -2,6 +2,12 @@ const FroalaEditor = require("froala-editor");
 // Load Froala plugins.
 require("froala-editor/js/plugins/align.min");
 require("froala-editor/js/plugins/image.min");
+require("froala-editor/js/plugins/font_family.min");
+require("froala-editor/js/plugins/font_size.min");
+require("froala-editor/js/plugins/link.min");
+require("froala-editor/js/plugins/lists.min");
+require("froala-editor/js/plugins/url.min");
+require("froala-editor/js/plugins/word_paste.min");
 
 const { nanoid } = require("nanoid");
 const axios = require("axios");

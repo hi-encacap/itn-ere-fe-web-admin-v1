@@ -138,7 +138,9 @@ prepare(async (request) => {
     });
 
     const froalaCopyright = document.querySelector(".fr-wrapper.show-placeholder > div:nth-child(1)");
-    froalaCopyright.style.display = "none";
+    if (froalaCopyright) {
+        froalaCopyright.style.display = "none";
+    }
 
     /**
      * Tạo hiệu ứng cho cái nút ở cuối biểu mẫu & Đổ dữ liệu luôn, tại lỡ rồi =))

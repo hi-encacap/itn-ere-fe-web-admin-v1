@@ -64,7 +64,9 @@ prepare(async (request) => {
     });
 
     const froalaCopyright = document.querySelector(".fr-wrapper.show-placeholder > div:nth-child(1)");
-    froalaCopyright.style.display = "none";
+    if (froalaCopyright) {
+        froalaCopyright.style.display = "none";
+    }
 
     const formActions = newsForm.querySelector(".footer");
 

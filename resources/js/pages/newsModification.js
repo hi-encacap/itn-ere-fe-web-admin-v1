@@ -16,7 +16,7 @@ const prepare = require("../utils/prepare");
 const EncacapForm = require("../utils/form");
 const EncacapFiles = require("../utils/files");
 
-const { createPreviewImage, handleURL } = require("../utils/helpers");
+const { createPreviewImage, handleURL, pick } = require("../utils/helpers");
 const { normalizeImageData, getImageURL } = require("../utils/cloudinary");
 
 const convertStringToHTML = (string) => {
@@ -164,19 +164,7 @@ prepare(async (request) => {
         newsForm.disable();
 
         const inputData = newsForm.getData();
-        const unexpectedKeys = ["avatar"];
-        newsData = Object.assign(
-            newsData,
-            Object.keys(inputData).reduce((acc, key) => {
-                if (unexpectedKeys.includes(key)) {
-                    return acc;
-                }
-                return {
-                    ...acc,
-                    [key]: inputData[key].value,
-                };
-            }, {})
-        );
+        newsData = Object.assign(newsData, pick(inputData, ["title", "category", "content"]));
 
         newsData.isPublished = validation;
 

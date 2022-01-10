@@ -35,8 +35,21 @@ const createPreviewImage = (file) => {
     }
 };
 
+const pick = (object, keys) => {
+    return keys.reduce((acc, key) => {
+        const value = object[key];
+        if (value.value !== undefined) {
+            acc[key] = value.value;
+        } else {
+            acc[key] = value;
+        }
+        return acc;
+    }, {});
+};
+
 module.exports = {
     handleURL,
     generateYoutubePreview,
     createPreviewImage,
+    pick,
 };

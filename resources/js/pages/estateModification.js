@@ -1,15 +1,6 @@
-const entities = require("entities");
-const FroalaEditor = require("froala-editor");
-// Load Froala plugins.
-require("froala-editor/js/plugins/align.min");
-require("froala-editor/js/plugins/font_family.min");
-require("froala-editor/js/plugins/font_size.min");
-require("froala-editor/js/plugins/link.min");
-require("froala-editor/js/plugins/lists.min");
-require("froala-editor/js/plugins/url.min");
-require("froala-editor/js/plugins/word_paste.min");
 const validator = require("validator");
 const axios = require("axios");
+const SimpleMDE = require("simplemde");
 const prepare = require("../utils/prepare");
 const EncacapForm = require("../utils/form");
 const EncacapFiles = require("../utils/files");
@@ -133,14 +124,11 @@ prepare(async (request) => {
         ],
     });
 
-    const descriptionTextarea = new FroalaEditor("#description", {
-        placeholderText: "Nhập chi tiết về bất động sản",
+    const simpleMDE = new SimpleMDE({
+        element: estateForm.querySelector("#description"),
+        spellChecker: false,
+        hideIcons: ["image", "side-by-side", "fullscreen"],
     });
-
-    const froalaCopyright = document.querySelector(".fr-wrapper.show-placeholder > div:nth-child(1)");
-    if (froalaCopyright) {
-        froalaCopyright.style.display = "none";
-    }
 
     /**
      * Tạo hiệu ứng cho cái nút ở cuối biểu mẫu & Đổ dữ liệu luôn, tại lỡ rồi =))
@@ -378,7 +366,7 @@ prepare(async (request) => {
             secondaryButton.dataset.action = "publish";
         }
 
-        if (description) descriptionTextarea.html.set(entities.decodeHTML5(description));
+        if (description) simpleMDE.value(description);
     }
 
     if (!estateId) {
@@ -522,7 +510,8 @@ prepare(async (request) => {
                     ...acc,
                     [key]: data[key].value,
                 };
-            }, {})
+            }, {}),
+            { description: simpleMDE.value() }
         );
 
         submitButton.loading.show();

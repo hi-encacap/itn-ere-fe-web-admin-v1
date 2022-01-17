@@ -1,10 +1,13 @@
 const prepare = require("../utils/prepare");
 const EncacapModal = require("../utils/modal");
 const EncacapForm = require("../utils/form");
+
 const EstateItem = require("../components/EstateItem");
+const EstateDraftItem = require("../components/EstateDraftItem");
 
 prepare(async (request) => {
     const estatesContainer = document.querySelector("#estates_container");
+    const draftContainer = document.querySelector("#draft_container");
     const searchInput = document.querySelector("#search");
     let estates = [];
 
@@ -19,7 +22,7 @@ prepare(async (request) => {
     const getEstates = async (params) => {
         try {
             const { data } = await request.get("estates", {
-                params: { limit: 100000, sortBy: "priority:desc", ...params },
+                params: { limit: 100000, sortBy: "priority:desc", isPublished: true, ...params },
             });
             if (data.totalResults) {
                 if (!estates.length) {
@@ -29,6 +32,29 @@ prepare(async (request) => {
                 return;
             }
             renderEstates();
+        } catch (error) {
+            console.log(error);
+        }
+    };
+
+    const renderDrafts = (data = estates) => {
+        draftContainer.innerHTML = "";
+        if (data.length === 0) {
+            draftContainer.innerHTML = `<div class="p-4 bg-white rounded-md">Hiện không có bản nháp nào.</div>`;
+            return;
+        }
+        data.forEach((estate) => {
+            const draftItem = EstateDraftItem(estate);
+            draftContainer.appendChild(draftItem);
+        });
+    };
+
+    const getDraft = async (params) => {
+        try {
+            const { data } = await request.get("estates", {
+                params: { limit: 100000, sortBy: "priority:desc", isPublished: false, ...params },
+            });
+            renderDrafts(data.results);
         } catch (error) {
             console.log(error);
         }
@@ -65,6 +91,8 @@ prepare(async (request) => {
     };
 
     await getEstates();
+
+    getDraft();
 
     const confirmDeleteModal = new EncacapModal("#confirmDeleteModal");
     const confirmDeleteForm = new EncacapForm("#confirmDeleteForm");

@@ -64,6 +64,8 @@ prepare(async (request) => {
     if (notification) {
         if (notification === "published") {
             estateForm.showSuccess("Bài viết đã được xuất bản.");
+        } else if (notification === "saved") {
+            estateForm.showSuccess("Cập nhật bài viết thành công.");
         }
     }
 
@@ -313,23 +315,32 @@ prepare(async (request) => {
             if (district) {
                 getDistricts(city.cityId, district.districtId);
                 if (ward) getWards(city.cityId, district.districtId, ward.wardId);
+                else {
+                    getWards(city.cityId, district.districtId);
+                }
+            } else {
+                getDistricts(city.cityId);
             }
+        } else {
+            getCities();
         }
 
-        streetInput.value = location.street;
+        if (location.street) streetInput.value = location.street;
 
         titleInput.value = title;
         priceInput.value = price;
         areaInput.value = area;
 
-        categorySelect.value = category.slug;
-        showSubcategory(category.slug);
+        if (category?.slug) {
+            categorySelect.value = category.slug;
+            showSubcategory(category.slug);
+        }
 
-        livingRoomInput.value = propertiesObject.living_room;
-        bedroomInput.value = propertiesObject.bedroom;
-        bathroomInput.value = propertiesObject.bathroom;
-        pageInput.value = propertiesObject.page;
-        plotInput.value = propertiesObject.plot;
+        if (propertiesObject.living_room) livingRoomInput.value = propertiesObject.living_room;
+        if (propertiesObject.bedroom) bedroomInput.value = propertiesObject.bedroom;
+        if (propertiesObject.bathroom) bathroomInput.value = propertiesObject.bathroom;
+        if (propertiesObject.page) pageInput.value = propertiesObject.page;
+        if (propertiesObject.plot) plotInput.value = propertiesObject.plot;
 
         directionSelect.value = propertiesObject.direction || "";
 
@@ -343,10 +354,10 @@ prepare(async (request) => {
             youtubeAvatarCheckbox.disable();
         }
 
-        if (avatar.resourceType === "video") {
+        if (avatar?.resourceType === "video") {
             youtubeAvatarCheckbox.checked = true;
             renderAvatarPreview(avatar);
-        } else if (avatar.resourceType === "image") {
+        } else if (avatar?.resourceType === "image") {
             renderAvatarPreview(avatar);
         }
 
@@ -498,27 +509,46 @@ prepare(async (request) => {
         submitButton.enable();
     };
 
-    estateForm.onsubmit = async (event, data) => {
+    const handleSubmit = async (validation = true) => {
         const unexpectedKeys = ["avatar", "images", "youtube_avatar"];
+
+        if (validation) {
+            if (!estateForm.executeValidation()) {
+                submitButton.loading.hide();
+                secondaryButton.loading.hide();
+                return;
+            }
+        }
+
+        estateForm.disable();
+
+        const inputData = estateForm.getData();
+
         estateData = Object.assign(
             estateData,
-            Object.keys(data).reduce((acc, key) => {
+            Object.keys(inputData).reduce((acc, key) => {
                 if (unexpectedKeys.includes(key)) {
                     return acc;
                 }
                 return {
                     ...acc,
-                    [key]: data[key].value,
+                    [key]: inputData[key].value,
                 };
             }, {}),
             { description: simpleMDE.value() }
         );
 
-        submitButton.loading.show();
+        estateData.isPublished = validation;
+        estateData.contact = {
+            name: contactNameInput.value,
+            phone: contactPhoneInput.value,
+        };
 
         // Kiểm tra xem có ảnh đại diện không
-        if (!youtubeAvatarCheckbox.checked && avatarInput.files.length === 0 && !estateId) {
+        if (validation && !youtubeAvatarCheckbox.checked && avatarInput.files.length === 0 && !estateId) {
             avatarInput.error.show("Ảnh đại diện không được phép để trống");
+            submitButton.loading.hide();
+            secondaryButton.loading.hide();
             enableForm();
             return;
         }
@@ -526,13 +556,15 @@ prepare(async (request) => {
         // Thiếu trường hợp đổi từ Youtube sang ảnh
 
         // Kiểm tra xem Mã bất động sản có bị trùng không
-        if (estateData.estate_id !== savedEstateCustomId) {
+        if (estateData.estate_id && estateData.estate_id !== savedEstateCustomId) {
             const customEstateId = estateData.estate_id;
             try {
                 const { data: estate } = await request.get(`estates/${customEstateId}`);
                 if (estate) {
                     const customIdInput = estateForm.querySelector("#estate_id");
                     customIdInput.error.show("Mã bất động sản đã tồn tại");
+                    submitButton.loading.hide();
+                    secondaryButton.loading.hide();
                     enableForm();
                     return;
                 }
@@ -543,6 +575,8 @@ prepare(async (request) => {
                         "Đã xảy ra lỗi khi kiểm tra tính khả dụng của 'Mã BĐS'",
                         error?.response.data || error
                     );
+                    submitButton.loading.hide();
+                    secondaryButton.loading.hide();
                     enableForm();
                     return;
                 }
@@ -556,16 +590,20 @@ prepare(async (request) => {
             signature = response;
         } catch (error) {
             estateForm.showError("Đã xảy ra lỗi khi kết nối với máy chủ.", error?.response.data || error);
+            submitButton.loading.hide();
+            secondaryButton.loading.hide();
             enableForm();
             return;
         }
 
-        if (avatarInput.files.length > 0 && !youtubeAvatarCheckbox.checked) {
+        if (avatarInput?.files.length > 0 && !youtubeAvatarCheckbox.checked) {
             try {
                 const { data: avatarResponse } = await uploadImage(avatarInput.files[0], signature);
                 estateData.avatar = normalizeImageData({ ...avatarResponse, ...signature });
             } catch (error) {
                 estateForm.showError("Đã xảy ra lỗi khi tải lên ảnh đại diện.", error?.response.data || error);
+                submitButton.loading.hide();
+                secondaryButton.loading.hide();
                 enableForm();
                 return;
             }
@@ -588,6 +626,8 @@ prepare(async (request) => {
                 ];
             } catch (error) {
                 estateForm.showError("Đã xảy ra lỗi khi tải lên ảnh.", error?.response.data || error);
+                submitButton.loading.hide();
+                secondaryButton.loading.hide();
                 enableForm();
                 return;
             }
@@ -596,15 +636,43 @@ prepare(async (request) => {
         try {
             if (!estateId) {
                 const { data: responses } = await request.post("estates", estateData);
-                window.location.href = `./modify.html?id=${responses.id}&notification=published`;
+                window.location.href = `./modify.html?id=${responses.id}&notification=${
+                    validation ? "published" : "saved"
+                }`;
                 return;
             }
             await request.patch(`estates/${estateId}`, estateData);
-            window.location.href = `./modify.html?id=${estateId}&notification=saved`;
+            window.location.href = `./modify.html?id=${estateId}&notification=${validation ? "published" : "saved"}`;
         } catch (error) {
             estateForm.showError("Đã xảy ra lỗi khi lưu thông tin bài viết.", error?.response.data || error);
+            submitButton.loading.hide();
+            secondaryButton.loading.hide();
             enableForm();
             // Phải xoá ảnh đại diện và ảnh bổ sung để không bị lưu lại
+        }
+    };
+
+    submitButton.onclick = (event) => {
+        event.preventDefault();
+        submitButton.loading.show();
+        const buttonElement = event.target.closest("button");
+        const { action } = buttonElement.dataset;
+        if (action === "publish") {
+            handleSubmit(true);
+        } else if (action === "save") {
+            handleSubmit(false);
+        }
+    };
+
+    secondaryButton.onclick = (event) => {
+        event.preventDefault();
+        secondaryButton.loading.show();
+        const buttonElement = event.target.closest("button");
+        const { action } = buttonElement.dataset;
+        if (action === "publish") {
+            handleSubmit(true);
+        } else if (action === "save") {
+            handleSubmit(false);
         }
     };
 });

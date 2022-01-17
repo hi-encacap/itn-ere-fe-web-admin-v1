@@ -322,6 +322,7 @@ prepare(async (request) => {
             handleSubmit(false);
         }
     };
+
     secondaryButton.onclick = (event) => {
         event.preventDefault();
         secondaryButton.loading.show();

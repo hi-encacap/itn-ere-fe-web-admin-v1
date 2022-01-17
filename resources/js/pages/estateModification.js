@@ -366,14 +366,14 @@ prepare(async (request) => {
             renderImagesPreview();
         }
 
-        submitButton.innerText = "Cập nhật";
+        submitButton.querySelector("span").innerText = "Cập nhật";
 
         if (estateData.isPublished) {
             submitButton.dataset.action = "save";
             secondaryButton.style.display = "none";
         } else {
             submitButton.dataset.action = "save";
-            secondaryButton.innerText = "Xuất bản";
+            secondaryButton.querySelector("span").innerText = "Xuất bản";
             secondaryButton.dataset.action = "publish";
         }
 
@@ -539,10 +539,6 @@ prepare(async (request) => {
         );
 
         estateData.isPublished = validation;
-        estateData.contact = {
-            name: contactNameInput.value,
-            phone: contactPhoneInput.value,
-        };
 
         // Kiểm tra xem có ảnh đại diện không
         if (validation && !youtubeAvatarCheckbox.checked && avatarInput.files.length === 0 && !estateId) {

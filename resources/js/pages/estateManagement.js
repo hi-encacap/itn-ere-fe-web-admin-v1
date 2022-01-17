@@ -10,6 +10,7 @@ prepare(async (request) => {
     const draftContainer = document.querySelector("#draft_container");
     const searchInput = document.querySelector("#search");
     let estates = [];
+    let drafts = [];
 
     const renderEstates = (data = estates) => {
         estatesContainer.innerHTML = "";
@@ -37,10 +38,10 @@ prepare(async (request) => {
         }
     };
 
-    const renderDrafts = (data = estates) => {
+    const renderDrafts = (data = drafts) => {
         draftContainer.innerHTML = "";
         if (data.length === 0) {
-            draftContainer.innerHTML = `<div class="p-4 bg-white rounded-md">Hiện không có bản nháp nào.</div>`;
+            draftContainer.innerHTML = `<div class="mb-4 p-4 bg-white rounded-md">Hiện không có bản nháp nào.</div>`;
             return;
         }
         data.forEach((estate) => {
@@ -54,7 +55,8 @@ prepare(async (request) => {
             const { data } = await request.get("estates", {
                 params: { limit: 100000, sortBy: "priority:desc", isPublished: false, ...params },
             });
-            renderDrafts(data.results);
+            drafts = data.results;
+            renderDrafts(drafts);
         } catch (error) {
             console.log(error);
         }
@@ -99,7 +101,7 @@ prepare(async (request) => {
     const confirmDeleteButton = confirmDeleteForm.querySelector("button[type=submit]");
     const deletedTitle = document.querySelector("#deletedTitle");
 
-    estatesContainer.onclick = async (event) => {
+    const handleDeleteButtonClicked = async (event) => {
         const moveToTopButton = event.target.closest(".move-to-top");
         const moveToTrash = event.target.closest(".move-to-trash");
         if (moveToTopButton) {
@@ -109,24 +111,34 @@ prepare(async (request) => {
         }
         if (moveToTrash) {
             const deletedEstateId = moveToTrash.dataset.id;
+            const deletedEstateType = moveToTrash.dataset.type;
+            let deletedEstate = null;
 
             confirmDeleteModal.show();
             confirmDeleteForm.hideNotify();
             confirmDeleteButton.dataset.id = deletedEstateId;
+            confirmDeleteButton.dataset.type = deletedEstateType;
             confirmDeleteButton.enable();
             confirmDeleteButton.loading.hide();
 
-            const deletedEstate = estates.find((estate) => estate.id === deletedEstateId);
+            if (deletedEstateType === "draft") {
+                deletedEstate = drafts.find((draft) => draft.id === deletedEstateId);
+            } else {
+                deletedEstate = estates.find((estate) => estate.id === deletedEstateId);
+            }
 
             deletedTitle.innerHTML = `
-                <strong>#${deletedEstate.customId}</strong>
-                ${deletedEstate.title}
+                <strong>#${deletedEstate?.customId}</strong>
+                ${deletedEstate?.title || "Bài viết không có tiêu đề"}
             `;
         }
     };
 
+    estatesContainer.onclick = handleDeleteButtonClicked;
+    draftContainer.onclick = handleDeleteButtonClicked;
+
     confirmDeleteButton.onclick = async (event) => {
-        const { id: estateId } = confirmDeleteButton.dataset;
+        const { id: estateId, type: estateType } = confirmDeleteButton.dataset;
         event.preventDefault();
         confirmDeleteForm.disable();
         confirmDeleteButton.loading.show();
@@ -134,8 +146,13 @@ prepare(async (request) => {
         try {
             await request.delete(`estates/${estateId}`);
             confirmDeleteModal.hide();
-            estates = estates.filter((estate) => estate.id !== estateId);
-            renderEstates();
+            if (estateType === "draft") {
+                drafts = drafts.filter((draft) => draft.id !== estateId);
+                renderDrafts(drafts);
+            } else {
+                estates = estates.filter((estate) => estate.id !== estateId);
+                renderEstates();
+            }
         } catch (error) {
             confirmDeleteForm.showError("Đã xảy ra lỗi khi xoá bài viết.", error);
             confirmDeleteForm.enable();

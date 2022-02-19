@@ -15,6 +15,7 @@ const axios = require("axios");
 const prepare = require("../utils/prepare");
 const EncacapForm = require("../utils/form");
 const EncacapFiles = require("../utils/files");
+const EncacapUpload = require("../utils/upload");
 
 const { createPreviewImage, handleURL, pick } = require("../utils/helpers");
 const { normalizeImageData, getImageURL } = require("../utils/cloudinary");
@@ -27,6 +28,7 @@ const convertStringToHTML = (string) => {
 
 prepare(async (request) => {
     const newsForm = new EncacapForm("#news_form");
+    const encacapUpload = new EncacapUpload();
 
     newsForm.validate({
         title: [
@@ -115,6 +117,8 @@ prepare(async (request) => {
     const avatarImage = avatarContainer.querySelector(".form-images-preview img");
     const avatarInput = avatarContainer.querySelector("input");
 
+    let avatarFile = null;
+
     const renderAvatarPreview = (file = null) => {
         avatarInput.error.hide();
         if (!file) {
@@ -129,10 +133,12 @@ prepare(async (request) => {
         renderAvatarPreview(newsData.avatar);
     }
 
-    avatarInput.onchange = () => {
-        const avatarFile = avatarInput.files[0];
-        if (!avatarFile) return;
-        renderAvatarPreview(avatarFile);
+    avatarInput.onclick = (event) => {
+        event.preventDefault();
+        encacapUpload.upload((file) => {
+            avatarFile = file;
+            renderAvatarPreview(file);
+        });
     };
 
     const cloudinaryInstance = axios.create({
@@ -172,8 +178,6 @@ prepare(async (request) => {
         const newsContentHTML = convertStringToHTML(newsContentString);
 
         let totalNewImages = 0;
-
-        const avatarFile = avatarInput.files[0];
 
         if (validation) {
             if (!avatarFile && !newsData.avatar?.origin) {

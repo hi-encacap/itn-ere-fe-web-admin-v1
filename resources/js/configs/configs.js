@@ -3,7 +3,7 @@ const getAPIGateway = () => {
     if (domain === "localhost" || domain === "127.0.0.1") {
         return "http://localhost:3000/api/v1";
     }
-    return "https://baolocre.encacap.com/api/v1";
+    return "https://diaocbaoloc.com.vn/api/v1";
 };
 
 module.exports = {

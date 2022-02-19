@@ -1,4 +1,5 @@
 @import "./tailwind.css";
+@import "animate.css";
 
 .transition-bg-200 {
     transition: background-color 0.2s;

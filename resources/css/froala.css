@@ -1,9 +1,6 @@
 @import "froala-editor/css/froala_editor.css";
 
 .fr {
-    a {
-        @apply font-semibold text-encacap-main-dark hover:underline !important;
-    }
 
     &-box {
         @apply overflow-hidden;
@@ -49,6 +46,10 @@
 
     &-view {
         @apply border-b-2 border-gray-100 px-px py-4 text-base !important;
+
+        a {
+            @apply font-semibold text-encacap-main-dark hover:underline !important;
+        }
 
         * {
             @apply font-sans !important;

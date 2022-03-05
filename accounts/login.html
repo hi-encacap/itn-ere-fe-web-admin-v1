@@ -13,37 +13,26 @@
         <div class="flex w-screen h-screen">
             <form
                 action=""
-                class="form w-full m-auto border-2 border-gray-100 rounded-md p-10"
+                class="w-full p-10 m-auto border-2 border-gray-100 rounded-md form"
                 style="max-width: 480px"
             >
                 <div class="form-header">
                     <a href="/">
                         <img src="/assets/images/encacap_logo.svg" alt="Encacap" class="w-16" />
                     </a>
-                    <div class="font-semibold text-xl">
+                    <div class="text-xl font-semibold">
                         <div class="py-6">Đăng nhập vào trang quản trị</div>
-                        <div class="w-20 h-1 mt-1 rounded-md bg-gray-100"></div>
+                        <div class="w-20 h-1 mt-1 bg-gray-100 rounded-md"></div>
                     </div>
                 </div>
-                <div class="form-body pt-8">
+                <div class="pt-8 form-body">
                     <div
-                        class="
-                            form-notify
-                            hidden
-                            border-2 border-red-300
-                            bg-red-200
-                            rounded-md
-                            mb-4
-                            px-6
-                            py-5
-                            text-red-500
-                            font-semibold
-                        "
+                        class="hidden px-6 py-5 mb-4 font-semibold text-red-500 bg-red-200 border-2 border-red-300 rounded-md  form-notify"
                     >
                         Tên đăng nhập hoặc mật khẩu không chính xác.
                     </div>
-                    <div class="form-group border-2 border-gray-100 rounded-md px-6 pt-5 pb-4">
-                        <label for="email" class="block font-semibold text-gray-500 text-sm">Địa chỉ Email</label>
+                    <div class="px-6 pt-5 pb-4 border-2 border-gray-100 rounded-md form-group">
+                        <label for="email" class="block text-sm font-semibold text-gray-500">Địa chỉ Email</label>
                         <input
                             type="email"
                             name="email"
@@ -53,8 +42,8 @@
                         />
                         <div class="form-message mt-1.5 mb-1 text-sm">Địa chỉ Email không được phép để trống</div>
                     </div>
-                    <div class="form-group mt-4 border-2 border-gray-100 rounded-md px-6 pt-5 pb-4">
-                        <label for="password" class="block font-semibold text-gray-500 text-sm">Mật khẩu</label>
+                    <div class="px-6 pt-5 pb-4 mt-4 border-2 border-gray-100 rounded-md form-group">
+                        <label for="password" class="block text-sm font-semibold text-gray-500">Mật khẩu</label>
                         <input
                             type="password"
                             name="password"
@@ -67,25 +56,15 @@
                     <div class="mt-4">
                         <button
                             type="submit"
-                            class="
-                                btn
-                                w-full
-                                border-2 border-encacap-main
-                                bg-encacap-main
-                                rounded-md
-                                py-2
-                                text-white
-                                font-semibold
-                                hover:bg-encacap-main-dark
-                            "
+                            class="w-full py-2 font-semibold text-white border-2 rounded-md  btn border-encacap-main bg-encacap-main hover:bg-encacap-main-dark"
                         >
-                            <div class="spinner w-5 h-5 mr-4 rounded-full border-2 border-white"></div>
+                            <div class="w-5 h-5 mr-4 border-2 border-white rounded-full spinner"></div>
                             Đăng nhập
                         </button>
                     </div>
                 </div>
             </form>
         </div>
-        <script src="/assets/js/login.min.js?version=220219"></script>
+        <script src="/assets/js/login.min.js?version=220305"></script>
     </body>
 </html>

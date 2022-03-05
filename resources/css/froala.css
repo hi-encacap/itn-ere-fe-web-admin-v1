@@ -2,7 +2,7 @@
 
 .fr {
     a {
-        @apply font-semibold text-encacap-main-dark hover:underline;
+        @apply font-semibold text-encacap-main-dark hover:underline !important;
     }
 
     &-box {

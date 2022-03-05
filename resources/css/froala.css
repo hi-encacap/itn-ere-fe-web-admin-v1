@@ -1,6 +1,10 @@
 @import "froala-editor/css/froala_editor.css";
 
 .fr {
+    a {
+        @apply font-semibold text-encacap-main-dark hover:underline;
+    }
+
     &-box {
         @apply overflow-hidden;
     }
@@ -23,7 +27,7 @@
         @apply relative float-none ml-0 pr-4 !important;
 
         &::before {
-            @apply absolute top-3 right-0 h-6 border-r-2 border-gray-200;
+            @apply absolute right-0 h-6 border-r-2 border-gray-200 top-3;
 
             content: "";
         }
@@ -89,7 +93,7 @@
                 @apply rounded-b-none border-b-0 !important;
             }
             span {
-                @apply block w-full py-2 rounded-b-md bg-gray-100 text-center text-sm;
+                @apply block w-full py-2 text-sm text-center bg-gray-100 rounded-b-md;
             }
         }
     }

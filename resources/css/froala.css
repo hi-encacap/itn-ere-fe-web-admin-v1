@@ -48,7 +48,7 @@
         @apply border-b-2 border-gray-100 px-px py-4 text-base !important;
 
         a {
-            @apply inline-block mr-2 border-2 border-gray-100 hover:bg-gray-50 text-blue-400 !important;
+            @apply inline-block mr-2 rounded-lg px-2 py-0.5 border-2 border-gray-100 hover:bg-gray-50 text-blue-400 !important;
         }
 
         * {

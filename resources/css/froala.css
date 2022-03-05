@@ -48,7 +48,7 @@
         @apply border-b-2 border-gray-100 px-px py-4 text-base !important;
 
         a {
-            @apply font-semibold text-encacap-main-dark hover:underline !important;
+            @apply font-semibold text-black hover:text-encacap-main-dark underline !important;
         }
 
         * {

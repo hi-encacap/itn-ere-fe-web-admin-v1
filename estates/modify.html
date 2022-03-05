@@ -12,41 +12,18 @@
     <body>
         <div class="page-loading"></div>
         <header
-            class="
-                flex
-                items-center
-                fixed
-                top-0
-                left-0
-                z-40
-                w-full
-                lg:w-80
-                h-20
-                border-b-2 border-r-2 border-gray-100
-                bg-white
-                px-4
-                lg:px-10
-            "
+            class="fixed top-0 left-0 z-40 flex items-center w-full h-20 px-4 bg-white border-b-2 border-r-2 border-gray-100  lg:w-80 lg:px-10"
         >
             <a href="/">
                 <img src="/assets/images/encacap_logo.svg" class="w-10" alt="Encacap Logo" />
             </a>
         </header>
         <nav
-            class="hidden lg:block lg:fixed top-0 left-0 bottom-0 w-80 h-full border-r-2 border-gray-100 bg-white pt-28"
+            class="top-0 bottom-0 left-0 hidden h-full bg-white border-r-2 border-gray-100 lg:block lg:fixed w-80 pt-28"
         >
             <a
                 href="/"
-                class="
-                    flex
-                    items-center
-                    -mr-px
-                    border-r-4 border-transparent
-                    px-10
-                    py-4
-                    font-semibold
-                    hover:text-encacap-main
-                "
+                class="flex items-center px-10 py-4 -mr-px font-semibold border-r-4 border-transparent  hover:text-encacap-main"
             >
                 <div class="flex items-center justify-center w-10 mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6">
@@ -63,16 +40,7 @@
             </a>
             <a
                 href="/estates/"
-                class="
-                    flex
-                    items-center
-                    -mr-px
-                    border-r-4 border-encacap-main
-                    px-10
-                    py-4
-                    font-semibold
-                    text-encacap-main
-                "
+                class="flex items-center px-10 py-4 -mr-px font-semibold border-r-4  border-encacap-main text-encacap-main"
             >
                 <div class="flex items-center justify-center w-10 mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6" viewBox="0 0 24 24" fill="none">
@@ -96,16 +64,7 @@
             </a>
             <a
                 href="/news/"
-                class="
-                    flex
-                    items-center
-                    -mr-px
-                    border-r-4 border-transparent
-                    px-10
-                    py-4
-                    font-semibold
-                    hover:text-encacap-main
-                "
+                class="flex items-center px-10 py-4 -mr-px font-semibold border-r-4 border-transparent  hover:text-encacap-main"
             >
                 <div class="flex items-center justify-center w-10 mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" class="w-6" viewBox="0 0 24 24" fill="none">
@@ -122,16 +81,7 @@
             </a>
             <a
                 href="/locations/"
-                class="
-                    flex
-                    items-center
-                    -mr-px
-                    border-r-4 border-transparent
-                    px-10
-                    py-4
-                    font-semibold
-                    hover:text-encacap-main
-                "
+                class="flex items-center px-10 py-4 -mr-px font-semibold border-r-4 border-transparent  hover:text-encacap-main"
             >
                 <div class="flex items-center justify-center w-10 mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6">
@@ -151,16 +101,7 @@
             </a>
             <a
                 href="/configs/"
-                class="
-                    flex
-                    items-center
-                    -mr-px
-                    border-r-4 border-transparent
-                    px-10
-                    py-4
-                    font-semibold
-                    hover:text-encacap-main
-                "
+                class="flex items-center px-10 py-4 -mr-px font-semibold border-r-4 border-transparent  hover:text-encacap-main"
             >
                 <div class="flex items-center justify-center w-10 mr-4">
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-6">
@@ -185,29 +126,15 @@
                 <div>Cài đặt chung</div>
             </a>
         </nav>
-        <main class="lg:ml-80 mt-20 lg:mt-0 px-4 lg:px-10">
-            <div class="flex items-center justify-between mb-4 border-b-2 border-gray-100 font-semibold">
+        <main class="px-4 mt-20 lg:ml-80 lg:mt-0 lg:px-10">
+            <div class="flex items-center justify-between mb-4 font-semibold border-b-2 border-gray-100">
                 <div>
                     <div class="flex items-center h-20">Thêm bài viết mới</div>
                     <div class="w-full h-1 -mt-1 rounded-md bg-gray-100 -mb-0.5"></div>
                 </div>
                 <a
                     href="./"
-                    class="
-                        flex
-                        items-center
-                        ml-10
-                        border-2 border-encacap-main
-                        bg-encacap-main
-                        rounded-md
-                        px-4
-                        py-2
-                        text-white
-                        cursor-pointer
-                        transition-bg
-                        duration-200
-                        hover:bg-white hover:text-encacap-main
-                    "
+                    class="flex items-center px-4 py-2 ml-10 text-white duration-200 border-2 rounded-md cursor-pointer  border-encacap-main bg-encacap-main transition-bg hover:bg-white hover:text-encacap-main"
                 >
                     <svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 24 24" fill="none" class="w-4 mr-2">
                         <path
@@ -219,21 +146,10 @@
                 </a>
             </div>
             <div class="grid lg:grid-cols-2">
-                <form action="" class="form w-full" id="estate_form">
-                    <div class="form-body mb-16">
+                <form action="" class="w-full form" id="estate_form">
+                    <div class="mb-16 form-body">
                         <div
-                            class="
-                                form-notify
-                                hidden
-                                border-2 border-red-300
-                                bg-red-200
-                                rounded-md
-                                mb-4
-                                px-6
-                                py-5
-                                text-red-500
-                                font-semibold
-                            "
+                            class="hidden px-6 py-5 mb-4 font-semibold text-red-500 bg-red-200 border-2 border-red-300 rounded-md  form-notify"
                         ></div>
                         <div class="form-group">
                             <label for="estate_id">Mã BĐS</label>
@@ -246,7 +162,7 @@
                             />
                             <div class="form-message">Mã BĐS đã tồn tại</div>
                         </div>
-                        <div class="form-block mt-4 border-2 border-gray-100 rounded-md">
+                        <div class="mt-4 border-2 border-gray-100 rounded-md form-block">
                             <div class="form-group form-group--noborder">
                                 <label for="city"> Tỉnh, thành phố </label>
                                 <select name="city" id="city">
@@ -284,7 +200,7 @@
                                 <div class="form-message"></div>
                             </div>
                         </div>
-                        <div class="form-block mt-4 border-2 border-gray-100 rounded-md">
+                        <div class="mt-4 border-2 border-gray-100 rounded-md form-block">
                             <div class="form-group form-group--noborder">
                                 <label for="title"> Tiêu đề </label>
                                 <input type="text" name="title" id="title" placeholder="Nhập tiêu đề bài viết" />
@@ -308,7 +224,7 @@
                                 <div class="form-message"></div>
                             </div>
                         </div>
-                        <div class="form-block mt-4 border-2 border-gray-100 rounded-md">
+                        <div class="mt-4 border-2 border-gray-100 rounded-md form-block">
                             <div class="form-group form-group--noborder">
                                 <label for="category"> Danh mục </label>
                                 <select name="category" id="category">
@@ -380,32 +296,22 @@
                                 <div class="form-message"></div>
                             </div>
                         </div>
-                        <!-- <div class="form-group mt-4">
+                        <!-- <div class="mt-4 form-group">
                             <label> Thông tin liên hệ </label>
                             <div class="flex items-center mt-4">
                                 <img src="/assets/images/encacap_logo.svg" alt="Contact Avatar" class="w-8 h-8 mr-4" />
                                 <div class="flex-1">
                                     <div class="font-semibold">Nguyễn Khắc Khánh</div>
-                                    <div class="text-gray-400 text-sm mt-1">Điện thoại: 0582 419 433</div>
+                                    <div class="mt-1 text-sm text-gray-400">Điện thoại: 0582 419 433</div>
                                 </div>
                                 <div
-                                    class="
-                                        bg-gray-100
-                                        rounded-md
-                                        border-2 border-transparent
-                                        px-3
-                                        py-1
-                                        text-gray-400 text-sm
-                                        font-semibold
-                                        cursor-pointer
-                                        hover:border-gray-300 hover:bg-gray-200
-                                    "
+                                    class="px-3 py-1 text-sm font-semibold text-gray-400 bg-gray-100 border-2 border-transparent rounded-md cursor-pointer  hover:border-gray-300 hover:bg-gray-200"
                                 >
                                     Thay đổi
                                 </div>
                             </div>
                         </div> -->
-                        <div class="form-block mt-4 border-2 border-gray-100 rounded-md">
+                        <div class="mt-4 border-2 border-gray-100 rounded-md form-block">
                             <div class="form-group form-group--noborder">
                                 <label for="contact_name"> Thông tin liên hệ </label>
                                 <input
@@ -428,7 +334,7 @@
                                 <div class="form-message"></div>
                             </div>
                         </div>
-                        <div class="simplemde form-group mt-4">
+                        <div class="mt-4 simplemde form-group">
                             <label for="description"> Thông tin chi tiết </label>
                             <textarea
                                 name="description"
@@ -437,7 +343,7 @@
                                 placeholder="Nhập thông tin mô tả chi tiết cho BĐS"
                             ></textarea>
                         </div>
-                        <div class="form-block mt-4 border-2 border-gray-100 rounded-md">
+                        <div class="mt-4 border-2 border-gray-100 rounded-md form-block">
                             <div class="form-group form-group--noborder">
                                 <label for="youtube"> Youtube </label>
                                 <input
@@ -482,7 +388,7 @@
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24"
                                                 fill="none"
-                                                class="form-images-add w-8"
+                                                class="w-8 form-images-add"
                                             >
                                                 <path
                                                     d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM8 12h8M12 16V8"
@@ -496,7 +402,7 @@
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24"
                                                 fill="none"
-                                                class="form-images-change w-8"
+                                                class="w-8 form-images-change"
                                             >
                                                 <path
                                                     stroke="currentColor"
@@ -516,7 +422,7 @@
                                 <div class="form-line"></div>
                             </div>
                             <div class="form-group form-images form-group--noborder" id="images_container">
-                                <label for="images" class="block font-semibold text-gray-400 text-sm">
+                                <label for="images" class="block text-sm font-semibold text-gray-400">
                                     Hình ảnh khác
                                 </label>
                                 <div class="relative">
@@ -535,7 +441,7 @@
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24"
                                                 fill="none"
-                                                class="form-images-add w-8"
+                                                class="w-8 form-images-add"
                                             >
                                                 <path
                                                     d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM8 12h8M12 16V8"
@@ -549,7 +455,7 @@
                                                 xmlns="http://www.w3.org/2000/svg"
                                                 viewBox="0 0 24 24"
                                                 fill="none"
-                                                class="form-images-change w-8"
+                                                class="w-8 form-images-change"
                                             >
                                                 <path
                                                     d="M12 22c5.5 0 10-4.5 10-10S17.5 2 12 2 2 6.5 2 12s4.5 10 10 10ZM8 12h8M12 16V8"
@@ -569,39 +475,18 @@
                             <div class="footer footer--hide">
                                 <button
                                     type="button"
-                                    class="
-                                        btn
-                                        w-full
-                                        mr-4
-                                        border-2 border-gray-200
-                                        bg-gray-200
-                                        rounded-md
-                                        py-2
-                                        text-black
-                                        font-semibold
-                                        hover:bg-gray-300
-                                    "
+                                    class="w-full py-2 mr-4 font-semibold text-black bg-gray-200 border-2 border-gray-200 rounded-md  btn hover:bg-gray-300"
                                     data-action="save"
                                 >
-                                    <div class="spinner w-4 h-4 mr-4 rounded-full border-2 border-black"></div>
+                                    <div class="w-4 h-4 mr-4 border-2 border-black rounded-full spinner"></div>
                                     <span>Lưu bản nháp</span>
                                 </button>
                                 <button
                                     type="submit"
-                                    class="
-                                        btn
-                                        w-full
-                                        border-2 border-encacap-main
-                                        bg-encacap-main
-                                        rounded-md
-                                        py-2
-                                        text-white
-                                        font-semibold
-                                        hover:bg-encacap-main-dark
-                                    "
+                                    class="w-full py-2 font-semibold text-white border-2 rounded-md  btn border-encacap-main bg-encacap-main hover:bg-encacap-main-dark"
                                     data-action="publish"
                                 >
-                                    <div class="spinner w-4 h-4 mr-4 rounded-full border-2 border-white"></div>
+                                    <div class="w-4 h-4 mr-4 border-2 border-white rounded-full spinner"></div>
                                     <span>Xuất bản</span>
                                 </button>
                             </div>
@@ -611,62 +496,51 @@
             </div>
         </main>
         <div
-            class="modal fixed top-0 left-0 right-0 bottom-0 z-90 hidden bg-black bg-opacity-50 overflow-y-auto"
+            class="fixed top-0 bottom-0 left-0 right-0 hidden overflow-y-auto bg-black bg-opacity-50 modal z-90"
             id="progressModel"
         >
-            <div class="w-full max-w-mobile m-auto border-2 border-gray-100 rounded-md bg-white p-10 pt-6">
+            <div class="w-full p-10 pt-6 m-auto bg-white border-2 border-gray-100 rounded-md max-w-mobile">
                 <div class="font-semibold">
-                    <div class="mt-2 pb-6">Đang lưu bài viết, vui lòng đợi...</div>
-                    <div class="w-20 h-1 mt-1 rounded-md bg-gray-100"></div>
+                    <div class="pb-6 mt-2">Đang lưu bài viết, vui lòng đợi...</div>
+                    <div class="w-20 h-1 mt-1 bg-gray-100 rounded-md"></div>
                 </div>
-                <div class="mt-10 border-2 border-gray-100 rounded-md px-6">
+                <div class="px-6 mt-10 border-2 border-gray-100 rounded-md">
                     <div class="flex items-center py-4 border-b-2 border-gray-100" id="signature_progress">
                         <div class="mr-4 mt-0.5">
-                            <div class="w-4 h-4 rounded-full border-2 border-gray-200"></div>
-                            <!-- <div class="spinner w-4 h-4 border-2 border-encacap-main rounded-full"></div> -->
-                            <!-- <div class="w-4 h-4 rounded-full border-2 border-green-500 bg-green-500"></div> -->
-                            <!-- <div class="w-4 h-4 rounded-full border-2 border-red-500 bg-red-500"></div> -->
+                            <div class="w-4 h-4 border-2 border-gray-200 rounded-full"></div>
+                            <!-- <div class="w-4 h-4 border-2 rounded-full spinner border-encacap-main"></div> -->
+                            <!-- <div class="w-4 h-4 bg-green-500 border-2 border-green-500 rounded-full"></div> -->
+                            <!-- <div class="w-4 h-4 bg-red-500 border-2 border-red-500 rounded-full"></div> -->
                         </div>
                         <div>Kết nối với máy chủ</div>
                     </div>
-                    <div class="flex items-center border-b-2 border-gray-100 py-4" id="avatar_progress">
+                    <div class="flex items-center py-4 border-b-2 border-gray-100" id="avatar_progress">
                         <div class="mr-4">
-                            <div class="w-4 h-4 rounded-full border-2 border-gray-200"></div>
+                            <div class="w-4 h-4 border-2 border-gray-200 rounded-full"></div>
                         </div>
                         <div>Tải lên ảnh đại diện</div>
                     </div>
-                    <div class="flex items-center border-b-2 border-gray-100 py-4" id="images_progress">
+                    <div class="flex items-center py-4 border-b-2 border-gray-100" id="images_progress">
                         <div class="mr-4">
-                            <div class="w-4 h-4 rounded-full border-2 border-gray-200"></div>
+                            <div class="w-4 h-4 border-2 border-gray-200 rounded-full"></div>
                         </div>
                         <div>Tải lên hình ảnh</div>
                     </div>
                     <div class="flex items-center py-4" id="save_progress">
                         <div class="mr-4">
-                            <div class="w-4 h-4 rounded-full border-2 border-gray-200"></div>
+                            <div class="w-4 h-4 border-2 border-gray-200 rounded-full"></div>
                         </div>
                         <div>Lưu thông tin bài viết</div>
                     </div>
                 </div>
                 <button
                     type="submit"
-                    class="
-                        btn
-                        w-full
-                        mt-6
-                        border-2 border-encacap-main
-                        bg-encacap-main
-                        rounded-md
-                        py-2
-                        text-white
-                        font-semibold
-                        hover:bg-encacap-main-dark
-                    "
+                    class="w-full py-2 mt-6 font-semibold text-white border-2 rounded-md  btn border-encacap-main bg-encacap-main hover:bg-encacap-main-dark"
                 >
                     Xác nhận
                 </button>
             </div>
         </div>
-        <script src="/assets/js/estate_modification.min.js?version=220219"></script>
+        <script src="/assets/js/estate_modification.min.js?version=220305"></script>
     </body>
 </html>

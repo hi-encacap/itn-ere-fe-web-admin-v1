@@ -25,7 +25,7 @@ const normalizeImageData = (data) => {
     }
     const { name, resource_type: resourceType, type: action, version, public_id: publicId, format } = data;
     return {
-        origin: "http://res.cloudinary.com",
+        origin: "https://res.cloudinary.com",
         resourceType,
         name,
         action,

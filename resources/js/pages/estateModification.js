@@ -1,6 +1,5 @@
 const validator = require("validator");
 const axios = require("axios");
-const SimpleMDE = require("simplemde");
 const prepare = require("../utils/prepare");
 const EncacapForm = require("../utils/form");
 const EncacapFiles = require("../utils/files");
@@ -126,11 +125,11 @@ prepare(async (request) => {
         ],
     });
 
-    const simpleMDE = new SimpleMDE({
-        element: estateForm.querySelector("#description"),
-        spellChecker: false,
-        hideIcons: ["image", "side-by-side", "fullscreen"],
-    });
+    // const simpleMDE = new SimpleMDE({
+    //     element: estateForm.querySelector("#description"),
+    //     spellChecker: false,
+    //     hideIcons: ["image", "side-by-side", "fullscreen"],
+    // });
 
     /**
      * Tạo hiệu ứng cho cái nút ở cuối biểu mẫu & Đổ dữ liệu luôn, tại lỡ rồi =))
@@ -377,7 +376,9 @@ prepare(async (request) => {
             secondaryButton.dataset.action = "publish";
         }
 
-        if (description) simpleMDE.value(description);
+        if (description) {
+            console.log(description);
+        }
     }
 
     if (!estateId) {
@@ -535,7 +536,7 @@ prepare(async (request) => {
                     [key]: inputData[key].value,
                 };
             }, {}),
-            { description: simpleMDE.value() }
+            { description: "" } // simpleMDE.value()
         );
 
         estateData.isPublished = validation;

@@ -15,12 +15,21 @@ const handleURL = (url) => {
 };
 
 const generateYoutubePreview = (url) => {
-    const youtubeId = handleURL(url).query("v");
+    let youtubeId = null;
+
+    if (url.includes("v")) {
+        youtubeId = handleURL(url).query("v");
+    } else if (url.includes("youtu.be")) {
+        const urlParts = url.split("/");
+        youtubeId = urlParts[urlParts.length - 1];
+    }
+
     return `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
 };
 
 const createPreviewImage = (file) => {
     if (!file) return;
+
     if (typeof file === "object") {
         if (file.lastModified) {
             return URL.createObjectURL(file, { eager: "c_thumb,g_center,w_300" });

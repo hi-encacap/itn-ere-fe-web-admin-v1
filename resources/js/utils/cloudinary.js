@@ -14,7 +14,15 @@ const handleURL = (url) => {
 
 const normalizeImageData = (data) => {
     if (typeof data === "string") {
-        const youtubeId = handleURL(data).query("v");
+        let youtubeId = null;
+
+        if (data.includes("v")) {
+            youtubeId = handleURL(data).query("v");
+        } else if (data.includes("youtu.be")) {
+            const urlParts = data.split("/");
+            youtubeId = urlParts[urlParts.length - 1];
+        }
+
         return {
             origin: "https://img.youtube.com",
             name: "vi",
@@ -49,6 +57,7 @@ const getImageURL = (data, options) => {
         return url;
     }
     const { publicId: youtubeId } = data;
+
     return `https://img.youtube.com/vi/${youtubeId}/maxresdefault.jpg`;
 };
 

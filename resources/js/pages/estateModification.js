@@ -134,7 +134,7 @@ prepare(async (request) => {
 
     const formActions = estateForm.querySelector(".footer");
     const submitButton = estateForm.querySelector("button[type=submit]");
-    const secondaryButton = estateForm.querySelector("button[type=button]");
+    const secondaryButton = estateForm.querySelector("button[type=button]#second-button");
 
     const estateIdInput = estateForm.querySelector("input[name=estate_id]");
     const streetInput = estateForm.querySelector("input[name=street]");
@@ -213,6 +213,7 @@ prepare(async (request) => {
             avatarImagesGroup.classList.remove("has-items");
             return;
         }
+
         avatarImage.src = createPreviewImage(file);
         avatarImagesGroup.classList.add("has-items");
     };

@@ -1,4 +1,4 @@
-const TomSelect = require("tom-select");
+const TomSelect = require("tom-select").default;
 const axios = require("axios");
 
 const config = require("../configs/configs");

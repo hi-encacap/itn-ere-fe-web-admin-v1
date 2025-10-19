@@ -58,6 +58,7 @@
         "animate.css": "^4.1.1",
         "axios": "^0.24.0",
         "dayjs": "^1.10.7",
+        "easymde": "^2.20.0",
         "entities": "^3.0.1",
         "froala-editor": "^4.0.7",
         "nanoid": "^3.1.30",

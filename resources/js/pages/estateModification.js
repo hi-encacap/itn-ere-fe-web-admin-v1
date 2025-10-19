@@ -1,9 +1,10 @@
 const validator = require("validator");
 const axios = require("axios");
+const EasyMDE = require("easymde");
+
 const prepare = require("../utils/prepare");
 const EncacapForm = require("../utils/form");
 const EncacapFiles = require("../utils/files");
-// const EncacapModal = require("../utils/modal");
 const { createPreviewImage, handleURL } = require("../utils/helpers");
 const { normalizeImageData } = require("../utils/cloudinary");
 
@@ -125,15 +126,11 @@ prepare(async (request) => {
         ],
     });
 
-    // const simpleMDE = new SimpleMDE({
-    //     element: estateForm.querySelector("#description"),
-    //     spellChecker: false,
-    //     hideIcons: ["image", "side-by-side", "fullscreen"],
-    // });
-
-    /**
-     * Tạo hiệu ứng cho cái nút ở cuối biểu mẫu & Đổ dữ liệu luôn, tại lỡ rồi =))
-     */
+    const editor = new EasyMDE({
+        element: estateForm.querySelector("#description"),
+        spellChecker: false,
+        hideIcons: ["image", "side-by-side", "fullscreen"],
+    });
 
     const formActions = estateForm.querySelector(".footer");
     const submitButton = estateForm.querySelector("button[type=submit]");
@@ -377,7 +374,7 @@ prepare(async (request) => {
         }
 
         if (description) {
-            console.log(description);
+            editor.value(description);
         }
     }
 
@@ -536,7 +533,7 @@ prepare(async (request) => {
                     [key]: inputData[key].value,
                 };
             }, {}),
-            { description: "" } // simpleMDE.value()
+            { description: editor.value() }
         );
 
         estateData.isPublished = validation;
@@ -645,7 +642,6 @@ prepare(async (request) => {
             submitButton.loading.hide();
             secondaryButton.loading.hide();
             enableForm();
-            // Phải xoá ảnh đại diện và ảnh bổ sung để không bị lưu lại
         }
     };
 
